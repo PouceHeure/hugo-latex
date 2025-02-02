@@ -1,0 +1,66 @@
+.markdown-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.markdown-content h2 {
+    color: var(--bs-primary);
+    border-bottom: 2px solid var(--bs-primary);
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+.markdown-content h3 {
+    color: var(--bs-secondary);
+    font-weight: bold;
+}
+
+.markdown-content p {
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+.markdown-content ul {
+    list-style: square;
+    padding-left: 20px;
+}
+
+.markdown-content ol {
+    list-style: decimal;
+    padding-left: 20px;
+}
+
+.markdown-content a {
+    color: var(--bs-info);
+    text-decoration: underline;
+}
+
+.markdown-content blockquote {
+    border-left: 5px solid var(--bs-secondary);
+    padding: 10px 20px;
+    background: #f8f9fa;
+    font-style: italic;
+    color: #555;
+}
+
+.markdown-content pre {
+    background: #212529;
+    color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.markdown-content code {
+    background: #f4f4f4;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

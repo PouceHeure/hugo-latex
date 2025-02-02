@@ -40,58 +40,53 @@ main {
   ); /* Ajuste selon la hauteur du header et footer */
 }
 
-.timeline {
-    position: relative;
-    padding: 20px 0;
-    max-width: 800px;
-    margin: auto;
+
+body {
+    background-color: #f8f9fa;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 4px;
-    height: 100%;
-    background: var(--bs-secondary);
-    transform: translateX(-50%);
-}
-.timeline-item {
-    position: relative;
-    width: 50%;
-    padding: 15px 20px;
-    box-sizing: border-box;
-}
-.timeline-item:nth-child(odd) {
-    left: 0;
-    text-align: right;
-    transform: translateX(-20px);
-}
-.timeline-item:nth-child(even) {
-    left: 50%;
-    text-align: left;
-    transform: translateX(20px);
-}
-.timeline-badge {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: var(--bs-primary);
-    color: white;
+
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Center the content vertically */
     text-align: center;
-    line-height: 30px;
-    border-radius: 50%;
-    transform: translateX(-50%);
 }
-.timeline-date {
+
+
+.dynamic-text {
+    display: inline-block;
     font-weight: bold;
-    color: var(--bs-primary);
+    /* color: var(--bs-primary); */
+    white-space: nowrap;
+    animation: slideText 4s infinite;
+    min-height: 2rem; /* Fixe une hauteur minimale pour éviter les sauts */
+    /* line-height: 1.5rem; Assure un alignement vertical correct */
 }
-.timeline-content {
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+.dynamic-text {
+    display: inline-block;
+    font-weight: bold;
+    /* color: var(--bs-primary); */
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
+    position: relative;
+}
+
+.dynamic-text::after {
+    content: '|';
+    position: absolute;
+    right: 0;
+    /* color: var(--bs-primary); */
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
