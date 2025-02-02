@@ -1,6 +1,14 @@
 {{ define "main" }}
     <div class="container">
         <h1 class="text-primary mb-4 text-secondary">{{ .Title }}</h1>
+        <div class="mb-3">
+            <div id="tagButtons" class="d-inline-block">
+                <button class="btn btn-outline-secondary btn-sm me-1" data-tag="">All</button>
+                {{ range .Site.Taxonomies.tags }}
+                    <button class="btn btn-outline-primary btn-sm me-1" data-tag="{{ .Page.Title }}">{{ .Page.Title }}</button>
+                {{ end }}
+            </div>
+        </div>
         <div class="row">
             {{ range sort .Pages "Date" "desc" }}
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -17,4 +25,33 @@
             {{ end }}
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tagButtons = document.querySelectorAll("#tagButtons button");
+            const cards = document.querySelectorAll(".card");
+    
+            tagButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const selectedTag = this.getAttribute("data-tag");
+    
+                    // Met en surbrillance le bouton actif
+                    tagButtons.forEach(btn => btn.classList.remove("active"));
+                    this.classList.add("active");
+    
+                    // Filtrer les cartes en fonction du tag sélectionné
+                    cards.forEach(card => {
+                        const cardTags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent);
+                        
+                        if (selectedTag === "" || cardTags.includes(selectedTag)) {
+                            card.parentElement.style.display = "block";
+                        } else {
+                            card.parentElement.style.display = "none";
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    
 {{ end }}
