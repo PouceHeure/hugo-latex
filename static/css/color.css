@@ -1,14 +1,16 @@
-/* Définition des couleurs personnalisées */
+
 :root {
-    --bs-primary: #b79c71;  /* Brun clair, comme du papier jauni */
-    --bs-secondary: #8c7851; /* Brun plus foncé pour les contrastes */
-    --bs-success: #5c715e;   /* Vert olive doux (couleur des reliures) */
-    --bs-info: #7c9286;      /* Vert-gris ancien */
-    --bs-warning: #e3c16f;   /* Jaune doré, inspiré des vieilles pages */
-    --bs-danger: #963c3c;    /* Rouge brique, encre ancienne */
-    --bs-light: #f8f1e4;     /* Beige clair, papier vieilli */
-    --bs-dark: #3e3b32;      /* Noir-gris d'encre et de vieux cuir */
-  }
+    --bs-primary: #0057b8;   /* Bleu profond scientifique */
+    --bs-secondary: #6c757d; /* Gris anthracite moderne */
+    --bs-success: #28a745;   /* Vert lumineux pour les succès */
+    --bs-info: #17a2b8;      /* Cyan éclatant pour les infos */
+    --bs-warning: #ffcc00;   /* Jaune éclatant pour les alertes */
+    --bs-danger: #d9534f;    /* Rouge intense pour les erreurs */
+    --bs-light: #f4f4f4;     /* Fond clair, très lisible */
+    --bs-dark: #1a1a1a;      /* Noir profond pour les contrastes */
+}
+
+
   
   
   /* ======= Boutons ======= */

@@ -1,6 +1,6 @@
 {{ define "main" }}
     <div class="container">
-        <h1 class="text-secondary mb-4 text-center">{{ .Title }}</h1>
+        <h1 class="text-primary mb-4 text-secondary">{{ .Title }}</h1>
         <div class="row">
             {{ range sort .Pages "Date" "desc" }}
                 <div class="col-md-6 col-lg-4 mb-4">

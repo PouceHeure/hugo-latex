@@ -36,7 +36,7 @@ footer {
 
 main {
   min-height: calc(
-    100vh - 200px
+    100vh - 180px
   ); /* Ajuste selon la hauteur du header et footer */
 }
 
