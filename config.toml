@@ -9,3 +9,8 @@ theme = "hugo-latex"
     [markup.goldmark]
         [markup.goldmark.renderer]
             unsafe = true
+
+[outputs]
+home = ["HTML", "RSS"]
+page = ["HTML"]
+section = ["HTML"]
