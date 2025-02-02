@@ -1,0 +1,13 @@
+{{/* Initialiser le compteur s'il n'existe pas encore */}}
+{{ if not (.Page.Store.Get "figCounter") }}
+    {{ .Page.Store.Set "figCounter" 1 }}
+{{ end }}
+
+{{/* Récupérer et incrémenter le compteur */}}
+{{ $figNum := .Page.Store.Get "figCounter" }}
+{{ .Page.Store.Set "figCounter" (add $figNum 1) }}
+
+<figure>
+    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+    <figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
+</figure>
