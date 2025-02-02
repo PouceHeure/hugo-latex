@@ -1,8 +1,11 @@
 {{ define "main" }}
-    <h1>{{ .Title }}</h1>
-    <ul>
+    <h1 class="text-info">{{ .Title }}</h1>
+    <ul class="list-group">
         {{ range .Pages }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            <li class="list-group-item">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <small class="text-muted d-block">Publié le {{ .Date.Format "02 Janvier 2006" }}</small>
+            </li>
         {{ end }}
     </ul>
 {{ end }}
