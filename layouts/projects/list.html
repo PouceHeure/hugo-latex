@@ -2,14 +2,15 @@
     <div class="container">
         <h1 class="text-primary mb-4 text-secondary">{{ .Title }}</h1>
         <div class="mb-3">
-            <div id="tagButtons" class="d-inline-block">
-                <button class="btn btn-outline-secondary btn-sm me-1" data-tag="">All</button>
+            <div id="tagButtons" class="d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-secondary btn-sm" data-tag="">All</button>
                 {{ range .Site.Taxonomies.tags }}
-                    <button class="btn btn-outline-primary btn-sm me-1" data-tag="{{ .Page.Title | lower }}">
+                    <button class="btn btn-outline-primary btn-sm" data-tag="{{ .Page.Title | lower }}">
                         {{ .Page.Title | lower }}
                     </button>
                 {{ end }}
             </div>
+            
         </div>
         <div class="row">
             {{ range sort .Pages "Date" "desc" }}

@@ -4,12 +4,10 @@
         Welcome <h4 class="text-secondary dynamic-container ms-2"><h4 id="changing-word" class="dynamic-text"></h4></h4>
     </h1>
     
-    
     <p class="lead">
-        I specialize in autonomous vehicle navigation and human driving behavior prediction. My work focuses on lane centering, obstacle avoidance, and machine learning-based behavior prediction to improve human-machine interaction in self-driving systems. Using deep learning, particularly recurrent neural networks (RNNs), I develop models to anticipate driver intentions and enhance autonomous mobility.
+        {{ .Site.Params.about }}
     </p>
 
-    
     <div class="row mt-5">
         <div class="col-md-4 text-center text-primary">
             <h3>📄 My CV</h3>
@@ -60,6 +58,15 @@
 </div>
 
 <script>
+
+function formatText(str) {
+    return str
+        .replace(/-/g, ' ')  // Remplace les "-" par des espaces
+        .replace(/\b\w/g, char => char.toUpperCase()); // Met en majuscule chaque mot
+}
+
+
+
     document.addEventListener("DOMContentLoaded", function() {
         // Récupération des tags depuis Hugo sous forme de tableau
         const wordsHugo = [
@@ -71,7 +78,7 @@
         // Correction : Décalage propre des éléments
         let words = new Array(wordsHugo.length - 1);
         for (let i = 0; i < wordsHugo.length - 1; i++) {
-            words[i] = wordsHugo[i + 1]; // Décale les éléments proprement
+            words[i] = formatText(wordsHugo[i + 1]); // Décale les éléments proprement
         }
 
         let i = 0;
