@@ -1,8 +1,23 @@
 {{ define "main" }}
-<article class="bg-light p-3 markdown-content">
+<article class="p-3 markdown-content">
         <h1 class="text-primary">{{ .Title }}</h1>
-        <div>
+
+        <div class="mb-3">
+            {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}" class="btn btn-outline-primary me-2 mb-2">
+                    #{{ . }}
+                </a>
+            {{ end }}
+        </div>
+
+        <div class="mb-3">
+            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-sm">View Article</a>
+        </div>
+        
+        
+        <div class="mb-3">
             {{ .Content }}
         </div>
+        
     </article>
 {{ end }}

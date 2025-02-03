@@ -10,18 +10,18 @@
     </p>
 
     
-    <div class="row mt-5 w-75">
-        <div class="col-md-4 text-center">
+    <div class="row mt-5">
+        <div class="col-md-4 text-center text-primary">
             <h3>📄 My CV</h3>
             <p>Discover my academic and professional background.</p>
             <a href="/cv/" class="btn btn-primary">View CV</a>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center text-secondary">
             <h3>📝 Projects</h3>
             <p>Articles about my research, discoveries, and reflections.</p>
             <a href="/projects/" class="btn btn-secondary">View Projects</a>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center text-info">
             <h3>📚 Scientific Articles</h3>
             <p>Access my scientific publications and academic contributions.</p>
             <a href="/articles/" class="btn btn-info">View Publications</a>
@@ -30,15 +30,13 @@
     
 </div>
 
-
-
 <div class="container mt-5">
     <h2 class="text-center text-secondary">Latest Articles and Projects</h2>
     <div class="row">
         {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
+                <div class="card d-flex flex-column h-100">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">
                             <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
                         </h5>
@@ -49,7 +47,11 @@
                                 <span class="badge bg-secondary me-1">{{ . }}</span>
                             {{ end }}
                         </div>
-                        <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm">Read more</a>
+
+                        <!-- Pousse le bouton en bas -->
+                        <div class="mt-auto">
+                            <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm">Read more</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,12 +61,25 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const wordsStr = {{ .Site.Params.dynamicWords | jsonify }};
-        const words = eval(wordsStr)
+        // Récupération des tags depuis Hugo sous forme de tableau
+        const wordsHugo = [
+            {{ range $index, $tag := .Site.Taxonomies.tags }}
+                {{ if $index }},{{ end }} "{{  $tag.Page.Title }}"
+            {{ end }}
+        ];
+
+        // Correction : Décalage propre des éléments
+        let words = new Array(wordsHugo.length - 1);
+        for (let i = 0; i < wordsHugo.length - 1; i++) {
+            words[i] = wordsHugo[i + 1]; // Décale les éléments proprement
+        }
+
         let i = 0;
         const changingWord = document.getElementById("changing-word");
 
         function typeWriterEffect(word, index) {
+            if (!word) return; // Évite une erreur si `word` est undefined
+
             if (index <= word.length) {
                 changingWord.textContent = word.substring(0, index);
                 setTimeout(() => typeWriterEffect(word, index + 1), 100);
@@ -74,6 +89,8 @@
         }
 
         function deleteEffect(length) {
+            if (!words || words.length === 0) return; // Vérification propre
+
             if (length >= 0) {
                 changingWord.textContent = changingWord.textContent.substring(0, length);
                 setTimeout(() => deleteEffect(length - 1), 50);
@@ -83,8 +100,13 @@
             }
         }
 
-        typeWriterEffect(words[i], 0);
+        // Démarrer l'effet avec le premier tag si la liste n'est pas vide
+        if (words.length > 0) {
+            typeWriterEffect(words[i], 0);
+        }
     });
 </script>
+
+
 
 {{ end }}

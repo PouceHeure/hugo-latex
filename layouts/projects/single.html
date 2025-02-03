@@ -1,6 +1,16 @@
 {{ define "main" }}
     <article class="p-3 markdown-content">
         <h1 class="text-primary">{{ .Title }}</h1>
+
+        <!-- Affichage des tags sous forme de boutons -->
+        <div class="mb-3">
+            {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}" class="btn btn-outline-primary me-2 mb-2">
+                   #{{ . }}
+                </a>
+            {{ end }}
+        </div>
+
         <div>
             {{ .Content }}
         </div>

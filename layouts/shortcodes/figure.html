@@ -8,6 +8,6 @@
 {{ .Page.Store.Set "figCounter" (add $figNum 1) }}
 
 <figure>
-    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" width="{{ .Get "width" }}" height="{{ .Get "height" }}">
     <figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
 </figure>
