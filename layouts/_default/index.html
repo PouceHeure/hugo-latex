@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-4 text-center text-secondary py-2">
             <h3>📝 Projects</h3>
-            <p>Articles about my research, discoveries, and reflections.</p>
+            <p>Articles about my research and projects.</p>
             <a href="/projects/" class="btn btn-secondary">View Projects</a>
         </div>
         <div class="col-md-4 text-center text-info py-2">
@@ -30,7 +30,7 @@
 </div>
 
 <div class="container mt-5">
-    <h2 class="text-center text-secondary">Latest Articles and Projects</h2>
+    <h2 class="text-center text-secondary">Latest Projects</h2>
     <div class="row">
         {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
             <div class="col-md-4 mb-4">

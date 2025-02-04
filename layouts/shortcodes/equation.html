@@ -1,0 +1,11 @@
+{{- $count := 1 }}
+{{- if $.Page.Scratch.Get "eqCounter" }}
+    {{ $count = add ($.Page.Scratch.Get "eqCounter") 1 }}
+{{- end }}
+{{- $.Page.Scratch.Set "eqCounter" $count }}
+
+<blockquote>
+<span class="equation">
+    $$ {{ .Inner }} \quad \text{Eq ({{ $count }})} $$
+</span>
+</blockquote>
