@@ -48,15 +48,25 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.getElementById("searchInput");
-            const publicationList = document.getElementsByClassName("publicationList");
-            
+    
             searchInput.addEventListener("input", function() {
                 const query = searchInput.value.toLowerCase();
-                Array.from(publicationList).forEach(row => {
-                    const title = row.querySelector(".card-title").textContent.toLowerCase();
-                    row.style.display = title.includes(query) ? "block" : "none";
+                const cards = document.querySelectorAll(".card"); // Sélectionne toutes les cartes
+                
+                cards.forEach(card => {
+                    const title = card.querySelector(".card-title").textContent.toLowerCase();
+                    const conference = card.querySelector(".card-text strong").nextSibling.nodeValue.toLowerCase(); // Récupère le texte de la conférence
+                    const tags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent.toLowerCase());
+                    
+                    // Vérifie si le titre, la conférence ou les tags contiennent la requête
+                    if (title.includes(query) || conference.includes(query) || tags.some(tag => tag.includes(query))) {
+                        card.parentElement.style.display = "block";
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
                 });
             });
         });
     </script>
+    
 {{ end }}
