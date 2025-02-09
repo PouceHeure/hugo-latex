@@ -19,15 +19,25 @@
         <nav class="navbar navbar-expand-md navbar-dark container">
             <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
             
+            <div class="d-flex align-items-center ms-3">
+                <!-- Lien vers le profil LinkedIn -->
+                <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-3">
+                    <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+                </a>
             
-        <div class="d-flex align-items-center ms-3">
-            <a href="{{ .Site.Params.linkedin }}"  target="_blank" class="text-white me-3">
-                <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
-            </a>
-            <a href="{{ .Site.Params.github }}"  target="_blank" class="text-white">
-                <i class="bi bi-github" style="font-size: 1.5rem;"></i>
-            </a>
-        </div>
+                <!-- Lien vers GitHub -->
+                <a href="{{ .Site.Params.github }}" target="_blank" class="text-white  me-3">
+                    <i class="bi bi-github" style="font-size: 1.5rem;"></i>
+                </a>
+
+                  <!-- Lien direct vers la messagerie LinkedIn -->
+                <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" 
+                  target="_blank" class="text-white">
+                   <i class="bi bi-chat-fill" style="font-size: 1.5rem;"></i>
+               </a>
+           
+            </div>
+            
             
             <!-- Bouton burger -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

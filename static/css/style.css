@@ -42,10 +42,15 @@ main {
 
 
 body {
-    background-color: #f8faf8;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px); 
+    /* background-color: #00f400; */
+    background-image: linear-gradient(rgba(0, 0, 250, 0.05) 1px, transparent 1px),
+                      linear-gradient(to right, rgba(0, 0, 250, 0.05) 1px, transparent 1px); 
     background-size: 20px 20px;
+}
+
+.emoji {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  filter: grayscale(100%);
 }
 
 
@@ -55,7 +60,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 60vh; /* Center the content vertically */
+    min-height: 80vh; /* Center the content vertically */
     text-align: center;
 }
 
@@ -66,7 +71,7 @@ body {
     /* color: var(--bs-primary); */
     white-space: nowrap;
     animation: slideText 4s infinite;
-    min-height: 2rem; /* Fixe une hauteur minimale pour éviter les sauts */
+    min-height: 4rem; /* Fixe une hauteur minimale pour éviter les sauts */
     /* line-height: 1.5rem; Assure un alignement vertical correct */
 }
 
