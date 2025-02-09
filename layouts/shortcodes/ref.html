@@ -1,0 +1,9 @@
+{{ $label := .Get 0 }}
+{{ $map := .Page.Scratch.Get "labels" }}
+{{ $figID := index $map $label }}
+
+{{ if $figID }}
+    <a href="#{{ $figID }}">Fig. {{ replace $figID "fig-" "" }}</a>
+{{ else }}
+    <strong>⚠ Référence inconnue: {{ $label }}</strong>
+{{ end }}

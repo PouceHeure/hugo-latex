@@ -6,28 +6,28 @@
 
 
 /* Activer un compteur pour les titres */
-body {
+.project-page {
     counter-reset: h2-counter h3-counter h4-counter;
   }
   
   /* Numérotation des H2 */
-  h2 {
+  .project-page h2 {
     counter-reset: h3-counter;
   }
   
-  h2::before {
+  .project-page h2::before {
     counter-increment: h2-counter;
     content: counter(h2-counter) ". ";
   }
   
   /* Numérotation des H3 */
-  h3::before {
+  .project-page h3::before {
     counter-increment: h3-counter;
     content: counter(h2-counter) "." counter(h3-counter) " ";
   }
   
   /* Numérotation des H4 */
-  h4::before {
+  .project-page h4::before {
     counter-increment: h4-counter;
     content: counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
   }
@@ -51,7 +51,7 @@ body {
     color: var(--bs-primary);
     border-right: 3px solid var(--bs-primary);
     border-left: 15px solid var(--bs-primary);
-    background: rgba(0, 123, 255, 0.1);
+    background: rgba(0, 123, 255, 0.05);
     padding: 10px;
     margin: 15px 0;
 }
@@ -63,7 +63,7 @@ body {
     color: var(--bs-secondary);
     border-right: 3px solid var(--bs-secondary);
     border-left: 10px solid var(--bs-secondary);
-    background: rgba(108, 117, 125, 0.1);
+    background: rgba(108, 117, 125, 0.05);
     padding: 8px;
     margin: 12px 0;
 }
@@ -113,7 +113,7 @@ body {
 }
 
 .markdown-content a {
-    color: var(--bs-info);
+    color: var(--bs-secondary);
     text-decoration: underline;
 }
 

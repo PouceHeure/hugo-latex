@@ -1,9 +1,13 @@
-{{/* Vérifier si le compteur existe déjà pour cette page, sinon l'initialiser */}}
+{{ $label := .Get "label" }} <!-- Récupère le label fourni -->
 {{ $figNum := .Page.Scratch.Get "figCounter" | default 0 }}
 {{ $figNum = add $figNum 1 }}
 {{ .Page.Scratch.Set "figCounter" $figNum }}
 
-<figure>
+{{ if $label }}
+    {{ .Page.Scratch.SetInMap "labels" $label (printf "fig-%d" $figNum) }}
+{{ end }}
+
+<figure id="fig-{{ $figNum }}">
     <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" width="{{ .Get "width" }}" height="{{ .Get "height" }}">
     <figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
 </figure>

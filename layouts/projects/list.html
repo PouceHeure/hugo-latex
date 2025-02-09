@@ -2,14 +2,30 @@
     <div class="container">
         <h1 class="text-primary mb-4 text-secondary">{{ .Title }}</h1>
         <div class="mb-3">
+
+            
             <div id="tagButtons" class="d-flex flex-wrap gap-2">
-                <!-- <button class="btn btn-outline-secondary btn-sm" data-tag="">All</button> -->
-                {{ range .Site.Taxonomies.tags }}
-                    <button class="btn btn-outline-primary btn-sm" data-tag="{{ .Page.Title | lower }}">
-                        {{ .Page.Title | lower }}
+                <!-- Bouton pour afficher tous les projets -->
+                <button class="btn btn-outline-secondary btn-sm" data-tag="">All</button>
+            
+                {{ $projectTags := slice }} <!-- Initialise une liste vide pour stocker les tags des projets -->
+            
+                {{ range where .Site.RegularPages "Section" "projects" }} <!-- Boucle uniquement sur les projets -->
+                    {{ range .Params.tags }}
+                        {{ $tag := . | lower }} <!-- Convertit le tag en minuscule pour éviter les doublons en majuscule/minuscule -->
+                        {{ if not (in $projectTags $tag) }} 
+                            {{ $projectTags = $projectTags | append $tag }}
+                        {{ end }}
+                    {{ end }}
+                {{ end }}
+            
+                {{ range $projectTags }}
+                    <button class="btn btn-outline-primary btn-sm" data-tag="{{ . }}">
+                        {{ . }}
                     </button>
                 {{ end }}
             </div>
+            
             
         </div>
         <div class="row">
