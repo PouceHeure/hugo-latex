@@ -7,77 +7,67 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
-    
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/color.css">
     <link rel="stylesheet" href="/css/markdown.css">
-      
+    
+    <style>
+        .navbar-custom {
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-custom .nav-link {
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #ffdd57 !important;
+        }
+        .navbar-custom .social-icons a {
+            transition: transform 0.3s ease-in-out;
+        }
+        .navbar-custom .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        .navbar-toggler {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="bg-light">
-    <header class="bg-primary text-white p-3">
-        <nav class="navbar navbar-expand-md navbar-dark container">
-            <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
-            
-            <div class="d-flex align-items-center ms-3">
-                <!-- Lien vers le profil LinkedIn -->
-                <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-3">
-                    <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
-                </a>
-            
-                <!-- Lien vers GitHub -->
-                <a href="{{ .Site.Params.github }}" target="_blank" class="text-white  me-3">
-                    <i class="bi bi-github" style="font-size: 1.5rem;"></i>
-                </a>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
+                
+                <div class="d-flex align-items-center ms-3 social-icons">
+                    <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-3">
+                        <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+                    </a>
+                    <a href="{{ .Site.Params.github }}" target="_blank" class="text-white me-3">
+                        <i class="bi bi-github" style="font-size: 1.5rem;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" target="_blank" class="text-white">
+                        <i class="bi bi-chat-fill" style="font-size: 1.5rem;"></i>
+                    </a>
+                </div>
+                
+                <button class="navbar-toggler fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                  <!-- Lien direct vers la messagerie LinkedIn -->
-                <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" 
-                  target="_blank" class="text-white">
-                   <i class="bi bi-chat-fill" style="font-size: 1.5rem;"></i>
-               </a>
-           
-            </div>
-            
-            
-            <!-- Bouton burger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Liens du menu -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/cv/">CV</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/projects/">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/articles/">Scientist Articles</a></li>
-                </ul>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/cv/">CV</a></li>
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/projects/">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/articles/">Scientist Articles</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-
-    <main class="container mt-4">
+    <main class="container mt-5">
         {{ block "main" . }}{{ end }}
     </main>
-
-    <footer class="text-center bg-secondary text-white p-3 mt-4">
-        <p>&copy; {{ now.Year }} {{ .Site.Params.Author }}</p>
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,20 +1,64 @@
 {{ define "main" }}
-    <article class="p-3 markdown-content">
+<link rel="stylesheet" href="/css/toc.css">
+<div class="container d-flex">
+    <!-- Contenu principal -->
+    <article class="p-3 markdown-content flex-grow-1">
         <h1 class="text-primary">{{ .Title }}</h1>
 
-        <!-- Affichage des tags sous forme de boutons -->
         <div class="mb-3">
             {{ range .Params.tags }}
-                <a href="/tags/{{ . | urlize }}" class="btn btn-outline-primary me-2 mb-2">
-                   #{{ . }}
+                <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light me-2 mb-2">
+                    #{{ . }}
                 </a>
             {{ end }}
         </div>
 
-        <div>
-            <div class="project-page">
-                {{ .Content }}
-            </div>
+        <div class="mb-3">
+            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-sm">View Article</a>
+        </div>
+
+        <div class="content">
+            {{ .Content }}
         </div>
     </article>
+
+    <!-- Table des matières -->
+    <aside class="toc">
+        <!-- Titre sticky qui apparaît quand l'article scroll -->
+        <div id="sticky-article-title" class="sticky-article-title text-primary"></div>
+
+
+        <div class="toc-container">
+            <h5 class="toc-title">📖 Contents</h5>
+            {{ .TableOfContents }}
+        </div>
+    </aside>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const articleTitle = document.querySelector("h1"); // Sélectionne le titre principal
+        const stickyTitle = document.getElementById("sticky-article-title");
+    
+        // Initialise le sticky avec le titre de l'article
+        if (articleTitle) {
+            stickyTitle.innerText = articleTitle.innerText;
+        }
+    
+        function updateStickyTitle() {
+            const titleRect = articleTitle.getBoundingClientRect();
+    
+            if (titleRect.top < -10) { 
+                // Si le titre sort de l'écran, on affiche le sticky
+                stickyTitle.style.display = "block";
+            } else {
+                // Sinon, on le cache
+                stickyTitle.style.display = "none";
+            }
+        }
+    
+        window.addEventListener("scroll", updateStickyTitle);
+    });
+    </script>
+    
+    
 {{ end }}
