@@ -40,8 +40,6 @@
     color: var(--bs-dark);
     text-transform: uppercase;
     /* border-bottom: 3px solid var(--bs-primary); */
-    padding-bottom: 5px;
-    margin-bottom: 20px;
 }
 
 /* H2 - Second niveau */

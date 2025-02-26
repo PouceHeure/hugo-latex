@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="/css/color.css">
     <link rel="stylesheet" href="/css/markdown.css">
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body);"></script>
+
+
     <style>
         .navbar-custom {
             backdrop-filter: blur(10px);
@@ -35,7 +41,7 @@
 </head>
 <body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white">
+        <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
                 
@@ -69,5 +75,14 @@
     <main class="container mt-5">
         {{ block "main" . }}{{ end }}
     </main>
+
+    <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+          svg: { fontCache: 'global' }
+        };
+      </script>
+      <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
 </body>
 </html>
