@@ -1,8 +1,8 @@
 {{ define "main" }}
 <link rel="stylesheet" href="/css/toc.css">
-<div class="container d-flex">
+<div class="container d-flex flex-column flex-md-row align-items-start min-vh-100">
     <!-- Contenu principal -->
-    <article class="markdown-content flex-grow-1">
+    <article class="markdown-content flex-grow-1 w-100 w-md-75 mx-auto">
         <h1 class="text-primary">{{ .Title }}</h1>
 
         <div class="pb-4">
@@ -13,21 +13,66 @@
             {{ end }}
         </div>
 
-        <!-- <div class="mb-3">
-            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-sm">View Article</a>
-        </div> -->
-
         <div class="content">
-            {{ .Content | safeHTML}}
+            {{ .Content | safeHTML }}
         </div>
     </article>
 
-    <!-- Table des matières -->
-    <aside class="toc">
-        <div class="toc-container">
+    <!-- Table des matières à droite, cachée sur mobile -->
+    <aside class="toc shadow w-25 d-none d-md-block position-sticky top-50 translate-middle-y">
+        <div class="toc-container p-3">
             <h5 class="toc-title">📖 Contents</h5>
             {{ .TableOfContents }}
         </div>
     </aside>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toc = document.querySelector(".toc");
+    const article = document.querySelector(".markdown-content");
+
+    function adjustLayout() {
+        if (window.innerWidth < 768) {
+            toc.classList.add("d-none");
+            article.classList.remove("w-md-75");
+            article.classList.add("w-100", "mx-auto");
+        } else {
+            toc.classList.remove("d-none");
+            article.classList.remove("w-100", "mx-auto");
+            article.classList.add("w-md-75");
+        }
+    }
+
+    window.addEventListener("resize", adjustLayout);
+    adjustLayout();
+
+    const sections = document.querySelectorAll("h2, h3, h4");
+    const tocLinks = document.querySelectorAll(".toc ul li a");
+
+    function highlightCurrentSection() {
+        let scrollPosition = window.scrollY;
+        let currentSection = null;
+
+        sections.forEach(section => {
+            if (section.offsetTop - 80 <= scrollPosition) {
+                currentSection = section;
+            }
+        });
+
+        if (currentSection) {
+            let id = currentSection.getAttribute("id");
+            tocLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${id}`) {
+                    link.classList.add("active");
+                }
+            });
+        }
+    }
+
+    window.addEventListener("scroll", highlightCurrentSection);
+});
+</script>
+
 {{ end }}

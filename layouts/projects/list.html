@@ -1,6 +1,7 @@
 {{ define "main" }}
     <div class="container">
-        <h1 class="text-primary mb-4 text-secondary">{{ .Title }}</h1>
+        <h1 class="text-primary mb-4 text-secondary">{{ "<strong>" | safeHTML }}{{ .Title | upper }}{{ "</strong>" | safeHTML }}
+        </h1>
         <div class="mb-3">
 
             
@@ -20,7 +21,7 @@
                 {{ end }}
             
                 {{ range $projectTags }}
-                    <button class="btn btn-outline-primary btn-sm" data-tag="{{ . }}">
+                    <button class="btn btn-outline-primary btn-sm shadow-sm" data-tag="{{ . }}">
                         {{ . }}
                     </button>
                 {{ end }}
@@ -44,7 +45,7 @@
         
             {{ range $sortedPages }}
             <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card p-3 d-flex flex-column h-100 {{ if .Params.pinned }}border border-primary{{ end }}">
+                <div class="card p-3 d-flex flex-column shadow h-100 {{ if .Params.pinned }}border border-primary{{ end }}">
                     <h5 class="card-title">
                         <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
                             {{ if .Params.pinned }}<span class="emoji">📌</span>{{ end }} {{ .Title }}
