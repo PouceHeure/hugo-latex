@@ -1,119 +1,127 @@
 {{ define "main" }}
-    <div class="container">
-        <h1 class="text-primary mb-4 text-secondary">{{ "<strong>" | safeHTML }}{{ .Title | upper }}{{ "</strong>" | safeHTML }}
-        </h1>
-        <div class="mb-3">
-
-            
-            <div id="tagButtons" class="d-flex flex-wrap gap-2">
-                <!-- Bouton pour afficher tous les projets -->
-                <button class="btn btn-outline-secondary btn-sm" data-tag="">All</button>
-            
-                {{ $projectTags := slice }} <!-- Initialise une liste vide pour stocker les tags des projets -->
-            
-                {{ range where .Site.RegularPages "Section" "projects" }} <!-- Boucle uniquement sur les projets -->
-                    {{ range .Params.tags }}
-                        {{ $tag := . | lower }} <!-- Convertit le tag en minuscule pour éviter les doublons en majuscule/minuscule -->
-                        {{ if not (in $projectTags $tag) }} 
-                            {{ $projectTags = $projectTags | append $tag }}
+    <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
+        <!-- Sidebar for Tags (Fixed Position) -->
+        <aside class="col-md-3 d-none d-md-block position-sticky" style="top: 80px; height: 100vh; overflow-y: auto;">
+            <div class="p-3 rounded shadow-sm bg-light">
+                <h5 class="title-tags">🏷️ Tags</h5>
+                <div id="tagButtons" class="d-flex flex-wrap gap-2 tags">
+                    
+                    {{ $projectTags := slice }}
+                    {{ range where .Site.RegularPages "Section" "projects" }}
+                        {{ range .Params.tags }}
+                            {{ $tag := . | lower }}
+                            {{ if not (in $projectTags $tag) }}
+                                {{ $projectTags = $projectTags | append $tag }}
+                            {{ end }}
                         {{ end }}
                     {{ end }}
-                {{ end }}
-            
-                {{ range $projectTags }}
-                    <button class="btn btn-outline-primary btn-sm shadow-sm" data-tag="{{ . }}">
-                        {{ . }}
-                    </button>
-                {{ end }}
-            </div>
-            
-            
-        </div>
-        <div class="row">
-            {{ $pinned := slice }}
-            {{ $regular := slice }}
-        
-            {{ range sort .Pages "Date" "desc" }}
-                {{ if .Params.pinned }}
-                    {{ $pinned = $pinned | append . }}
-                {{ else }}
-                    {{ $regular = $regular | append . }}
-                {{ end }}
-            {{ end }}
-        
-            {{ $sortedPages := union $pinned $regular }}
-        
-            {{ range $sortedPages }}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card p-3 d-flex flex-column shadow h-100 {{ if .Params.pinned }}border border-primary{{ end }}">
-                    <h5 class="card-title">
-                        <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
-                            {{ if .Params.pinned }}<span class="emoji">📌</span>{{ end }} {{ .Title }}
-                        </a>
-                    </h5>
                     
-                    <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
-                    
-                    <div class="tags mb-2">
-                        {{ range .Params.tags }}
-                            <span class="badge bg-secondary me-1">{{ . | lower }}</span>
-                        {{ end }}
-                    </div>
-            
-                    <div class="mt-auto">
-                        <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
-                    </div>
+                    {{ range $projectTags }}
+                        <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary">#{{ . }}</a>
+                    {{ end }}
                 </div>
             </div>
+        </aside>
+
+        <!-- Main Content -->
+        <article class="col-md-9 p-3">
+            
+            <h1 class="text-primary text-center p-3">{{ "<strong>" | safeHTML }}{{ .Title }}{{ "</strong>" | safeHTML }}
+            </h1>
+            
+            {{ $prevYear := "" }}
+            {{ range (sort .Pages "Date" "desc") }}
+                {{ $currentYear := .Date.Format "2006" }}
+                {{ if ne $currentYear $prevYear }}
+                    {{ if ne $prevYear "" }}
+                        </div> <!-- Close previous year's grid -->
+                    {{ end }}
+                    <h2 class="text-secondary mt-4">{{ $currentYear }}</h2>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 projectList">
+                    {{ $prevYear = $currentYear }}
+                {{ end }}
+                
+                <div class="col">
+                    <div class="card p-3 d-flex flex-column shadow-sm h-100 {{ if .Params.pinned }}border border-primary{{ end }}">
+                        <h6 class="card-title">
+                            <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
+                                {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
+                            </a>
+                        </h6>
+                        <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
+                        <div class="tags mb-2 d-flex flex-wrap gap-1">
+                            {{ range .Params.tags }}
+                                <span class="badge bg-secondary px-2 py-1">{{ . | lower }}</span>
+                            {{ end }}
+                        </div>
+                        <div class="mt-auto">
+                            <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
             {{ end }}
-        </div>
-        
-        
+            </div> <!-- Close last year's grid -->
+        </article>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    const tagButtons = document.querySelectorAll("#tagButtons button");
-    const cards = document.querySelectorAll(".card");
-    let activeTag = null; // Variable pour suivre le tag actif
+            const tagLinks = document.querySelectorAll(".tag-link");
+            const cards = document.querySelectorAll(".card");
+            let activeTag = "All";
 
-    tagButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            const selectedTag = this.getAttribute("data-tag");
-            
-            // Vérifie si le bouton est déjà actif
-            if (activeTag === selectedTag) {
-                // Désactive le bouton et réinitialise l'affichage
-                this.classList.remove("active");
-                activeTag = null;
-                showAllCards();
-            } else {
-                // Active le bouton et filtre les cartes
-                tagButtons.forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
-                activeTag = selectedTag;
-                filterCards(selectedTag);
+            tagLinks.forEach(link => {
+                link.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    const selectedTag = this.textContent.replace('#', '').trim();
+                    
+                    if (activeTag === selectedTag) {
+                        this.classList.remove("btn-primary", "text-light");
+                        this.classList.add("btn-outline-primary", "text-primary");
+                        activeTag = "All";
+                        showAllCards();
+                    } else {
+                        tagLinks.forEach(a => {
+                            a.classList.remove("btn-primary", "text-light");
+                            a.classList.add("btn-outline-primary", "text-primary");
+                        });
+                        this.classList.remove("btn-outline-primary", "text-primary");
+                        this.classList.add("btn-primary", "text-light");
+                        activeTag = selectedTag;
+                        filterCards(selectedTag);
+                    }
+                });
+            });
+
+            function showAllCards() {
+                cards.forEach(card => {
+                    card.parentElement.style.display = "block";
+                });
+            }
+
+            function filterCards(tag) {
+                cards.forEach(card => {
+                    const cardTags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent.trim().toLowerCase());
+                    if (cardTags.includes(tag.toLowerCase())) {
+                        card.parentElement.style.display = "block";
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
+                });
             }
         });
-    });
-
-    function showAllCards() {
-        cards.forEach(card => {
-            card.parentElement.style.display = "block";
-        });
-    }
-
-    function filterCards(tag) {
-        cards.forEach(card => {
-            const cardTags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent);
-            if (cardTags.includes(tag)) {
-                card.parentElement.style.display = "block";
-            } else {
-                card.parentElement.style.display = "none";
-            }
-        });
-    }
-});
-
     </script>
-    
+
+
+<style>
+    .title-tags {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--bs-primary);
+    }
+</style>
+
 {{ end }}
