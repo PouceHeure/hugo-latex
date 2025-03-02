@@ -1,11 +1,11 @@
 {{ define "main" }}
-    <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
-        <!-- Sidebar for Tags (Fixed Position) -->
-        <aside class="col-md-3 d-none d-md-block position-sticky" style="top: 80px; height: 100vh; overflow-y: auto;">
-            <div class="p-3 rounded shadow-sm bg-light">
-                <h5 class="title-tags">🏷️ Tags</h5>
-                <div id="tagButtons" class="d-flex flex-wrap gap-2 tags">
-                    
+    <div class="container min-vh-100">
+        
+        <!-- Tags Section Above Cards -->
+        <section class="tags-container p-3 rounded mb-4">
+            <div class="d-flex align-items-center flex-wrap">
+                <h5 class="title-tags text-secondary mb-0 me-3 flex-shrink-0">🏷️ Tags</h5>
+                <div id="tagButtons" class="d-flex flex-wrap gap-2">
                     {{ $projectTags := slice }}
                     {{ range where .Site.RegularPages "Section" "projects" }}
                         {{ range .Params.tags }}
@@ -16,19 +16,18 @@
                         {{ end }}
                     {{ end }}
                     
+                    <!-- Display each tag as a clickable filter button -->
                     {{ range $projectTags }}
                         <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary">#{{ . }}</a>
                     {{ end }}
                 </div>
             </div>
-        </aside>
+        </section>
+        
+        
 
-        <!-- Main Content -->
-        <article class="col-md-9 p-3">
-            
-            <h1 class="text-primary text-center p-3">{{ "<strong>" | safeHTML }}{{ .Title }}{{ "</strong>" | safeHTML }}
-            </h1>
-            
+        <!-- Main Content with Project Cards -->
+        <article class="">
             {{ $prevYear := "" }}
             {{ range (sort .Pages "Date" "desc") }}
                 {{ $currentYear := .Date.Format "2006" }}
@@ -41,14 +40,17 @@
                     {{ $prevYear = $currentYear }}
                 {{ end }}
                 
+                <!-- Individual project card -->
                 <div class="col">
-                    <div class="card p-3 d-flex flex-column shadow-sm h-100 {{ if .Params.pinned }}border border-primary{{ end }}">
+                    <div class="card p-3 d-flex flex-column shadow h-100">
                         <h6 class="card-title">
-                            <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
-                                {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
-                            </a>
+                            <h5 class="text-primary">
+                                <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}</a>
+                            </h5>
                         </h6>
                         <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
+                        
+                        <!-- Display project tags -->
                         <div class="tags mb-2 d-flex flex-wrap gap-1">
                             {{ range .Params.tags }}
                                 <span class="badge bg-secondary px-2 py-1">{{ . | lower }}</span>
@@ -112,16 +114,18 @@
         });
     </script>
 
-
 <style>
+    /* Style for the tags section */
+
     .title-tags {
         font-size: 18px;
         font-weight: bold;
-        color: #333;
-        text-align: center;
+        /* color: #333; */
+        /* text-align: center; */
         padding-bottom: 10px;
-        border-bottom: 2px solid var(--bs-primary);
+        /* border-bottom: 2px solid var(--bs-primary); */
     }
+
 </style>
 
 {{ end }}

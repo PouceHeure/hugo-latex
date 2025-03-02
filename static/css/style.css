@@ -107,3 +107,8 @@ body {
 }
 
 
+.navbar-custom .nav-link.active {
+  color: #ffdd57 !important;
+  font-weight: bold;
+  border-bottom: 3px solid #ffdd57;
+}

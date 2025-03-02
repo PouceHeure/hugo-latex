@@ -15,6 +15,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" 
         onload="renderMathInElement(document.body);"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
     <style>
@@ -60,13 +62,14 @@
                 <button class="navbar-toggler fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link text-white fw-bold" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/cv/">CV</a></li>
                         <li class="nav-item"><a class="nav-link text-white fw-bold" href="/projects/">Projects</a></li>
                         <li class="nav-item"><a class="nav-link text-white fw-bold" href="/articles/">Scientist Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="/cv/">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -83,6 +86,26 @@
         };
       </script>
       <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupère l'URL actuelle
+            let currentPath = window.location.pathname;
+    
+            // Sélectionne tous les liens de la navbar
+            let navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+    
+            // Parcours les liens et active celui correspondant à la page actuelle
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPath) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+       
+    </script>
+    
       
 </body>
 </html>
