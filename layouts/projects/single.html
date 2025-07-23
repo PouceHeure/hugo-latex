@@ -1,9 +1,11 @@
 {{ define "main" }}
+{{ .Scratch.Set "figCounter" 0 }}
+
 <link rel="stylesheet" href="/css/toc.css">
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
     <!-- Table des matières à gauche avec un décalage pour éviter le header -->
     <aside class="toc w-25 d-none d-md-block position-sticky" style="top: 80px; margin-right: 20px;">
-        <div class="toc-container p-3 shadow rounded bg-light">
+        <div class="toc-container p-3 shadow rounded card p-3 d-flex flex-column shadow h-100 card-transparent">
             <h5 class="toc-title">📖 Contents</h5>
             {{ .TableOfContents }}
         </div>

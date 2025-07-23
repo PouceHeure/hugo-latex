@@ -72,6 +72,9 @@
     color:   var(--bs-secondary);
   }
 
+  .toc ul ul ul li a {
+    color:   var(--bs-success);
+  }
 
   
   .toc ul li a:hover {
