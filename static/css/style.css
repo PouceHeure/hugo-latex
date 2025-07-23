@@ -141,3 +141,8 @@ body {
 .mosaic-item:hover {
   transform: scale(1.1);
 }
+
+
+.card-transparent { 
+  background-color: rgba(255, 255, 255, 0.1);
+}
