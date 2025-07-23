@@ -2,12 +2,12 @@
 <!-- <h1 class="text-primary text-center p-3">{{ "<strong>" | safeHTML }}{{ .Title }}{{ "</strong>" | safeHTML }}
 </h1> -->
 
-<div class="input-group mb-4 w-50">
+<!-- <div class="input-group w-50 tags-container p-3 rounded">
     <span class="input-group-text">🔍</span>
     <input type="text" id="searchInput" class="form-control" placeholder="Search publications...">
-</div>
+</div> -->
 
-<div class="container">
+<div class="container tags-container p-2 rounded mb-4">
     {{ $prevYear := "" }}
     {{ range (sort .Pages "Params.year" "desc") }}
         {{ $currentYear := .Params.year }}

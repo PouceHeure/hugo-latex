@@ -2,9 +2,9 @@
 <div class="container min-vh-100">
 
     <!-- Tags Section Above Cards -->
-    <section class="tags-container p-3 rounded mb-4">
+    <section class="tags-container p-3 rounded">
         <div class="d-flex align-items-center flex-wrap">
-            <h5 class="title-tags text-secondary mb-0 me-3 flex-shrink-0">🏷️ Tags</h5>
+            <!-- <h5 class="title-tags text-secondary mb-0 me-3 flex-shrink-0">🏷️ Tags</h5> -->
             <div id="tagButtons" class="d-flex flex-wrap gap-2">
                 {{ $projectTags := slice }}
                 {{ range where .Site.RegularPages "Section" "projects" }}
@@ -18,7 +18,7 @@
 
                 <!-- Display each tag as a clickable filter button -->
                 {{ range $projectTags }}
-                <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary">#{{ . }}</a>
+                <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">#{{ . }}</a>
                 {{ end }}
             </div>
         </div>
@@ -27,7 +27,7 @@
 
 
     <!-- Main Content with Project Cards -->
-    <article class="">
+    <article class="tags-container rounded mb-4">
         {{ $prevYear := "" }}
         {{ range (sort .Pages "Date" "desc") }}
         {{ $currentYear := .Date.Format "2006" }}
