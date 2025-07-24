@@ -7,14 +7,16 @@
             <!-- <h5 class="title-tags text-secondary mb-0 me-3 flex-shrink-0">🏷️ Tags</h5> -->
             <div id="tagButtons" class="d-flex flex-wrap gap-2">
                 {{ $projectTags := slice }}
-                {{ range where .Site.RegularPages "Section" "projects" }}
-                {{ range .Params.tags }}
-                {{ $tag := . | lower }}
-                {{ if not (in $projectTags $tag) }}
-                {{ $projectTags = $projectTags | append $tag }}
-                {{ end }}
-                {{ end }}
-                {{ end }}
+{{ range where .Site.RegularPages "Section" "projects" }}
+  {{ range .Params.tags }}
+    {{ $tag := . | lower }}
+    {{ if not (in $projectTags $tag) }}
+      {{ $projectTags = $projectTags | append $tag }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $projectTags = sort $projectTags }}
+
 
                 <!-- Display each tag as a clickable filter button -->
                 {{ range $projectTags }}
@@ -42,7 +44,16 @@
 
     <!-- Individual project card -->
     <div class="col">
-        <div class="card p-3 d-flex flex-column shadow h-100 card-transparent ">
+       {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden" }}
+{{ with .Params.image }}
+  {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
+{{ end }}
+
+<div class="{{ $cardClass }}"
+     {{ with .Params.image }}
+     style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
+     {{ end }}>
+
             <h6 class="card-title">
                 <h5 class="text-primary">
                     <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
@@ -116,6 +127,9 @@
     });
 </script>
 
+
+</style>
+
 <style>
     /* Style for the tags section */
 
@@ -128,6 +142,29 @@
         /* border-bottom: 2px solid var(--bs-primary); */
     }
 </style>
+
+<style>
+    .card_image::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+     background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 1.0),
+        rgba(255, 255, 255, 0.2)
+    );
+    z-index: 1;
+    border-radius: 0.5rem;
+}
+
+.card_image > * {
+    position: relative;
+    z-index: 2;
+}
+
+</style>
+
 
 
 
