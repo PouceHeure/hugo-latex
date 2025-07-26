@@ -150,3 +150,39 @@ body {
 .card {
         border: none !important;
 }
+
+.citation {
+  font-style: italic;
+  color: #444;
+}
+
+#references {
+  margin-top: 3rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+#references h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#references ul {
+  list-style: none;
+  padding: 0;
+}
+
+#references li {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+#references a {
+  text-decoration: none;
+  color: #1a0dab;
+}
+
+#references a:hover {
+  text-decoration: underline;
+}

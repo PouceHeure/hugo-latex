@@ -1,0 +1,11 @@
+{{ $citations := .Page.Scratch.Get "citations" }}
+{{ if $citations }}
+<ul>
+  {{ range $id, $entry := $citations }}
+    <li id="ref-{{ $id }}" class="citation">
+      {{ $entry.title }} {{ $entry.authors }}
+      {{ with $entry.url }} <a href="{{ . }}" target="_blank">[link article]</a>{{ end }}
+    </li>
+  {{ end }}
+</ul>
+{{ end }}

@@ -1,0 +1,14 @@
+{{ $id := .Get 0 }}
+{{ $entry := index site.Data.biblio $id }}
+
+{{ if $entry }}
+  {{ $refs := .Page.Scratch.Get "citations" | default (dict) }}
+  {{ $refs = merge $refs (dict $id $entry) }}
+  {{ .Page.Scratch.Set "citations" $refs }}
+
+  <span class="citation">
+    <a href="#ref-{{ $id }}">{{ $entry.text }}</a>
+  </span>
+{{ else }}
+  <span class="citation error">[citation inconnue : {{ $id }}]</span>
+{{ end }}
