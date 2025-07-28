@@ -1,6 +1,7 @@
 /* style.css */
 body {
-  background-color: #faf0be; /* Fond couleur papier jaune */
+  background-color: #faf0be;
+  /* Fond couleur papier jaune */
   font-family: Arial, sans-serif;
   color: #333;
   margin: 0;
@@ -30,22 +31,22 @@ nav ul li a {
 }
 
 footer {
-  margin-top: 50px; /* Ajoute de l'espace entre le main et le footer */
+  margin-top: 50px;
+  /* Ajoute de l'espace entre le main et le footer */
   padding: 20px;
 }
 
 main {
-  min-height: calc(
-    100vh - 180px
-  ); /* Ajuste selon la hauteur du header et footer */
+  min-height: calc(100vh - 180px);
+  /* Ajuste selon la hauteur du header et footer */
 }
 
 
 body {
-    /* background-color: #00f400; */
-    background-image: linear-gradient(rgba(0, 0, 250, 0.03) 1px, transparent 1px),
-                      linear-gradient(to right, rgba(0, 0, 250, 0.03) 1px, transparent 1px); 
-    background-size: 20px 20px; 
+  /* background-color: #00f400; */
+  background-image: linear-gradient(rgba(0, 0, 250, 0.03) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0, 0, 250, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 
@@ -57,54 +58,59 @@ body {
 
 
 .homepage-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh; /* Center the content vertically */
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  /* Center the content vertically */
+  text-align: center;
 }
 
 
 .dynamic-text {
-    display: inline-block;
-    font-weight: bold;
-    /* color: var(--bs-primary); */
-    white-space: nowrap;
-    animation: slideText 4s infinite;
-    min-height: 4rem; /* Fixe une hauteur minimale pour éviter les sauts */
-    /* line-height: 1.5rem; Assure un alignement vertical correct */
+  display: inline-block;
+  font-weight: bold;
+  /* color: var(--bs-primary); */
+  white-space: nowrap;
+  animation: slideText 4s infinite;
+  min-height: 4rem;
+  /* Fixe une hauteur minimale pour éviter les sauts */
+  /* line-height: 1.5rem; Assure un alignement vertical correct */
 }
 
 
 .dynamic-text {
-    display: inline-block;
-    font-weight: bold;
-    /* color: var(--bs-primary); */
-    overflow: hidden;
-    white-space: nowrap;
-    padding-right: 5px;
-    position: relative;
+  display: inline-block;
+  font-weight: bold;
+  /* color: var(--bs-primary); */
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 5px;
+  position: relative;
 }
 
 .dynamic-text::after {
-    content: '|';
-    position: absolute;
-    right: 0;
-    /* color: var(--bs-primary); */
-    animation: blink 0.7s infinite;
+  content: '|';
+  position: absolute;
+  right: 0;
+  /* color: var(--bs-primary); */
+  animation: blink 0.7s infinite;
 }
 
 @keyframes blink {
-    50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 .timeline {
-    width: 150px;
-    position: sticky;
-    top: 20px;
-    border-left: 3px solid #ccc; /* Ajuste ici */
-    padding-left: 20px;
+  width: 150px;
+  position: sticky;
+  top: 20px;
+  border-left: 3px solid #ccc;
+  /* Ajuste ici */
+  padding-left: 20px;
 }
 
 
@@ -143,12 +149,12 @@ body {
 }
 
 
-.card-transparent { 
+.card-transparent {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
 .card {
-        border: none !important;
+  border: none !important;
 }
 
 .citation {
@@ -186,3 +192,63 @@ body {
 #references a:hover {
   text-decoration: underline;
 }
+
+
+/* LIST ARTICLES */
+
+/* Style for the tags section */
+
+.title-tags {
+  font-size: 18px;
+  font-weight: bold;
+  /* color: #333; */
+  /* text-align: center; */
+  padding-bottom: 10px;
+  /* border-bottom: 2px solid var(--bs-primary); */
+}
+
+.card_image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right,
+      rgba(255, 255, 255, 1.0),
+      rgba(0, 99, 255, 0.2));
+  z-index: 1;
+  /* border-radius: 0.5rem; */
+}
+
+.card_image>* {
+  position: relative;
+  z-index: 2;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 0.95rem;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+
+
+
+/*  */
