@@ -26,7 +26,9 @@
                     <h5 class="card-title text-primary">
                         <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ .Title }}</a>
                     </h5>
-                    <p class="card-text"><strong>Conference:</strong> {{ .Params.conference }}</p>
+                    <!-- <p class="card-text"><strong>Conference:</strong> {{ .Params.conference }}</p> -->
+                    {{ with .Params.conference }}<p class="card-text"><strong>Conference:</strong> {{ . }}</p>{{ end }}
+
                     <p class="card-text"><strong>Year:</strong> {{ .Params.year }}</p>
 
                     <div class="tags mb-2">
