@@ -41,6 +41,10 @@ main {
   /* Ajuste selon la hauteur du header et footer */
 }
 
+.social-icons {
+    gap: 0.75rem;
+}
+
 
 body {
   /* background-color: #00f400; */

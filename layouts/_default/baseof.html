@@ -50,14 +50,18 @@
                 <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
                 
                 <div class="d-flex align-items-center ms-3 social-icons">
-                    <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-3">
+
+                    <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white">
                         <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
                     </a>
-                    <a href="{{ .Site.Params.github }}" target="_blank" class="text-white me-3">
+                    <a href="{{ .Site.Params.github }}" target="_blank" class="text-white">
                         <i class="bi bi-github" style="font-size: 1.5rem;"></i>
                     </a>
                     <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" target="_blank" class="text-white">
                         <i class="bi bi-chat-fill" style="font-size: 1.5rem;"></i>
+                    </a>
+                    <a href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}" target="_blank" class="text-white">
+                        <i class="bi bi-youtube" style="font-size: 1.75rem;"></i>
                     </a>
                 </div>
                 

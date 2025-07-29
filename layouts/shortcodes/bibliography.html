@@ -2,10 +2,17 @@
 {{ if $citations }}
 <ul>
   {{ range $id, $entry := $citations }}
-    <li id="ref-{{ $id }}" class="citation">
-      {{ $entry.title }} {{ $entry.authors }}
-      {{ with $entry.url }} <a href="{{ . }}" target="_blank">[link article]</a>{{ end }}
-    </li>
+    <li id="ref-{{ $id }}" class="citation" style="margin-bottom: 1em;">
+    <strong>{{ $entry.title }}</strong><br/>
+    <span style="color: #555;">{{ $entry.authors }}</span>
+    {{ with $entry.conference }}<br/><em>{{ . }}</em>{{ end }}
+    {{ with $entry.year }}, {{ . }}{{ end }}
+    {{ with $entry.url }}
+      <br/>
+      <a href="{{ . }}" target="_blank" style="font-size: 90%; color: #1e88e5;">[Access PDF]</a>
+    {{ end }}
+  </li>
+
   {{ end }}
 </ul>
 {{ end }}
