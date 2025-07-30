@@ -241,6 +241,13 @@ table tr:nth-child(even) {
   background-color: #fafafa;
 }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* ---------------------------------------------
    Citation / References
 --------------------------------------------- */
