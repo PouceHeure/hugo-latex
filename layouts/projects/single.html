@@ -1,82 +1,90 @@
 {{ define "main" }}
+
+<!-- Reset figure counter -->
 {{ .Scratch.Set "figCounter" 0 }}
 
+<!-- Table of Contents Styles -->
 <link rel="stylesheet" href="/css/toc.css">
+
+<!-- Page Layout -->
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
-   
-    <aside class="toc w-25 d-none d-lg-block position-sticky" style="top: 80px; margin-right: 20px;">
-        <div class="toc-container p-3 shadow rounded card p-3 d-flex flex-column shadow h-100 card-transparent">
-            <h5 class="toc-title">📖 Contents</h5>
-            {{ .TableOfContents }}
-        </div>
-    </aside>
 
-    <!-- Contenu principal -->
-    <article class="markdown-content flex-grow-1 w-100 w-md-75">
-        <div>
-        <h1 class="text-primary">{{ .Title }}</h1>
+  <!-- Section: Sidebar TOC -->
+  <aside class="toc w-25 d-none d-lg-block toc-sticky">
+    <div class="toc-container p-3 shadow rounded card p-3 d-flex flex-column shadow h-100 card-transparent">
+      <h5 class="toc-title">📖 Contents</h5>
+      {{ .TableOfContents }}
+    </div>
+  </aside>
 
-        <div class="pb-4">
-            {{ range .Params.tags }}
-                <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light">
-                    #{{ . }}
-                </a>
-            {{ end }}
-        </div>
+  <!-- Section: Main Markdown Content -->
+  <article class="markdown-content flex-grow-1 w-100 w-md-75">
+    <!-- Article Title -->
+    <h1 class="text-primary">{{ .Title }}</h1>
 
-        <div class="content">
-            {{ .Content | safeHTML }}
-        </div>
+    <!-- Article Tags -->
+    <div class="pb-4">
+      {{ range .Params.tags }}
+        <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light">#{{ . }}</a>
+      {{ end }}
+    </div>
 
-    </article>
+    <!-- Rendered Markdown Body -->
+    <div class="content">
+      {{ .Content | safeHTML }}
+    </div>
+  </article>
 </div>
 
+<!-- JavaScript Section: TOC Behavior & Responsiveness -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
     const toc = document.querySelector(".toc");
     const article = document.querySelector(".markdown-content");
 
+    // Adjust TOC visibility/responsiveness
     function adjustLayout() {
-        if (window.innerWidth < 1024) {
-            toc.classList.add("d-none");
-            article.classList.remove("w-md-75");
-            article.classList.add("w-100", "mx-auto");
-        } else {
-            toc.classList.remove("d-none");
-            article.classList.remove("w-100", "mx-auto");
-            article.classList.add("w-md-75");
-        }
+      if (window.innerWidth < 1024) {
+        toc.classList.add("d-none");
+        article.classList.remove("w-md-75");
+        article.classList.add("w-100", "mx-auto");
+      } else {
+        toc.classList.remove("d-none");
+        article.classList.remove("w-100", "mx-auto");
+        article.classList.add("w-md-75");
+      }
     }
 
     window.addEventListener("resize", adjustLayout);
     adjustLayout();
 
+    // Highlight current section in TOC while scrolling
     const sections = document.querySelectorAll("h2, h3, h4");
     const tocLinks = document.querySelectorAll(".toc ul li a");
 
     function highlightCurrentSection() {
-        let scrollPosition = window.scrollY;
-        let currentSection = null;
+      let scrollPosition = window.scrollY;
+      let currentSection = null;
 
-        sections.forEach(section => {
-            if (section.offsetTop - 80 <= scrollPosition) {
-                currentSection = section;
-            }
-        });
-
-        if (currentSection) {
-            let id = currentSection.getAttribute("id");
-            tocLinks.forEach(link => {
-                link.classList.remove("active");
-                if (link.getAttribute("href") === `#${id}`) {
-                    link.classList.add("active");
-                }
-            });
+      sections.forEach(section => {
+        if (section.offsetTop - 80 <= scrollPosition) {
+          currentSection = section;
         }
+      });
+
+      if (currentSection) {
+        let id = currentSection.getAttribute("id");
+        tocLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("active");
+          }
+        });
+      }
     }
 
     window.addEventListener("scroll", highlightCurrentSection);
-});
+  });
 </script>
 
 {{ end }}

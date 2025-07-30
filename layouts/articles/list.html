@@ -1,74 +1,91 @@
 {{ define "main" }}
 
-<!-- <h1 class="text-primary text-center p-3">{{ "<strong>" | safeHTML }}{{ .Title }}{{ "</strong>" | safeHTML }}
-</h1> -->
-
-<!-- <div class="input-group w-50 tags-container p-3 rounded">
-    <span class="input-group-text">🔍</span>
-    <input type="text" id="searchInput" class="form-control" placeholder="Search publications...">
-</div> -->
-
-<div class="container tags-container p-2 rounded mb-4">
-    {{ $prevYear := "" }}
-    {{ range (sort .Pages "Params.year" "desc") }}
-        {{ $currentYear := .Params.year }}
-        {{ if ne $currentYear $prevYear }}
-            {{ if ne $prevYear "" }}
-                </div> <!-- Close previous year's grid -->
-            {{ end }}
-            <h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 publicationList">
-            {{ $prevYear = $currentYear }}
-        {{ end }}
-        <div class="col">
-            <div class="card d-flex flex-column shadow h-100 card-transparent">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-primary">
-                        <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ .Title }}</a>
-                    </h5>
-                    <!-- <p class="card-text"><strong>Conference:</strong> {{ .Params.conference }}</p> -->
-                    {{ with .Params.conference }}<p class="card-text"><strong>Conference:</strong> {{ . }}</p>{{ end }}
-
-                    <p class="card-text"><strong>Year:</strong> {{ .Params.year }}</p>
-
-                    <div class="tags mb-2">
-                        {{ range .Params.tags }}
-                            <span class="badge bg-secondary me-1">{{ . | lower }}</span>
-                        {{ end }}
-                    </div>
-
-                    <div class="mt-auto d-flex gap-2">
-                        <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-sm">View Article</a>
-                        <a href="{{ .RelPermalink }}" class="btn btn-secondary btn-sm">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{ end }}
-    </div> <!-- Close last year's grid -->
+<!-- Search Bar -->
+<div class="input-group w-50 tags-container p-3 rounded mx-auto mb-4">
+  <span class="input-group-text">🔍</span>
+  <input type="text" id="searchInput" class="form-control" placeholder="Search publications...">
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById("searchInput");
 
-        searchInput.addEventListener("input", function() {
-            const query = searchInput.value.toLowerCase();
-            const cards = document.querySelectorAll(".card"); // Sélectionne toutes les cartes
-            
-            cards.forEach(card => {
-                const title = card.querySelector(".card-title").textContent.toLowerCase();
-                const conference = card.querySelector(".card-text strong").nextSibling.nodeValue.toLowerCase(); // Récupère le texte de la conférence
-                const tags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent.toLowerCase());
-                
-                // Vérifie si le titre, la conférence ou les tags contiennent la requête
-                if (title.includes(query) || conference.includes(query) || tags.some(tag => tag.includes(query))) {
-                    card.parentElement.style.display = "block";
-                } else {
-                    card.parentElement.style.display = "none";
-                }
-            });
+<!-- Section: Publications by Year -->
+<div class="container tags-container p-2 rounded mb-4">
+  {{ $prevYear := "" }}
+  {{ range (sort .Pages "Params.year" "desc") }}
+    {{ $currentYear := .Params.year }}
+    {{ if ne $currentYear $prevYear }}
+      {{ if ne $prevYear "" }}
+        </div> <!-- Close previous year's grid -->
+      {{ end }}
+
+      <!-- Year Heading -->
+      <h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 publicationList">
+      {{ $prevYear = $currentYear }}
+    {{ end }}
+
+    <!-- Publication Card -->
+    <div class="col">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">
+            <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ .Title }}</a>
+          </h5>
+
+          {{ with .Params.conference }}
+            <p class="card-text"><strong>Conference:</strong> {{ . }}</p>
+          {{ end }}
+
+          <p class="card-text"><strong>Year:</strong> {{ .Params.year }}</p>
+
+          <!-- Tags -->
+          <div class="tags mb-2">
+            {{ range .Params.tags }}
+              <span class="badge bg-secondary me-1">{{ . | lower }}</span>
+            {{ end }}
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-auto d-flex gap-2">
+            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-sm">View Article</a>
+            <a href="{{ .RelPermalink }}" class="btn btn-secondary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{ end }}
+  </div> <!-- Close last year's grid -->
+</div>
+
+<!-- JavaScript Section: Search Filter (optional) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+
+    if (searchInput) {
+      searchInput.addEventListener("input", function () {
+        const query = searchInput.value.toLowerCase();
+        const cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+          const titleEl = card.querySelector(".card-title");
+          const conferenceEl = card.querySelector(".card-text strong");
+          const conferenceText = conferenceEl?.nextSibling?.nodeValue?.toLowerCase() || "";
+          const title = titleEl?.textContent.toLowerCase() || "";
+
+          const tags = Array.from(card.querySelectorAll(".badge")).map(tag =>
+            tag.textContent.toLowerCase()
+          );
+
+          const matches =
+            title.includes(query) ||
+            conferenceText.includes(query) ||
+            tags.some(tag => tag.includes(query));
+
+          card.parentElement.style.display = matches ? "block" : "none";
         });
-    });
+      });
+    }
+  });
 </script>
+
 {{ end }}

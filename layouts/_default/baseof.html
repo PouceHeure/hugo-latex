@@ -5,130 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .Site.Title }}</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-    />
+    <!-- CSS Section -->
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/color.css" />
     <link rel="stylesheet" href="/css/markdown.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
-    />
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
-    ></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
-      onload="renderMathInElement(document.body);"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <style>
-      .navbar-custom {
-        backdrop-filter: blur(10px);
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      .navbar-custom .nav-link {
-        transition: color 0.3s ease-in-out;
-      }
-      .navbar-custom .nav-link:hover {
-        color: #ffdd57 !important;
-      }
-      .navbar-custom .social-icons a {
-        transition: transform 0.3s ease-in-out;
-      }
-      .navbar-custom .social-icons a:hover {
-        transform: scale(1.2);
-      }
-      .navbar-toggler {
-        font-weight: bold;
-      }
-    </style>
   </head>
 
   <body class="bg-light">
     <header>
-      <nav
-        class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2"
-      >
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
-
-          <div class="d-flex align-items-center ms-3 social-icons">
-            <a
-              href="{{ .Site.Params.linkedin }}"
-              target="_blank"
-              class="text-white"
-            >
-              <i class="bi bi-linkedin" style="font-size: 1.5rem"></i>
-            </a>
-            <a
-              href="{{ .Site.Params.github }}"
-              target="_blank"
-              class="text-white"
-            >
-              <i class="bi bi-github" style="font-size: 1.5rem"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}"
-              target="_blank"
-              class="text-white"
-            >
-              <i class="bi bi-chat-fill" style="font-size: 1.5rem"></i>
-            </a>
-            <a
-              href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}"
-              target="_blank"
-              class="text-white"
-            >
-              <i class="bi bi-youtube" style="font-size: 1.75rem"></i>
-            </a>
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2">
+        <div class="container-fluid px-4">
+          <!-- Left side: Brand and social icons -->
+          <div class="d-flex align-items-center">
+            <a class="navbar-brand fw-bold me-3" href="/">{{ .Site.Title }}</a>
+            <div class="d-none d-md-flex social-icons align-items-center">
+              <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-2">
+                <i class="bi bi-linkedin icon-size"></i>
+              </a>
+              <a href="{{ .Site.Params.github }}" target="_blank" class="text-white me-2">
+                <i class="bi bi-github icon-size"></i>
+              </a>
+              <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" target="_blank" class="text-white me-2">
+                <i class="bi bi-chat-fill icon-size"></i>
+              </a>
+              <a href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}" target="_blank" class="text-white">
+                <i class="bi bi-youtube icon-size-lg"></i>
+              </a>
+            </div>
           </div>
 
-          <button
-            class="navbar-toggler fw-bold"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-          >
+          <!-- Burger Icon -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+          <!-- Right side: Collapsible Menu -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link text-white fw-bold" href="/">Home</a>
+                <a class="nav-link text-white fw-bold me-3" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white fw-bold" href="/projects/"
-                  >Projects</a
-                >
+                <a class="nav-link text-white fw-bold me-3" href="/projects/">Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white fw-bold" href="/articles/">
+                <a class="nav-link text-white fw-bold me-3" href="/articles/">
                   <span class="d-none d-lg-inline">Scientist </span>Articles
                 </a>
               </li>
-
               <li class="nav-item">
-                <a class="nav-link text-white fw-bold" href="/cv/">About</a>
+                <a class="nav-link text-white fw-bold me-3" href="/cv/">About</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+
+    <!-- Main Content Section -->
     <main class="container mt-5">{{ block "main" . }}{{ end }}</main>
 
+    <!-- JavaScript Section -->
+    <!-- External JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- MathJax Configuration -->
     <script>
       window.MathJax = {
         tex: {
@@ -140,24 +90,19 @@
         svg: { fontCache: 'global' }
       }
     </script>
-    <script
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    ></script>
 
+    <!-- Active Menu Highlight Script -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-
-        let currentPath = window.location.pathname
-
-        let navLinks = document.querySelectorAll('.navbar-nav .nav-link')
+        let currentPath = window.location.pathname;
+        let navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
         navLinks.forEach(link => {
           if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active')
+            link.classList.add('active');
           }
-        })
-      })
+        });
+      });
     </script>
   </body>
 </html>

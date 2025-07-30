@@ -1,12 +1,13 @@
 {{ define "main" }}
-    <div class="container">
-        <!-- <h1 class="text-primary text-center p-3">{{ "<strong>" | safeHTML }}{{ .Title }}{{ "</strong>" | safeHTML }} -->
-        </h1>
-        <div class="text-center mt-4">
-            <!-- <a href="/cv.pdf" class="btn btn-primary">Télécharger mon CV (PDF)</a> -->
-        </div>
-        <div class="mt-4 markdown-content">
-            {{ .Content }}
-        </div>
+  <!-- Main Content Wrapper -->
+  <div class="container">
+    
+    <!-- Markdown Content Section -->
+    <div class="card shadow p-4 m-4 markdown-content card-transparent">
+        <!-- <h1 class="text-primary border-bottom pb-2 mb-4">Curriculum Vitae</h1> -->
+        {{ .Content }}
     </div>
+    
+
+  </div>
 {{ end }}

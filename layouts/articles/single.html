@@ -1,23 +1,30 @@
 {{ define "main" }}
+
+<!-- Section: Single Article Page -->
 <article class="p-3 markdown-content">
-        <h1 class="text-primary">{{ .Title }}</h1>
 
-        <div class="mb-3">
-            {{ range .Params.tags }}
-                <a href="/tags/{{ . | urlize }}" class="btn badge bg-primary me-2 mb-2 shadow">
-                    #{{ . }}
-                </a>
-            {{ end }}
-        </div>
+  <!-- Article Title -->
+  <h1 class="text-primary">{{ .Title }}</h1>
 
-  
-        <div class="mb-3">
-            {{ .Content }}
-        </div>
+  <!-- Tags -->
+  <div class="mb-3">
+    {{ range .Params.tags }}
+      <a href="/tags/{{ . | urlize }}" class="btn badge bg-primary me-2 mb-2 shadow">
+        #{{ . }}
+      </a>
+    {{ end }}
+  </div>
 
-        <div class="m-5 text-center">
-            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-lg">View Article</a>
-        </div>
-        
-    </article>
+  <!-- Article Content -->
+  <div class="mb-3">
+    {{ .Content }}
+  </div>
+
+  <!-- Link to External Article -->
+  <div class="m-5 text-center">
+    <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-lg">View Article</a>
+  </div>
+
+</article>
+
 {{ end }}

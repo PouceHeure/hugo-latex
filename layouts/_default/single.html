@@ -1,8 +1,14 @@
 {{ define "main" }}
+
+<!-- Section: Article Content -->
 <article class="bg-light p-3 markdown-content">
-        <h1 class="text-primary">{{ .Title }}</h1>
-        <div>
-            {{ .Content }}
-        </div>
-    </article>
+  <!-- Article Title -->
+  <h1 class="text-primary">{{ .Title }}</h1>
+
+  <!-- Markdown Body -->
+  <div>
+    {{ .Content }}
+  </div>
+</article>
+
 {{ end }}

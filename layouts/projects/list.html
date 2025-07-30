@@ -1,141 +1,140 @@
 {{ define "main" }}
+
+<!-- Container for Full Page -->
 <div class="container min-vh-100">
 
-    <!-- Tags Section Above Cards -->
-    <section class="tags-container p-3 rounded">
-        <div class="d-flex align-items-center flex-wrap">
-            <!-- <h5 class="title-tags text-secondary mb-0 me-3 flex-shrink-0">🏷️ Tags</h5> -->
-            <div id="tagButtons" class="d-flex flex-wrap gap-2">
-                {{ $projectTags := slice }}
-                {{ range where .Site.RegularPages "Section" "projects" }}
-                {{ range .Params.tags }}
-                {{ $tag := . | lower }}
-                {{ if not (in $projectTags $tag) }}
-                {{ $projectTags = $projectTags | append $tag }}
-                {{ end }}
-                {{ end }}
-                {{ end }}
-                {{ $projectTags = sort $projectTags }}
+  <!-- Section: Tags Filter Buttons -->
+  <section class="tags-container p-3 rounded">
+    <div class="d-flex align-items-center flex-wrap">
+      <!-- Tag buttons auto-generated from project tags -->
+      <div id="tagButtons" class="d-flex flex-wrap gap-2">
+        {{ $projectTags := slice }}
+        {{ range where .Site.RegularPages "Section" "projects" }}
+          {{ range .Params.tags }}
+            {{ $tag := . | lower }}
+            {{ if not (in $projectTags $tag) }}
+              {{ $projectTags = $projectTags | append $tag }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ $projectTags = sort $projectTags }}
 
+        {{ range $projectTags }}
+          <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">#{{ . }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
 
-                <!-- Display each tag as a clickable filter button -->
-                {{ range $projectTags }}
-                <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">#{{ . }}</a>
-                {{ end }}
-            </div>
-        </div>
-    </section>
+  <!-- Section: Project Cards Grouped by Year -->
+  <article class="tags-container rounded mb-4">
+    {{ $prevYear := "" }}
+    {{ range (sort .Pages "Date" "desc") }}
+      {{ $currentYear := .Date.Format "2006" }}
+      {{ if ne $currentYear $prevYear }}
+        {{ if ne $prevYear "" }}</div>{{ end }} <!-- Close previous year's grid -->
 
+        <h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 projectList">
+        {{ $prevYear = $currentYear }}
+      {{ end }}
 
-
-    <!-- Main Content with Project Cards -->
-    <article class="tags-container rounded mb-4">
-        {{ $prevYear := "" }}
-        {{ range (sort .Pages "Date" "desc") }}
-        {{ $currentYear := .Date.Format "2006" }}
-        {{ if ne $currentYear $prevYear }}
-        {{ if ne $prevYear "" }}
-</div> <!-- Close previous year's grid -->
-{{ end }}
-<h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 projectList">
-    {{ $prevYear = $currentYear }}
-    {{ end }}
-
-    <!-- Individual project card -->
-    <div class="col">
-        {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden"
-        }}
+      <!-- Single Project Card -->
+      <div class="col">
+        {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden" }}
         {{ with .Params.image }}
-        {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
+          {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
         {{ end }}
 
-        <div class="{{ $cardClass }}" {{ with .Params.image }}
-            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;" {{ end }}>
+        <div class="{{ $cardClass }}"
+          {{ with .Params.image }}
+            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
+          {{ end }}>
 
-            <h5 class="text-primary">
-    <span class="project-title-bg">
-        <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
-            {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
-        </a>
-    </span>
-</h5>
+          <!-- Project Title -->
+          <h5 class="text-primary">
+            <span class="project-title-bg">
+              <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
+                {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
+              </a>
+            </span>
+          </h5>
 
+          <!-- Optional Description -->
+          {{ with .Params.description }}
+            <p class="text-muted small mb-2">{{ . }}</p>
+          {{ end }}
 
-            {{ with .Params.description }}
-                <p class="text-muted small mb-2">{{ . }}</p>
+          <!-- Date -->
+          <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
+
+          <!-- Tags -->
+          <div class="tags mb-2 d-flex flex-wrap gap-1">
+            {{ range .Params.tags }}
+              <span class="badge bg-secondary px-2 py-1">{{ . | lower }}</span>
             {{ end }}
+          </div>
 
-            </h6>
-            <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
-
-            <div class="tags mb-2 d-flex flex-wrap gap-1">
-                {{ range .Params.tags }}
-                <span class="badge bg-secondary px-2 py-1">{{ . | lower }}</span>
-                {{ end }}
-            </div>
-            <div class="mt-auto">
-                <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
-            </div>
+          <!-- Action Button -->
+          <div class="mt-auto">
+            <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
+          </div>
         </div>
-    </div>
-
+      </div>
     {{ end }}
-</div> <!-- Close last year's grid -->
-</article>
+    </div> <!-- Close last year's grid -->
+  </article>
 </div>
 
+<!-- JavaScript Section: Filter Projects by Tag -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tagLinks = document.querySelectorAll(".tag-link");
-        const cards = document.querySelectorAll(".card");
-        let activeTag = "All";
+  document.addEventListener("DOMContentLoaded", function () {
+    const tagLinks = document.querySelectorAll(".tag-link");
+    const cards = document.querySelectorAll(".card");
+    let activeTag = "All";
 
-        tagLinks.forEach(link => {
-            link.addEventListener("click", function (event) {
-                event.preventDefault();
-                const selectedTag = this.textContent.replace('#', '').trim();
+    tagLinks.forEach(link => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        const selectedTag = this.textContent.replace('#', '').trim();
 
-                if (activeTag === selectedTag) {
-                    this.classList.remove("btn-primary", "text-light");
-                    this.classList.add("btn-outline-primary", "text-primary");
-                    activeTag = "All";
-                    showAllCards();
-                } else {
-                    tagLinks.forEach(a => {
-                        a.classList.remove("btn-primary", "text-light");
-                        a.classList.add("btn-outline-primary", "text-primary");
-                    });
-                    this.classList.remove("btn-outline-primary", "text-primary");
-                    this.classList.add("btn-primary", "text-light");
-                    activeTag = selectedTag;
-                    filterCards(selectedTag);
-                }
-            });
-        });
-
-        function showAllCards() {
-            cards.forEach(card => {
-                card.parentElement.style.display = "block";
-            });
+        if (activeTag === selectedTag) {
+          this.classList.remove("btn-primary", "text-light");
+          this.classList.add("btn-outline-primary", "text-primary");
+          activeTag = "All";
+          showAllCards();
+        } else {
+          tagLinks.forEach(a => {
+            a.classList.remove("btn-primary", "text-light");
+            a.classList.add("btn-outline-primary", "text-primary");
+          });
+          this.classList.remove("btn-outline-primary", "text-primary");
+          this.classList.add("btn-primary", "text-light");
+          activeTag = selectedTag;
+          filterCards(selectedTag);
         }
-
-        function filterCards(tag) {
-            cards.forEach(card => {
-                const cardTags = Array.from(card.querySelectorAll(".badge")).map(tag => tag.textContent.trim().toLowerCase());
-                if (cardTags.includes(tag.toLowerCase())) {
-                    card.parentElement.style.display = "block";
-                } else {
-                    card.parentElement.style.display = "none";
-                }
-            });
-        }
+      });
     });
+
+    function showAllCards() {
+      cards.forEach(card => {
+        card.parentElement.style.display = "block";
+      });
+    }
+
+    function filterCards(tag) {
+      cards.forEach(card => {
+        const cardTags = Array.from(card.querySelectorAll(".badge"))
+          .map(el => el.textContent.trim().toLowerCase());
+
+        if (cardTags.includes(tag.toLowerCase())) {
+          card.parentElement.style.display = "block";
+        } else {
+          card.parentElement.style.display = "none";
+        }
+      });
+    }
+  });
 </script>
-
-
-
-
-
 
 {{ end }}

@@ -1,6 +1,7 @@
 {{ define "main" }}
 
-<nav class="section-indicator">
+<!-- Section: Navigation Dots for Scrolling -->
+<nav class="section-indicator d-none d-md-block">
   <ul>
     <li><a href="#home" data-section="home">Accueil</a></li>
     <li><a href="#projects" data-section="projects">Projets</a></li>
@@ -8,240 +9,201 @@
   </ul>
 </nav>
 
+<!-- Section: Homepage Introduction -->
 <div class="homepage-container text-center tags-container p-3 rounded mb-4" id="home">
-    <h1 class="text-primary mt-5 d-flex align-items-center justify-content-center">
-        <span class="text-primary dynamic-container">
-            <span id="changing-word" class="dynamic-text"></span>
-        </span>
-    </h1>
-    
-    <p class="col-8 lead">{{ .Site.Params.about }}</p>
+  <h1 class="text-primary mt-5 d-flex align-items-center justify-content-center">
+    <span class="text-primary dynamic-container">
+      <span id="changing-word" class="dynamic-text"></span>
+    </span>
+  </h1>
+  <p class="col-8 lead">{{ .Site.Params.about }}</p>
 
-    <div class="row mt-5 gy-4 d-flex justify-content-center">
-        <div class="col-md-4">
-            <div class="card d-flex flex-column shadow h-100 card-transparent">
-                <div class="card-body text-center p-4">
-                    <h3 class="text-primary">📝 Projects</h3>
-                    <p class="text-muted">Dive into my research, cutting-edge projects, and innovative developments.</p>
-                </div>
-                <div class="text-center m-3">
-                    <a href="/projects/" class="btn btn-primary btn-lg w-100">View Projects</a>
-                </div>
-            </div>
+  <!-- Section: Feature Cards -->
+  <div class="row mt-5 gy-4 d-flex justify-content-center">
+    <!-- Projects Card -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">📝 Projects</h3>
+          <p class="text-muted">Dive into my research, cutting-edge projects, and innovative developments.</p>
         </div>
-        <div class="col-md-4">
-            <div class="card d-flex flex-column shadow h-100 card-transparent">
-                <div class="card-body text-center p-4">
-                    <h3 class="text-primary">📚 Scientific Articles</h3>
-                    <p class="text-muted">Read my latest scientific publications and academic contributions.</p>
-                </div>
-                <div class="text-center m-3">
-                    <a href="/articles/" class="btn btn-primary btn-lg w-100">View Publications</a>
-                </div>
-            </div>
+        <div class="text-center m-3">
+          <a href="/projects/" class="btn btn-primary btn-lg w-100">View Projects</a>
         </div>
-        <div class="col-md-4">
-            <div class="card d-flex flex-column shadow h-100 card-transparent">
-                <div class="card-body text-center p-4">
-                    <h3 class="text-primary">📄 About</h3>
-                    <p class="text-muted">Explore my academic and professional journey with key achievements and milestones.</p>
-                </div>
-                <div class="text-center m-3">
-                    <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <!-- Articles Card -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">📚 Scientific Articles</h3>
+          <p class="text-muted">Read my latest scientific publications and academic contributions.</p>
+        </div>
+        <div class="text-center m-3">
+          <a href="/articles/" class="btn btn-primary btn-lg w-100">View Publications</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CV Card -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">📄 About</h3>
+          <p class="text-muted">Explore my academic and professional journey with key achievements and milestones.</p>
+        </div>
+        <div class="text-center m-3">
+          <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
+<!-- Section: Latest Projects -->
 <div class="container mt-5" id="projects">
-    <h2 class="text-center text-secondary m-5">Latest Projects</h2>
-    <div class="row">
-        {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
-            <div class="col-md-4 mb-4">
-                <div class="card d-flex flex-column shadow h-100 card-transparent">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">
-                            <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
-                        </h5>
-                        <p class="text-muted small">Published on {{ .Date.Format "02 January 2006" }}</p>
-
-                        <div class="tags mb-2">
-                            {{ range .Params.tags }}
-                                <span class="badge bg-secondary me-1">{{ . }}</span>
-                            {{ end }}
-                        </div>
-                        <div class="mt-auto">
-                            <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm">Read more</a>
-                        </div>
-                    </div>
-                </div>
+  <h2 class="text-center text-secondary m-5">Latest Projects</h2>
+  <div class="row">
+    {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card d-flex flex-column shadow h-100 card-transparent">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">
+              <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
+            </h5>
+            <p class="text-muted small">Published on {{ .Date.Format "02 January 2006" }}</p>
+            <div class="tags mb-2">
+              {{ range .Params.tags }}
+                <span class="badge bg-secondary me-1">{{ . }}</span>
+              {{ end }}
             </div>
-        {{ end }}
-    </div>
-</div> 
+            <div class="mt-auto">
+              <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</div>
 
-
-
+<!-- Section: Latest Videos -->
 {{ partial "collect-videos.html" . }}
 {{ $videos := .Scratch.Get "videos" | default (slice) }}
 {{ $sorted := sort $videos "page.Date" "desc" }}
 {{ $latestVideos := first 3 $sorted }}
 
 {{ if gt (len $latestVideos) 0 }}
-<div class="container mt-5" id="videos">
+  <div class="container mt-5" id="videos">
     <h2 class="text-center text-secondary m-5">Latest Videos</h2>
     <div class="row justify-content-center">
-        {{ range $latestVideos }}
-        <div class="col-md-4 mb-4">
-            <div class="card shadow h-100 card-transparent">
-                <div class="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/{{ .code }}" allowfullscreen></iframe>
-                </div>
-                <div class="card-body">
-                    <p class="card-text text-center small text-muted">Fig. — {{ .caption }}</p>
-                    <p class="text-center">
-                        <a href="{{ .page.RelPermalink }}" class="btn btn-outline-primary btn-sm">View in context</a>
-                    </p>
-                </div>
+      {{ range $latestVideos }}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card shadow h-100 card-transparent">
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/{{ .code }}" allowfullscreen></iframe>
             </div>
+            <div class="card-body">
+              <p class="card-text text-center small text-muted">Fig. — {{ .caption }}</p>
+              <p class="text-center">
+                <a href="{{ .page.RelPermalink }}" class="btn btn-outline-primary btn-sm">View in context</a>
+              </p>
+            </div>
+          </div>
         </div>
-        {{ end }}
+      {{ end }}
     </div>
-</div>
+  </div>
 {{ end }}
 
+<!-- JavaScript Section -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    // Typing effect
     function formatText(str) {
-        return str.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+      return str.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
     }
 
     function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
     }
 
     const wordsHugo = [
-        {{ range $index, $tag := .Site.Taxonomies.tags }}
-            {{ if $index }},{{ end }} "{{  $tag.Page.Title }}"
-        {{ end }}
+      {{ range $index, $tag := .Site.Taxonomies.tags }}
+        {{ if $index }},{{ end }}"{{ $tag.Page.Title }}"
+      {{ end }}
     ];
 
-    let words = wordsHugo.map(formatText);
-    words = shuffleArray(words);
-
+    let words = shuffleArray(wordsHugo.map(formatText));
     let i = 0;
     const changingWord = document.getElementById("changing-word");
 
     function typeWriterEffect(word, index) {
-        if (index <= word.length) {
-            changingWord.textContent = word.substring(0, index);
-            setTimeout(() => typeWriterEffect(word, index + 1), 100);
-        } else {
-            setTimeout(() => deleteEffect(word.length), 2000);
-        }
+      if (index <= word.length) {
+        changingWord.textContent = word.substring(0, index);
+        setTimeout(() => typeWriterEffect(word, index + 1), 100);
+      } else {
+        setTimeout(() => deleteEffect(word.length), 2000);
+      }
     }
 
     function deleteEffect(length) {
-        if (length >= 0) {
-            changingWord.textContent = changingWord.textContent.substring(0, length);
-            setTimeout(() => deleteEffect(length - 1), 50);
-        } else {
-            i = (i + 1) % words.length;
-            setTimeout(() => typeWriterEffect(words[i], 0), 500);
-        }
+      if (length >= 0) {
+        changingWord.textContent = changingWord.textContent.substring(0, length);
+        setTimeout(() => deleteEffect(length - 1), 50);
+      } else {
+        i = (i + 1) % words.length;
+        setTimeout(() => typeWriterEffect(words[i], 0), 500);
+      }
     }
 
     if (words.length > 0) {
-        typeWriterEffect(words[i], 0);
+      typeWriterEffect(words[i], 0);
     }
-});
 
-
-document.addEventListener("DOMContentLoaded", function () {
+    // Section Indicator Scroll Effect
     const sections = ["home", "projects", "videos"];
     const indicatorLinks = document.querySelectorAll(".section-indicator a");
 
     function activateSection(currentId) {
-        indicatorLinks.forEach(link => {
-            if (link.dataset.section === currentId) {
-                link.classList.add("active");
-            } else {
-                link.classList.remove("active");
-            }
-        });
+      indicatorLinks.forEach(link => {
+        if (link.dataset.section === currentId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
     }
 
     function onScroll() {
-        let scrollPosition = window.scrollY + window.innerHeight / 2;
+      let scrollPosition = window.scrollY + window.innerHeight / 2;
 
-        for (let id of sections) {
-            let section = document.getElementById(id);
-            if (section) {
-                let offsetTop = section.offsetTop;
-                let offsetHeight = section.offsetHeight;
-                if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                    activateSection(id);
-                    break;
-                }
-            }
+      for (let id of sections) {
+        let section = document.getElementById(id);
+        if (section) {
+          let offsetTop = section.offsetTop;
+          let offsetHeight = section.offsetHeight;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            activateSection(id);
+            break;
+          }
         }
+      }
     }
 
     document.addEventListener("scroll", onScroll);
-    onScroll(); // initial call
-});
+    onScroll(); // initial state
+  });
 </script>
 
-
-
-
+<!-- CSS Section -->
 <style>
-
-    .section-indicator {
-    position: fixed;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    z-index: 999;
-}
-
-.section-indicator ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.section-indicator li {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.section-indicator a {
-    display: block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid #aaa;
-    border-radius: 50%;
-    background-color: white;
-    transition: background-color 0.3s, border-color 0.3s;
-    text-indent: -9999px;
-    overflow: hidden;
-}
-
-.section-indicator a.active {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-
-
+  
 </style>
 
-
 {{ end }}
-
