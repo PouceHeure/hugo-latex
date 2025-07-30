@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/css/toc.css">
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
    
-    <aside class="toc w-25 d-none d-md-block position-sticky" style="top: 80px; margin-right: 20px;">
+    <aside class="toc w-25 d-none d-lg-block position-sticky" style="top: 80px; margin-right: 20px;">
         <div class="toc-container p-3 shadow rounded card p-3 d-flex flex-column shadow h-100 card-transparent">
             <h5 class="toc-title">📖 Contents</h5>
             {{ .TableOfContents }}
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const article = document.querySelector(".markdown-content");
 
     function adjustLayout() {
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < 1024) {
             toc.classList.add("d-none");
             article.classList.remove("w-md-75");
             article.classList.add("w-100", "mx-auto");

@@ -100,42 +100,41 @@
   }
 
 
-  /* --- Cacher le sommaire sur mobile --- */
-@media (max-width: 768px) {
-    .toc {
-        display: none;
-    }
-    .toc-toggle {
-        display: block;
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        background: #007bff;
-        color: #fff;
-        padding: 10px 15px;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-        z-index: 1000;
-    }
-}
 
-/* --- Afficher le sommaire quand il est activé sur mobile --- */
-@media (max-width: 768px) {
-    .toc.active {
-        display: block;
-        position: fixed;
-        top: 50px;
-        left: 10px;
-        right: 10px;
-        background: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        max-height: 60vh;
-        overflow-y: auto;
-        z-index: 999;
-    }
+
+@media (max-width: 1024px) {
+  .toc {
+    display: none;
+  }
+
+  .toc-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #007bff;
+    color: #fff;
+    padding: 6px 10px; /* plus petit */
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .toc.active {
+    display: block;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    right: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 999;
+  }
 }
 
 
