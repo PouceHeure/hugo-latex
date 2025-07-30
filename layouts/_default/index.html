@@ -1,11 +1,19 @@
 {{ define "main" }}
 
+<!-- get videos informations -->
+{{ partial "collect-videos.html" . }}
+{{ $videos := .Scratch.Get "videos" | default (slice) }}
+{{ $sorted := sort $videos "page.Date" "desc" }}
+{{ $latestVideos := first 3 $sorted }}
+
 <!-- Section: Navigation Dots for Scrolling -->
 <nav class="section-indicator d-none d-md-block">
   <ul>
-    <li><a href="#home" data-section="home">Accueil</a></li>
-    <li><a href="#projects" data-section="projects">Projets</a></li>
-    <li><a href="#videos" data-section="videos">Vidéos</a></li>
+    <li><a href="#home" data-section="home">Home</a></li>
+    <li><a href="#projects" data-section="projects">Projects</a></li>
+    {{ if gt (len $latestVideos) 0 }}
+      <li><a href="#videos" data-section="videos">Vidéos</a></li>
+    {{ end }}
   </ul>
 </nav>
 
@@ -89,11 +97,6 @@
 </div>
 
 <!-- Section: Latest Videos -->
-{{ partial "collect-videos.html" . }}
-{{ $videos := .Scratch.Get "videos" | default (slice) }}
-{{ $sorted := sort $videos "page.Date" "desc" }}
-{{ $latestVideos := first 3 $sorted }}
-
 {{ if gt (len $latestVideos) 0 }}
   <div class="container mt-5" id="videos">
     <h2 class="text-center text-secondary m-5">Latest Videos</h2>
