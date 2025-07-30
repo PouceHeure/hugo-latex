@@ -253,6 +253,12 @@ table tr:nth-child(even) {
 }
 
 
+.project-title-bg {
+    background-color: rgba(255, 255, 255, 0.8); /* blanc, 80% opaque */
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
 
 
 /*  */

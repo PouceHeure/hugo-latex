@@ -1,5 +1,14 @@
 {{ define "main" }}
-<div class="homepage-container text-center tags-container p-3 rounded mb-4">
+
+<nav class="section-indicator">
+  <ul>
+    <li><a href="#home" data-section="home">Accueil</a></li>
+    <li><a href="#projects" data-section="projects">Projets</a></li>
+    <li><a href="#videos" data-section="videos">Vidéos</a></li>
+  </ul>
+</nav>
+
+<div class="homepage-container text-center tags-container p-3 rounded mb-4" id="home">
     <h1 class="text-primary mt-5 d-flex align-items-center justify-content-center">
         <span class="text-primary dynamic-container">
             <span id="changing-word" class="dynamic-text"></span>
@@ -46,7 +55,7 @@
 </div>
 
 
-<div class="container mt-5">
+<div class="container mt-5" id="projects">
     <h2 class="text-center text-secondary m-5">Latest Projects</h2>
     <div class="row">
         {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
@@ -72,6 +81,36 @@
         {{ end }}
     </div>
 </div> 
+
+
+
+{{ partial "collect-videos.html" . }}
+{{ $videos := .Scratch.Get "videos" | default (slice) }}
+{{ $sorted := sort $videos "page.Date" "desc" }}
+{{ $latestVideos := first 3 $sorted }}
+
+{{ if gt (len $latestVideos) 0 }}
+<div class="container mt-5" id="videos">
+    <h2 class="text-center text-secondary m-5">Latest Videos</h2>
+    <div class="row justify-content-center">
+        {{ range $latestVideos }}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow h-100 card-transparent">
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/{{ .code }}" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-center small text-muted">Fig. — {{ .caption }}</p>
+                    <p class="text-center">
+                        <a href="{{ .page.RelPermalink }}" class="btn btn-outline-primary btn-sm">View in context</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -122,6 +161,87 @@ document.addEventListener("DOMContentLoaded", function() {
         typeWriterEffect(words[i], 0);
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sections = ["home", "projects", "videos"];
+    const indicatorLinks = document.querySelectorAll(".section-indicator a");
+
+    function activateSection(currentId) {
+        indicatorLinks.forEach(link => {
+            if (link.dataset.section === currentId) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    }
+
+    function onScroll() {
+        let scrollPosition = window.scrollY + window.innerHeight / 2;
+
+        for (let id of sections) {
+            let section = document.getElementById(id);
+            if (section) {
+                let offsetTop = section.offsetTop;
+                let offsetHeight = section.offsetHeight;
+                if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                    activateSection(id);
+                    break;
+                }
+            }
+        }
+    }
+
+    document.addEventListener("scroll", onScroll);
+    onScroll(); // initial call
+});
 </script>
 
+
+
+
+<style>
+
+    .section-indicator {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    z-index: 999;
+}
+
+.section-indicator ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-indicator li {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.section-indicator a {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    background-color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.section-indicator a.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+</style>
+
+
 {{ end }}
+

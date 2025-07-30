@@ -9,3 +9,6 @@
 </div>
 <figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
 </figure>
+
+{{ $video := dict "code" (.Get "code") "caption" (.Get "caption") "page" .Page }}
+{{ .Page.Scratch.Set "videoData" $video }}
