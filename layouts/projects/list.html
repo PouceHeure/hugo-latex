@@ -40,7 +40,7 @@
       {{ end }}
 
       <!-- Single Project Card -->
-      <div class="col">
+      <div class="col mb-3 mb-sm-0">
         {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden" }}
         {{ with .Params.image }}
           {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
