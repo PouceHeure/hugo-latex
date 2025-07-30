@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- get videos informations -->
-{{ partial "collect-videos.html" . }}
+{{ partialCached "collect-videos.html" .  "videos-on-homepage"}}
 {{ $videos := .Scratch.Get "videos" | default (slice) }}
 {{ $sorted := sort $videos "page.Date" "desc" }}
 {{ $latestVideos := first 3 $sorted }}

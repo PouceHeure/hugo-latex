@@ -1,5 +1,21 @@
 {{ define "main" }}
 
+
+<meta name="description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
+
+<meta name="keywords" content="{{ delimit .Params.tags ", " }}">
+<meta name="author" content="{{ .Site.Params.name }}"> <!-- remplace par ton nom ou retire -->
+
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ .Permalink }}">
+
+{{ with .Params.image }}
+  <meta property="og:image" content="{{ . | absURL }}">
+{{ end }}
+
+
 <!-- Reset figure counter -->
 {{ .Scratch.Set "figCounter" 0 }}
 

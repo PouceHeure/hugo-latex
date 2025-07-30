@@ -1,14 +1,27 @@
 baseURL = "https://example.com/"
-languageCode = "fr-fr"
-title = "Mon Blog & CV Hugo"
+languageCode = "en-en"
+title = "Title"
 theme = "hugo-latex"
 [author]
-    name = "Votre Nom"
+    name = "your-name"
 
 [markup]
     [markup.goldmark]
         [markup.goldmark.renderer]
             unsafe = true
+
+    [markup.tableOfContents]
+        startLevel = 2
+        endLevel = 4
+        ordered = false
+
+[params]
+  linkedin = "your-linkedin-link"
+  github = "your-github-link"
+  linkedin_username = "your-linkedin-name"
+  youtube_playlist = "your-youtube-link"
+  name = "your-name"
+  about = """your-description"""
 
 [outputs]
 home = ["HTML", "RSS"]
