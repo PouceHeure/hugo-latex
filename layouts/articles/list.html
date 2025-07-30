@@ -16,7 +16,7 @@
             {{ if ne $prevYear "" }}
                 </div> <!-- Close previous year's grid -->
             {{ end }}
-            <h2 class="text-secondary mt-4">{{ $currentYear }}</h2>
+            <h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 publicationList">
             {{ $prevYear = $currentYear }}
         {{ end }}
