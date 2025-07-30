@@ -1,11 +1,18 @@
-/* style.css */
+/* ---------------------------------------------
+   General Layout
+--------------------------------------------- */
+
 body {
-  background-color: #faf0be;
-  /* Fond couleur papier jaune */
+  background-color: #faf0be; /* Fond couleur papier jaune */
   font-family: Arial, sans-serif;
   color: #333;
   margin: 0;
   padding: 0;
+
+  /* Optional grid pattern */
+  background-image: linear-gradient(rgba(0, 0, 250, 0.03) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0, 0, 250, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 header {
@@ -15,51 +22,71 @@ header {
   text-align: center;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin-right: 20px;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
+main {
+  min-height: calc(
+    100vh - 180px
+  ); /* Ajuste selon la hauteur du header et footer */
 }
 
 footer {
   margin-top: 50px;
-  /* Ajoute de l'espace entre le main et le footer */
   padding: 20px;
 }
 
-main {
-  min-height: calc(100vh - 180px);
-  /* Ajuste selon la hauteur du header et footer */
+/* ---------------------------------------------
+   Navbar Styles
+--------------------------------------------- */
+
+.navbar-custom {
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-custom .nav-link {
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #ffdd57 !important;
+}
+
+.navbar-custom .nav-link.active {
+  color: #ffdd57 !important;
+  font-weight: bold;
+  border-bottom: 3px solid #ffdd57;
+}
+
+.navbar-custom .social-icons a {
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-custom .social-icons a:hover {
+  transform: scale(1.2);
+}
+
+.navbar-toggler {
+  font-weight: bold;
 }
 
 .social-icons {
-    gap: 0.75rem;
+  gap: 0.75rem;
 }
 
+/* ---------------------------------------------
+   Icon Sizes
+--------------------------------------------- */
 
-body {
-  /* background-color: #00f400; */
-  background-image: linear-gradient(rgba(0, 0, 250, 0.03) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 0, 250, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
+.icon-size {
+  font-size: 1.5rem;
 }
 
-
-.emoji {
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
-  filter: grayscale(100%);
+.icon-size-lg {
+  font-size: 1.75rem;
 }
 
-
+/* ---------------------------------------------
+   Homepage
+--------------------------------------------- */
 
 .homepage-container {
   display: flex;
@@ -67,38 +94,28 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  /* Center the content vertically */
   text-align: center;
 }
 
+/* ---------------------------------------------
+   Dynamic Typing Text
+--------------------------------------------- */
 
 .dynamic-text {
   display: inline-block;
   font-weight: bold;
-  /* color: var(--bs-primary); */
-  white-space: nowrap;
-  animation: slideText 4s infinite;
-  min-height: 4rem;
-  /* Fixe une hauteur minimale pour éviter les sauts */
-  /* line-height: 1.5rem; Assure un alignement vertical correct */
-}
-
-
-.dynamic-text {
-  display: inline-block;
-  font-weight: bold;
-  /* color: var(--bs-primary); */
   overflow: hidden;
   white-space: nowrap;
   padding-right: 5px;
   position: relative;
+  min-height: 4rem;
+  animation: slideText 4s infinite;
 }
 
 .dynamic-text::after {
   content: '|';
   position: absolute;
   right: 0;
-  /* color: var(--bs-primary); */
   animation: blink 0.7s infinite;
 }
 
@@ -108,24 +125,30 @@ body {
   }
 }
 
+/* ---------------------------------------------
+   Emoji Style
+--------------------------------------------- */
+
+.emoji {
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  filter: grayscale(100%);
+}
+
+/* ---------------------------------------------
+   Timeline
+--------------------------------------------- */
+
 .timeline {
   width: 150px;
   position: sticky;
   top: 20px;
   border-left: 3px solid #ccc;
-  /* Ajuste ici */
   padding-left: 20px;
 }
 
-
-.navbar-custom .nav-link.active {
-  color: #ffdd57 !important;
-  font-weight: bold;
-  border-bottom: 3px solid #ffdd57;
-}
-
-
-
+/* ---------------------------------------------
+   Mosaic Background
+--------------------------------------------- */
 
 .mosaic {
   position: fixed;
@@ -152,6 +175,9 @@ body {
   transform: scale(1.1);
 }
 
+/* ---------------------------------------------
+   Cards and Layout
+--------------------------------------------- */
 
 .card-transparent {
   background-color: rgba(255, 255, 255, 0.2);
@@ -160,6 +186,64 @@ body {
 .card {
   border: none !important;
 }
+
+.card_image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1),
+    rgba(0, 99, 255, 0.2)
+  );
+  z-index: 1;
+}
+
+.card_image > * {
+  position: relative;
+  z-index: 2;
+}
+
+.project-title-bg {
+  background-color: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+/* ---------------------------------------------
+   Table Styling
+--------------------------------------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 0.95rem;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ---------------------------------------------
+   Citation / References
+--------------------------------------------- */
 
 .citation {
   font-style: italic;
@@ -197,68 +281,58 @@ body {
   text-decoration: underline;
 }
 
-
-/* LIST ARTICLES */
-
-/* Style for the tags section */
+/* ---------------------------------------------
+   Tags Section (e.g., Article list)
+--------------------------------------------- */
 
 .title-tags {
   font-size: 18px;
   font-weight: bold;
+  padding-bottom: 10px;
+  /* Optional styles you had commented out */
   /* color: #333; */
   /* text-align: center; */
-  padding-bottom: 10px;
   /* border-bottom: 2px solid var(--bs-primary); */
 }
 
-.card_image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 1.0),
-      rgba(0, 99, 255, 0.2));
-  z-index: 1;
-  /* border-radius: 0.5rem; */
+/* ---------------------------------------------
+   section Home page
+--------------------------------------------- */
+
+/* Section Indicator Styles */
+.section-indicator {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  z-index: 999;
 }
 
-.card_image>* {
-  position: relative;
-  z-index: 2;
+.section-indicator ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-  font-size: 0.95rem;
+.section-indicator li {
+  margin: 20px 0;
+  text-align: center;
 }
 
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  text-align: left;
+.section-indicator a {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  background-color: white;
+  transition: background-color 0.3s, border-color 0.3s;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.section-indicator a.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 
-table tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-
-.project-title-bg {
-    background-color: rgba(255, 255, 255, 0.8); /* blanc, 80% opaque */
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 5px;
-}
-
-
-/*  */

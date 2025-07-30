@@ -18,8 +18,9 @@
     color: #fff !important;
   }
   .btn-primary:hover {
-    background-color: darkred !important;
-    border-color: darkred !important;
+    background-color: #fff !important;
+    border-color: var(--bs-primary) !important;
+    color:  var(--bs-primary) !important;
   }
   
   .btn-secondary {
