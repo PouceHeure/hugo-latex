@@ -102,3 +102,62 @@ static/css/
   toc.css
   color.css
 ```
+
+
+## Example Shortcode Usage
+
+### Equation
+
+```markdown
+{{< equation >}}
+E = mc^2
+{{< /equation >}}
+```
+
+### Citation
+
+```markdown
+{{< cite "einstein1905" >}}
+```
+
+### Reference
+
+```markdown
+See {{< ref "some-section" >}} for more details.
+```
+
+### Figure
+
+```markdown
+{{< figure src="/images/diagram.png" caption="A sample diagram." >}}
+```
+
+### Subfigure
+
+```markdown
+{{< subfigure
+  src="/images/image1.png"
+  caption="Left figure"
+>}}{{< subfigure
+  src="/images/image2.png"
+  caption="Right figure"
+>}}
+```
+
+### Table
+
+```markdown
+{{< table-wrap >}}
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+{{< /table-wrap >}}
+```
+
+### YouTube Video
+
+```markdown
+{{< youtube id="dQw4w9WgXcQ" width="your-size" caption="your-caption" >}}
+```
+
+These shortcodes enhance the academic publishing capabilities of your site, emulating LaTeX-like formatting directly in Markdown.
