@@ -356,3 +356,17 @@ table tr:nth-child(even) {
   border-left-color: #0d6efd;
   color: #0d6efd;
 }
+
+
+.equation-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  display: block;
+  padding-bottom: 0.5rem;
+}
+
+.equation-block {
+  display: inline-block;
+  white-space: nowrap;
+  min-width: 100%;
+}
