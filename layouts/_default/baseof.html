@@ -82,30 +82,9 @@
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- MathJax Configuration -->
-    <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [
-            ['$', '$'],
-            ['\\(', '\\)']
-          ]
-        },
-        svg: { fontCache: 'global' }
-      }
-    </script>
+    <script src="/js/setup-latex.js"></script>
 
     <!-- Active Menu Highlight Script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        let currentPath = window.location.pathname;
-        let navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-
-        navLinks.forEach(link => {
-          if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-          }
-        });
-      });
-    </script>
+    <script src="/js/highlight-navbar.js"></script>
   </body>
 </html>

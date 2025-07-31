@@ -1,9 +1,9 @@
 {{/* Initialiser */}}
 {{ .Scratch.Set "videos" (slice) }}
 
-{{/* Parcourir toutes les pages du site */}}
+
 {{ range .Site.RegularPages }}
-    {{ $dummy := .Content }}
+    {{ $dummy := .Content }} {{/* Force projects page creation first */}}
     {{ $page := . }}
     {{ with .Scratch.Get "figCounter" }}{{ end }} {{/* Juste pour forcer le rendu du shortcode si jamais */}}
     {{ if .Resources }}
