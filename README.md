@@ -120,7 +120,7 @@ E = mc^2
 {{< cite "einstein1905" >}}
 ```
 
-Need to create a file /data/biblio.yaml and fill it like: 
+Need to create a file /data/biblio.yaml and fill it as: 
 ```yaml
 einstein1905: # name to use with the cite command
   text: ... # name appear once the command called
