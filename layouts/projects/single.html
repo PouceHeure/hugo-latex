@@ -42,7 +42,8 @@
     <!-- Article Tags -->
     <div class="pb-4">
       {{ range .Params.tags }}
-        <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light">#{{ . }}</a>
+        <!-- <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light">#{{ . }}</a> -->
+        <a class="badge bg-primary text-light" disabled>#{{ . }}</a>
       {{ end }}
     </div>
 
