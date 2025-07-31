@@ -30,3 +30,25 @@
 
     document.addEventListener("scroll", onScroll);
     onScroll(); // initial state
+
+
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault(); // empêche le scroll par défaut
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const elementRect = targetElement.getBoundingClientRect();
+        const elementTop = elementRect.top + window.scrollY;
+        const elementHeight = targetElement.offsetHeight;
+        const offset = (window.innerHeight / 2) - (elementHeight / 2);
+
+        window.scrollTo({
+          top: elementTop - offset,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
