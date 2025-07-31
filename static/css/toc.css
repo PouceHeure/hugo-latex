@@ -110,8 +110,9 @@
 
 /* Active link highlight */
 .toc ul li a.active {
-  color: var(--bs-danger);
-  padding: 5px 2px;
+  color: #fff;
+  background-color: var(--bs-primary);
+  padding: 9px;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
 }

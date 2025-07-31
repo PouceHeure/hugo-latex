@@ -31,13 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     sections.forEach(section => {
-      if (section.offsetTop - 80 <= scrollPosition) {
+      if (section.offsetTop - window.innerHeight/2 <= scrollPosition) {
         currentSection = section;
       }
     });
-
-    console.log(scrollPosition)
-    console.log(currentSection)
 
     if (currentSection) {
       let id = currentSection.getAttribute("id");
@@ -51,4 +48,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   window.addEventListener("scroll", highlightCurrentSection);
+  highlightCurrentSection();
 });
