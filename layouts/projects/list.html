@@ -22,9 +22,15 @@
         {{ range $projectTags }}
           <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">#{{ . }}</a>
         {{ end }}
-      </div>
+      </div>    
     </div>
   </section>
+
+        <div id="selectedTagDisplay" class="m-4 d-none">
+  <span class="badge bg-primary text-dark px-4 py-2 fs-6">
+    Filtered by <strong id="selectedTagName"></strong>
+  </span>
+</div>
 
   <!-- Section: Project Cards Grouped by Year -->
   <article class="tags-container rounded mb-4">
