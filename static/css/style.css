@@ -383,3 +383,9 @@ table tr:nth-child(even) {
 .refer-box p {
   margin: 0;
 }
+
+a.badge[disabled] {
+  pointer-events: none;
+  text-decoration: none; /* remove underline */
+  cursor: default;
+}

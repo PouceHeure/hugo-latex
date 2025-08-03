@@ -9,7 +9,7 @@
   <!-- Tags -->
   <div class="mb-3">
     {{ range .Params.tags }}
-      <a href="/tags/{{ . | urlize }}" class="btn badge bg-primary me-2 mb-2 shadow">
+      <a href="/tags/{{ . | urlize }}" class="btn badge bg-primary me-2 mb-2 shadow" disabled>
         #{{ . }}
       </a>
     {{ end }}
