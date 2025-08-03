@@ -370,3 +370,16 @@ table tr:nth-child(even) {
   white-space: nowrap;
   min-width: 100%;
 }
+
+
+.refer-box {
+  background-color: var(--bs-light);
+  border-left: 4px solid var(--bs-primary);
+  padding: 1em;
+  margin: 1.5em 0;
+  border-radius: 4px;
+}
+
+.refer-box p {
+  margin: 0;
+}
