@@ -60,10 +60,10 @@
   font-size: 1.5rem;
   /* font-weight: bold; */
   color: var(--bs-secondary);
-  border-right: 3px solid var(--bs-secondary);
+  /* border-right: 3px solid var(--bs-secondary); */
   border-left: 10px solid var(--bs-secondary);
-  background: rgba(108, 117, 125, 0.05);
-  box-shadow: 0px 0px 5px var(--bs-secondary);
+  background: rgba(108, 117, 125, 0.1);
+  /* box-shadow: 0px 0px 5px var(--bs-secondary); */
   padding: 8px;
   margin: 12px 0;
   border-radius: 4px;
