@@ -56,6 +56,12 @@ footer {
   border-bottom: 3px solid #ffdd57;
 }
 
+.nav-link.active {
+  color: #ffdd57 !important;
+  font-weight: bold;
+  border-bottom: 3px solid #ffdd57;
+}
+
 .navbar-custom .social-icons a {
   transition: transform 0.3s ease-in-out;
 }

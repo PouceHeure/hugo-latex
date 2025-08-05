@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .Site.Title }}</title>
 
-    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://www.youtube.com" />
 
-
-    <!-- CSS Section -->
-    <!-- External CSS Libraries -->
+    <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="/css/style.css" />
@@ -17,39 +15,48 @@
     <link rel="stylesheet" href="/css/markdown.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
 
+    <!-- Layout adjustments based on screen size -->
+    <style>
+      @media (max-width: 767.98px) {
+        main {
+          margin-top: 112px; /* 56px + 56px: two navbars on mobile */
+        }
+      }
+
+      @media (min-width: 768px) {
+        main {
+          margin-top: 56px; /* Single navbar on desktop/tablet */
+        }
+      }
+    </style>
   </head>
 
   <body class="bg-light">
     <header>
-      <!-- Navigation Bar -->
+      <!-- Primary Navbar (fixed top) -->
       <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2">
-        <div class="container-fluid px-4">
-          <!-- Left side: Brand and social icons -->
-          <div class="d-flex align-items-center">
-            <a class="navbar-brand fw-bold me-4" href="/">{{ .Site.Title }}</a>
-            <div class="d-none d-md-flex social-icons align-items-center">
-              <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-2">
-                <i class="bi bi-linkedin icon-size"></i>
-              </a>
-              <a href="{{ .Site.Params.github }}" target="_blank" class="text-white me-2">
-                <i class="bi bi-github icon-size"></i>
-              </a>
-              <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" target="_blank" class="text-white me-2">
-                <i class="bi bi-chat-fill icon-size"></i>
-              </a>
-              <a href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}" target="_blank" class="text-white">
-                <i class="bi bi-youtube icon-size-lg"></i>
-              </a>
-            </div>
+        <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+          <!-- Site Title -->
+          <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
+
+          <!-- Social Icons (right-aligned on mobile, inline on desktop) -->
+          <div class="d-flex align-items-center social-icons ms-md-0 ms-auto">
+            <a href="{{ .Site.Params.linkedin }}" target="_blank" class="text-white me-2">
+              <i class="bi bi-linkedin icon-size"></i>
+            </a>
+            <a href="{{ .Site.Params.github }}" target="_blank" class="text-white me-2">
+              <i class="bi bi-github icon-size"></i>
+            </a>
+            <a href="https://www.linkedin.com/messaging/compose/?recipient={{ .Site.Params.linkedin_username }}" target="_blank" class="text-white me-2">
+              <i class="bi bi-chat-fill icon-size"></i>
+            </a>
+            <a href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}" target="_blank" class="text-white">
+              <i class="bi bi-youtube icon-size-lg"></i>
+            </a>
           </div>
 
-          <!-- Burger Icon -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Right side: Collapsible Menu -->
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <!-- Main Navigation (visible on md and above) -->
+          <div class="collapse navbar-collapse justify-content-end d-none d-md-flex" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link text-white fw-bold me-3" href="/">Home</a>
@@ -69,22 +76,41 @@
           </div>
         </div>
       </nav>
+
+      <!-- Secondary Navbar (mobile only, fixed below primary navbar) -->
+      <nav class="d-flex d-md-none bg-primary text-white p-2 navbar-dark navbar-custom fixed-top" style="top: 56px; z-index: 2000;">
+        <div class="container-fluid d-flex justify-content-around">
+          <ul class="navbar-nav flex-row w-100 justify-content-around mb-0">
+            <li class="nav-item">
+              <a class="nav-link text-white fw-bold" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white fw-bold" href="/projects/">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white fw-bold" href="/articles/">Articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white fw-bold" href="/cv/">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
-    <!-- Main Content Section -->
-    <main class="container mt-5">{{ block "main" . }}{{ end }}</main>
+    <!-- Main content -->
+    <main class="container">
+      {{ block "main" . }}{{ end }}
+    </main>
 
-    <!-- JavaScript Section -->
-    <!-- External JS Libraries -->
+    <!-- JS Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- MathJax Configuration -->
+    <!-- Custom Math and Nav Scripts -->
     <script src="/js/setup-latex.js"></script>
-
-    <!-- Active Menu Highlight Script -->
     <script src="/js/highlight-navbar.js"></script>
   </body>
 </html>

@@ -1,21 +1,18 @@
-
-function get_base_url(url){
-    splitted = url.split("/");
-    if(splitted.length < 2){
-        return "";
-    }
-    return splitted[1];
+function get_base_url(url) {
+  const splitted = url.split("/");
+  return splitted.length < 2 ? "" : splitted[1];
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-        let currentPath = window.location.pathname;
-        let currentPathBase = get_base_url(currentPath);
+document.addEventListener("DOMContentLoaded", function () {
+  const currentPath = window.location.pathname;
+  const currentPathBase = get_base_url(currentPath);
 
-        let navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        navLinks.forEach(link => {
-          linkBaseUrl = get_base_url(link.getAttribute('href'))
-          if (linkBaseUrl == currentPathBase) {
-            link.classList.add('active');
-          }
-        });
-      });
+  const navLinks = document.querySelectorAll('a.nav-link');
+
+  navLinks.forEach(link => {
+    const linkBaseUrl = get_base_url(link.getAttribute("href"));
+    if (linkBaseUrl === currentPathBase) {
+      link.classList.add("active");
+    }
+  });
+});
