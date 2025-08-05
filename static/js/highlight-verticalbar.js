@@ -14,7 +14,6 @@
 
     function onScroll() {
       let scrollPosition = window.scrollY + window.innerHeight / 2;
-
       for (let id of sections) {
         let section = document.getElementById(id);
         if (section) {

@@ -12,14 +12,21 @@
     <li><a href="#home" data-section="home">Home</a></li>
     <li><a href="#projects" data-section="projects">Projects</a></li>
     {{ if gt (len $latestVideos) 0 }}
-      <li><a href="#videos" data-section="videos">Vidéos</a></li>
-    {{ end }}
+    <li><a href="#videos" data-section="videos">Vidéos</a></li>
+    {{
+      end
+    }}
   </ul>
 </nav>
 
 <!-- Section: Homepage Introduction -->
-<div class="homepage-container text-center tags-container p-3 rounded mb-4" id="home">
-  <h1 class="text-primary mt-5 d-flex align-items-center justify-content-center">
+<div
+  class="homepage-container text-center tags-container p-3 rounded mb-4"
+  id="home"
+>
+  <h1
+    class="text-primary mt-5 d-flex align-items-center justify-content-center"
+  >
     <span class="text-primary dynamic-container">
       <span id="changing-word" class="dynamic-text"></span>
     </span>
@@ -30,50 +37,63 @@
   <div class="row mt-5 gy-4 d-flex justify-content-center">
     <!-- Projects Card -->
     <!-- Projects Card -->
-<div class="col-lg-4 col-md-6">
-  <div class="card d-flex flex-column shadow h-100 card-transparent">
-    <div class="card-body text-center p-4">
-      <h3 class="text-primary">
-        <i class="bi bi-kanban-fill me-2"></i> Projects
-      </h3>
-      <p class="text-muted">Dive into my research, cutting-edge projects, and innovative developments.</p>
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">
+            <i class="bi bi-kanban-fill me-2"></i> Projects
+          </h3>
+          <p class="text-muted">
+            Dive into my research, cutting-edge projects, and innovative
+            developments.
+          </p>
+        </div>
+        <div class="text-center m-3">
+          <a href="/projects/" class="btn btn-primary btn-lg w-100"
+            >View Projects</a
+          >
+        </div>
+      </div>
     </div>
-    <div class="text-center m-3">
-      <a href="/projects/" class="btn btn-primary btn-lg w-100">View Projects</a>
+
+    <!-- Articles Card -->
+
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">
+            <i class="bi bi-journal-text me-2"></i> Scientific Articles
+          </h3>
+          <p class="text-muted">
+            Read my latest scientific publications and academic contributions.
+          </p>
+        </div>
+        <div class="text-center m-3">
+          <a href="/articles/" class="btn btn-primary btn-lg w-100"
+            >View Publications</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- CV Card -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body text-center p-4">
+          <h3 class="text-primary">
+            <i class="bi bi-person-vcard-fill me-2"></i> About
+          </h3>
+          <p class="text-muted">
+            Explore my academic and professional journey with key achievements
+            and milestones.
+          </p>
+        </div>
+        <div class="text-center m-3">
+          <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Articles Card -->
-<div class="col-lg-4 col-md-6">
-  <div class="card d-flex flex-column shadow h-100 card-transparent">
-    <div class="card-body text-center p-4">
-      <h3 class="text-primary">
-        <i class="bi bi-journal-text me-2"></i> Scientific Articles
-      </h3>
-      <p class="text-muted">Read my latest scientific publications and academic contributions.</p>
-    </div>
-    <div class="text-center m-3">
-      <a href="/articles/" class="btn btn-primary btn-lg w-100">View Publications</a>
-    </div>
-  </div>
-</div>
-
-<!-- CV Card -->
-<div class="col-lg-4 col-md-6">
-  <div class="card d-flex flex-column shadow h-100 card-transparent">
-    <div class="card-body text-center p-4">
-      <h3 class="text-primary">
-        <i class="bi bi-person-vcard-fill me-2"></i> About
-      </h3>
-      <p class="text-muted">Explore my academic and professional journey with key achievements and milestones.</p>
-    </div>
-    <div class="text-center m-3">
-      <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
-    </div>
-  </div>
-</div>
-
 </div>
 
 <!-- Section: Latest Projects -->
@@ -81,56 +101,73 @@
   <h2 class="text-center text-secondary m-5">Latest Projects</h2>
   <div class="row">
     {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card d-flex flex-column shadow h-100 card-transparent">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">
-              <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
-            </h5>
-            <p class="text-muted small">Published on {{ .Date.Format "02 January 2006" }}</p>
-            <div class="tags mb-2 d-flex justify-content-left flex-wrap">
-              {{ range .Params.tags }}
-               <span class="badge bg-secondary me-1 mb-1">
-                <i class="bi bi-tag me-1"></i>{{ . }}
-               </span>
-              {{ end }}
-            </div>
-            <div class="mt-auto">
-              <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm">Read more</a>
-            </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card d-flex flex-column shadow h-100 card-transparent">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">
+            <a
+              href="{{ .RelPermalink }}"
+              class="text-decoration-none text-dark"
+              >{{ .Title }}</a
+            >
+          </h5>
+          <p class="text-muted small">
+            Published on {{ .Date.Format "02 January 2006" }}
+          </p>
+          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
+            {{ range.Params.tags }}
+            <span class="badge bg-secondary me-1 mb-1">
+              <i class="bi bi-tag me-1"></i>{{ . }}
+            </span>
+            {{ end }}
+          </div>
+          <div class="mt-auto">
+            <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-sm"
+              >Read more</a
+            >
           </div>
         </div>
       </div>
+    </div>
     {{ end }}
   </div>
 </div>
 
 <!-- Section: Latest Videos -->
 {{ if gt (len $latestVideos) 0 }}
-  <div class="container mt-5" id="videos">
-    <h2 class="text-center text-secondary m-5">Latest Videos</h2>
-    <div class="row justify-content-center">
-      {{ range $latestVideos }}
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card shadow h-100 card-transparent">
-            <div class="ratio ratio-16x9">
-              <iframe src="https://www.youtube.com/embed/{{ .code }}" allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-              <p class="card-text text-center small text-muted">Fig. — {{ .caption }}</p>
-              <p class="text-center">
-                <a href="{{ .page.RelPermalink }}" class="btn btn-outline-primary btn-sm">View in context</a>
-              </p>
-            </div>
-          </div>
+<div class="container mt-5" id="videos">
+  <h2 class="text-center text-secondary m-5">Latest Videos</h2>
+  <div class="row justify-content-center">
+    {{ range $latestVideos }}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card shadow h-100 card-transparent">
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/{{ .code }}"
+            allowfullscreen
+          ></iframe>
         </div>
-      {{ end }}
+        <div class="card-body">
+          <p class="card-text text-center small text-muted">
+            Fig. — {{ .caption }}
+          </p>
+          <p class="text-center">
+            <a
+              href="{{ .page.RelPermalink }}"
+              class="btn btn-outline-primary btn-sm"
+              >View in context</a
+            >
+          </p>
+        </div>
+      </div>
     </div>
+    {{ end }}
   </div>
+</div>
 {{ end }}
 
 <!-- JavaScript Section -->
- <script>
+<script>
   const wordsHugo = [{{ range $index, $tag := .Site.Taxonomies.tags }}{{ if $index }},{{ end }}"{{ $tag.Page.Title }}"{{ end }}];
 </script>
 <script src="/js/animation-typewrite.js"></script>
