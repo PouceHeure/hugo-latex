@@ -50,11 +50,9 @@
     {{ with .Params.article }}
     {{ $article := site.GetPage (.) }}
     {{ if $article }}
-      <div class="mt-2">
-        🔬 <a href="{{ $article.RelPermalink }}" class="badge bg-success text-light">
-          Scientific Article
-        </a>
-      </div>
+      <div class="align-items-center mt-2">
+      <a href="{{ $article.RelPermalink }}" class="btn btn-success">Read Scientific Article</a>
+    </div>
     {{ end }}
   {{ end }}
     

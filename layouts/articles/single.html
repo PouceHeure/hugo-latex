@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- Section: Single Article Page -->
-<article class="p-3 markdown-content container d-flex flex-column align-items-center col-lg-10 col-md-12">
+<article class="p-3 markdown-content container d-flex flex-column col-lg-10 col-md-12">
 
   <!-- Article Title -->
   <h1 class="text-primary">{{ .Title }}</h1>
@@ -14,15 +14,17 @@
       {{ end }}
     </div>
 
+    <div class="align-items-center mt-2">
+      <a href="{{ .Params.doi }}" class="btn btn-success">Read Article</a>
+    </div>
+
   <!-- Article Content -->
   <div class="col-12">
     {{ .Content }}
   </div>
 
   <!-- Link to External Article -->
-  <div class="m-5">
-    <a href="{{ .Params.doi }}" target="_blank" class="btn btn-primary btn-lg">View Article</a>
-  </div>
+  
 
 </article>
 
