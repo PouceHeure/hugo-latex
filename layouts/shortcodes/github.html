@@ -1,0 +1,17 @@
+<div class="refer-box">
+  <i class="bi bi-github"></i> View on GitHub
+
+  {{ $repo := .Get "repo" }}
+  {{ $path := .Get "path" }}
+  {{ $branch := .Get "branch" | default "main" }}
+  {{ $link := "" }}
+  {{ if $path }}
+  {{ $link = printf "https://github.com/%s/blob/%s/%s" $repo $branch $path }}
+  {{ else }}
+  {{ $link = printf "https://github.com/%s" $repo }}
+  {{ end }}
+
+  <a href="{{ $link }}" target="_blank" rel="noopener noreferrer">
+    {{ $link }}
+  </a>
+</div>
