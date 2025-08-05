@@ -11,7 +11,12 @@
   <figcaption>Video {{ $videoNum }} - {{ .Get "caption" }}</figcaption>
 </figure>
 
+<!-- label -->
 {{ $video := dict "code" (.Get "code") "caption" (.Get "caption") "number" $videoNum }}
 {{ if $label }}
   {{ .Page.Scratch.Set (printf "videoLabel-%s" $label) $video }}
 {{ end }}
+
+<!-- video saved (for homepage -->
+{{ $videoSaved := dict "code" (.Get "code") "caption" (.Get "caption") "page" .Page }}
+{{ .Page.Scratch.Set "videoData" $videoSaved }}

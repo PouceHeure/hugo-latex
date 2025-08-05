@@ -6,6 +6,11 @@
 {{ $sorted := sort $videos "page.Date" "desc" }}
 {{ $latestVideos := first 3 $sorted }}
 
+<script>
+  console.log("videos: ")
+  console.log({{ $latestVideos}})
+</script>
+
 <!-- Section: Navigation Dots for Scrolling -->
 <nav class="section-indicator d-none d-md-block">
   <ul>
