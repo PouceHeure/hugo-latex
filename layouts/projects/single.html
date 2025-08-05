@@ -1,22 +1,18 @@
 {{ define "main" }}
 
-
+<!-- Meta Tags -->
 <meta name="description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
-
 <meta name="keywords" content="{{ delimit .Params.tags ", " }}">
-<meta name="author" content="{{ .Site.Params.name }}"> <!-- remplace par ton nom ou retire -->
-
+<meta name="author" content="{{ .Site.Params.name }}">
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ .Permalink }}">
-
 {{ with .Params.image }}
   <meta property="og:image" content="{{ . | absURL }}">
 {{ end }}
 
-
-<!-- Reset figure counter -->
+<!-- Reset Counters -->
 {{ .Scratch.Set "figCounter" 0 }}
 {{ .Scratch.Set "eqCounter" 0 }}
 
@@ -26,47 +22,61 @@
 <!-- Page Layout -->
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
 
-  <!-- Section: Sidebar TOC -->
+  <!-- Sidebar: TOC -->
   <aside class="toc w-25 d-none d-lg-block toc-sticky">
-    <div class="toc-container p-3 shadow rounded card p-3 d-flex flex-column shadow h-100 card-transparent">
+    <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100 card-transparent">
       <h5 class="toc-title">📖 Contents</h5>
       {{ .TableOfContents }}
     </div>
   </aside>
 
-  <!-- Section: Main Markdown Content -->
+  <!-- Main Content -->
   <article class="markdown-content flex-grow-1 w-100 w-md-75">
-    <!-- Article Title -->
+
+    <!-- Title -->
     <h1 class="text-primary">{{ .Title }}</h1>
 
-    <!-- Article Tags -->
-    <div class="">
+    <!-- Tags -->
+    <div>
       {{ range .Params.tags }}
-        <!-- <a href="/tags/{{ . | urlize }}" class="badge bg-primary text-light">#{{ . }}</a> -->
         <a class="badge bg-primary text-light" disabled>#{{ . }}</a>
       {{ end }}
     </div>
 
+    <!-- Article Button -->
     {{ with .Params.article }}
-    {{ $article := site.GetPage (.) }}
-    {{ if $article }}
-      <div class="align-items-center mt-2">
-      <a href="{{ $article.RelPermalink }}" class="btn btn-success">Read Scientific Article</a>
-    </div>
+      {{ $article := site.GetPage . }}
+      {{ if $article }}
+        <div class="align-items-center mt-2">
+          <a href="{{ $article.RelPermalink }}" class="btn btn-success">Read Scientific Article</a>
+        </div>
+      {{ end }}
     {{ end }}
-  {{ end }}
-    
-  <div class="pb-4"></div>
-    <!-- Rendered Markdown Body -->
+
+    <!-- GitHub Source Code Button -->
+    {{ with .Params.Github }}
+      <div class="align-items-center mt-2">
+        <a href="{{ . }}" rel="noopener noreferrer" class="btn btn-success" style="text-decoration: none;">
+          <span style="text-decoration: underline;"><i class="bi bi-github"></i></span>
+          <span style="display:inline-block; width: 0.25em;"></span>
+          <span style="text-decoration: underline;">Source Code</span>
+        </a>
+      </div>
+    {{ end }}
+
+    <!-- Spacer -->
+    <div class="pb-4"></div>
+
+    <!-- Markdown Content -->
     <div class="content">
       {{ .Content | safeHTML }}
     </div>
+
   </article>
 </div>
 
-<!-- JavaScript Section: TOC Behavior & Responsiveness -->
+<!-- Scripts -->
 <script src="/js/highlight-toc.js"></script>
 <script src="/js/select-toc-part.js"></script>
-
 
 {{ end }}
