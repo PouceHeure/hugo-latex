@@ -20,17 +20,23 @@
         {{ $projectTags = sort $projectTags }}
 
         {{ range $projectTags }}
-          <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">#{{ . }}</a>
+       <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
+        <i class="bi bi-tag me-1"></i>{{ . }}
+      </a>
+
         {{ end }}
       </div>    
     </div>
   </section>
 
-    <div id="selectedTagDisplay" class="m-3 mt-4 d-none">
-      <span class="badge bg-primary text-dark p-2 fs-6">
-        Filtered by: <strong id="selectedTagName"></strong>
-      </span>
-    </div>
+   <div id="selectedTagDisplay" class="m-3 mt-0 d-none d-flex align-items-center gap-2">
+    <span class="badge bg-primary text-dark p-2 fs-6 d-flex align-items-center">
+      <i class="bi bi-tag me-1"></i>
+      <strong id="selectedTagName"></strong>
+    </span>
+  </div>
+
+
 
   <!-- Section: Project Cards Grouped by Year -->
   <article class="tags-container rounded mb-4">
@@ -72,14 +78,18 @@
           {{ end }}
 
           <!-- Date -->
-          <p class="text-muted small">🗓️ {{ .Date.Format "02 January 2006" }}</p>
+          <p class="text-muted small">
+  <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+</p>
 
           <!-- Tags -->
-          <div class="tags mb-2 d-flex flex-wrap gap-1">
-            {{ range .Params.tags }}
-              <span class="badge bg-secondary px-2 py-1">{{ . | lower }}</span>
-            {{ end }}
-          </div>
+          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
+              {{ range .Params.tags }}
+               <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+               </span>
+              {{ end }}
+            </div>
 
           <!-- Action Button -->
           <div class="mt-auto">

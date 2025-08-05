@@ -29,44 +29,51 @@
   <!-- Section: Feature Cards -->
   <div class="row mt-5 gy-4 d-flex justify-content-center">
     <!-- Projects Card -->
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
-        <div class="card-body text-center p-4">
-          <h3 class="text-primary">📝 Projects</h3>
-          <p class="text-muted">Dive into my research, cutting-edge projects, and innovative developments.</p>
-        </div>
-        <div class="text-center m-3">
-          <a href="/projects/" class="btn btn-primary btn-lg w-100">View Projects</a>
-        </div>
-      </div>
+    <!-- Projects Card -->
+<div class="col-lg-4 col-md-6">
+  <div class="card d-flex flex-column shadow h-100 card-transparent">
+    <div class="card-body text-center p-4">
+      <h3 class="text-primary">
+        <i class="bi bi-kanban-fill me-2"></i> Projects
+      </h3>
+      <p class="text-muted">Dive into my research, cutting-edge projects, and innovative developments.</p>
     </div>
-
-    <!-- Articles Card -->
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
-        <div class="card-body text-center p-4">
-          <h3 class="text-primary">📚 Scientific Articles</h3>
-          <p class="text-muted">Read my latest scientific publications and academic contributions.</p>
-        </div>
-        <div class="text-center m-3">
-          <a href="/articles/" class="btn btn-primary btn-lg w-100">View Publications</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- CV Card -->
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
-        <div class="card-body text-center p-4">
-          <h3 class="text-primary">📄 About</h3>
-          <p class="text-muted">Explore my academic and professional journey with key achievements and milestones.</p>
-        </div>
-        <div class="text-center m-3">
-          <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
-        </div>
-      </div>
+    <div class="text-center m-3">
+      <a href="/projects/" class="btn btn-primary btn-lg w-100">View Projects</a>
     </div>
   </div>
+</div>
+
+<!-- Articles Card -->
+<div class="col-lg-4 col-md-6">
+  <div class="card d-flex flex-column shadow h-100 card-transparent">
+    <div class="card-body text-center p-4">
+      <h3 class="text-primary">
+        <i class="bi bi-journal-text me-2"></i> Scientific Articles
+      </h3>
+      <p class="text-muted">Read my latest scientific publications and academic contributions.</p>
+    </div>
+    <div class="text-center m-3">
+      <a href="/articles/" class="btn btn-primary btn-lg w-100">View Publications</a>
+    </div>
+  </div>
+</div>
+
+<!-- CV Card -->
+<div class="col-lg-4 col-md-6">
+  <div class="card d-flex flex-column shadow h-100 card-transparent">
+    <div class="card-body text-center p-4">
+      <h3 class="text-primary">
+        <i class="bi bi-person-vcard-fill me-2"></i> About
+      </h3>
+      <p class="text-muted">Explore my academic and professional journey with key achievements and milestones.</p>
+    </div>
+    <div class="text-center m-3">
+      <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <!-- Section: Latest Projects -->
@@ -81,9 +88,11 @@
               <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
             </h5>
             <p class="text-muted small">Published on {{ .Date.Format "02 January 2006" }}</p>
-            <div class="tags mb-2">
+            <div class="tags mb-2 d-flex justify-content-center flex-wrap">
               {{ range .Params.tags }}
-                <span class="badge bg-secondary me-1">{{ . }}</span>
+               <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+               </span>
               {{ end }}
             </div>
             <div class="mt-auto">

@@ -56,7 +56,7 @@
             filterCards(selectedTag);
 
             selectedTagDisplay.classList.remove("d-none");
-            selectedTagName.textContent = "#" + selectedTag;
+            selectedTagName.textContent = selectedTag;
         }
       });
     });

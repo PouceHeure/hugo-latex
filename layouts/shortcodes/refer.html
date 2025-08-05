@@ -1,9 +1,9 @@
 {{ if .Get "section" }}
   <div class="refer-box">
-    ℹ️ For more details, refer to the <strong>{{ .Get "section" }}</strong> section of <a href="{{ .Get "href" }}">{{ .Get "project" }}</a>.
+    <i class="bi bi-book"></i> For more details, refer to the <strong>{{ .Get "section" }}</strong> section of <a href="{{ .Get "href" }}">{{ .Get "project" }}</a>.
   </div>
 {{ else }}
   <div class="refer-box">
-    ℹ️ For more details, refer to the project <strong><a href="{{ .Get "href" }}">{{ .Get "project" }}</a></strong>
+    <i class="bi bi-book"></i> For more details, refer to the project <strong><a href="{{ .Get "href" }}">{{ .Get "project" }}</a></strong>
   </div>
 {{ end }}

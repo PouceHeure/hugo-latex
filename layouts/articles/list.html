@@ -44,11 +44,13 @@
           <p class="card-text"><strong>Year:</strong> {{ .Params.year }}</p>
 
           <!-- Tags -->
-          <div class="tags mb-2">
-            {{ range .Params.tags }}
-              <span class="badge bg-secondary me-1">{{ . | lower }}</span>
-            {{ end }}
-          </div>
+          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
+              {{ range .Params.tags }}
+               <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+               </span>
+              {{ end }}
+            </div>
 
           <!-- Action Buttons -->
           <div class="mt-auto d-flex gap-2">

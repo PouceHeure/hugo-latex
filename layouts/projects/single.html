@@ -39,19 +39,33 @@
     <!-- Tags -->
     <div>
       {{ range .Params.tags }}
-        <a class="badge bg-primary text-light" disabled>#{{ . }}</a>
+        <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+               </span>
       {{ end }}
     </div>
 
+    <!-- <div class="tags mb-2 d-flex justify-content-left flex-wrap">
+              {{ range .Params.tags }}
+               <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+               </span>
+              {{ end }}
+            </div> -->
+
     <!-- Article Button -->
     {{ with .Params.article }}
-      {{ $article := site.GetPage . }}
-      {{ if $article }}
-        <div class="align-items-center mt-2">
-          <a href="{{ $article.RelPermalink }}" class="btn btn-success">Read Scientific Article</a>
-        </div>
-      {{ end }}
+    {{ $article := site.GetPage . }}
+    {{ if $article }}
+      <div class="align-items-center mt-2">
+        <a href="{{ $article.RelPermalink }}" class="btn btn-success" style="text-decoration: none;">
+          <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
+          <span style="display:inline-block; width: 0.25em;"></span>
+          <span style="text-decoration: underline;">Read Scientific Article</span>
+        </a>
+      </div>
     {{ end }}
+  {{ end }}
 
     <!-- GitHub Source Code Button -->
     {{ with .Params.Github }}
