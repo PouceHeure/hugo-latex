@@ -16,9 +16,13 @@
       {{ end }}
     </div>
 
-    <div class="align-items-center mt-2">
-      <a href="{{ .Params.doi }}" class="btn btn-success">Read Article</a>
-    </div>
+     <div class="align-items-center mt-2">
+        <a href="{{ .Params.doi }}" class="btn btn-success" style="text-decoration: none;">
+          <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
+          <span style="display:inline-block; width: 0.25em;"></span>
+          <span style="text-decoration: underline;">Access Scientific Article</span>
+        </a>
+      </div>
 
   <!-- Article Content -->
   <div class="col-12">

@@ -1,4 +1,4 @@
-{{ $label := .Get "label" }} <!-- Récupère le label fourni -->
+{{ $label := .Get "label" }}
 {{ $figNum := .Page.Scratch.Get "figCounter" | default 0 }}
 {{ $figNum = add $figNum 1 }}
 {{ .Page.Scratch.Set "figCounter" $figNum }}

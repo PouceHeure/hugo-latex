@@ -1,0 +1,6 @@
+{{ $label := .Get "label" }}
+{{ with .Page.Scratch.Get (printf "videoLabel-%s" $label) }}
+  <a href="#{{ $label }}">Video {{ .number }}: {{ .caption }}</a>
+{{ else }}
+  <strong>Video label "{{ $label }}" not found.</strong>
+{{ end }}

@@ -1,14 +1,17 @@
-{{/* Vérifier si le compteur existe déjà pour cette page, sinon l'initialiser */}}
-{{ $figNum := .Page.Scratch.Get "figCounter" | default 0 }}
-{{ $figNum = add $figNum 1 }}
-{{ .Page.Scratch.Set "figCounter" $figNum }}
+{{ $videoNum := .Page.Scratch.Get "videoCounterCounter" | default 0 }}
+{{ $videoNum = add $videoNum 1 }}
+{{ .Page.Scratch.Set "videoCounterCounter" $videoNum }}
 
-<figure>
-<div class="ratio ratio-16x9" style="max-width: {{ .Get "width" }}px; margin: auto;">
+{{ $label := .Get "label" | default "" }}
+
+<figure {{ if $label }}id="{{ $label }}"{{ end }}>
+  <div class="ratio ratio-16x9" style="max-width: {{ .Get "width" }}px; margin: auto;">
     <iframe src="https://www.youtube.com/embed/{{ .Get "code" }}" allowfullscreen></iframe>
-</div>
-<figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
+  </div>
+  <figcaption>Video {{ $videoNum }} - {{ .Get "caption" }}</figcaption>
 </figure>
 
-{{ $video := dict "code" (.Get "code") "caption" (.Get "caption") "page" .Page }}
-{{ .Page.Scratch.Set "videoData" $video }}
+{{ $video := dict "code" (.Get "code") "caption" (.Get "caption") "number" $videoNum }}
+{{ if $label }}
+  {{ .Page.Scratch.Set (printf "videoLabel-%s" $label) $video }}
+{{ end }}
