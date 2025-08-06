@@ -12,7 +12,18 @@
 
   <!-- ==== Projects Section ==== -->
   {{ $tag := .Title | lower }}
-  {{ $projects := where (where .Site.RegularPages "Section" "projects") "Params.tags" "intersect" (slice $tag) }}
+{{ $projects := slice }}
+{{ range where .Site.RegularPages "Section" "projects" }}
+  {{ $tagsLower := slice }}
+  {{ range .Params.tags }}
+    {{ $tagsLower = $tagsLower | append (lower .) }}
+  {{ end }}
+  {{ if in $tagsLower $tag }}
+    {{ $projects = $projects | append . }}
+  {{ end }}
+{{ end }}
+
+
 
   {{ if $projects }}
   <article class="tags-container rounded mb-5">
@@ -73,7 +84,17 @@
   {{ end }}
 
   <!-- ==== Articles Section ==== -->
-  {{ $articles := where (where .Site.RegularPages "Section" "articles") "Params.tags" "intersect" (slice $tag) }}
+  {{ $articles := slice }}
+{{ range where .Site.RegularPages "Section" "articles" }}
+  {{ $tagsLower := slice }}
+  {{ range .Params.tags }}
+    {{ $tagsLower = $tagsLower | append (lower .) }}
+  {{ end }}
+  {{ if in $tagsLower $tag }}
+    {{ $articles = $articles | append . }}
+  {{ end }}
+{{ end }}
+
 
   {{ if $articles }}
   <article class="tags-container rounded mb-5">
