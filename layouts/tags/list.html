@@ -5,27 +5,8 @@
   {{ $tag := .Title | lower }}
   {{ $tagMeta := index site.Data.tags $tag }}
 
-  <!-- Tag Header -->
-  <div class="m-3 mt-0">
-    <div class="d-flex align-items-center gap-2 mb-2">
-      <span class="badge bg-primary text-dark p-2 fs-5 d-flex align-items-center">
-        <i class="bi bi-tag me-1"></i>
-        <strong>{{ $tagMeta.title | default .Title }}</strong>
-      </span>
-    </div>
-    {{ with $tagMeta.description }}
-      <p class="badge bg-secondary">{{ . }}</p>
-    {{ end }}
-  </div>
 
-  <!-- Section Jump Links -->
-  <!-- <div class="alert alert-info d-flex flex-wrap align-items-center gap-3 m-3">
-    <span class="fw-bold"><i class="bi bi-compass me-1"></i>Quick Navigation:</span>
-    <a href="#projects-section" class="btn btn-outline-primary btn-sm">Projects</a>
-    <a href="#articles-section" class="btn btn-outline-secondary btn-sm">Articles</a>
-  </div> -->
-
-  <!-- Content Summary Card -->
+  <!-- ==== Content Data ==== -->
   {{ $projects := slice }}
   {{ range where .Site.RegularPages "Section" "projects" }}
     {{ $tagsLower := slice }}
@@ -48,15 +29,28 @@
     {{ end }}
   {{ end }}
 
-  <div class="card card-transparent border-0 m-3">
-    <div class="card-body">
-      <h5 class="card-title"><i class="bi bi-info-circle me-1"></i> This Tag Includes:</h5>
-      <ul class="mb-0">
-        <li><strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }}</li>
-        <li><strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}</li>
-      </ul>
+  <!-- ==== Tag Header ==== -->
+  <div class="m-3 mt-0">
+    <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+      <h1 class="h1 mb-0 d-flex align-items-center text-primary">
+        <i class="bi bi-tag me-2 fs-4"></i>
+        {{ $tagMeta.title | default .Title }}
+      </h1>
+    </div>
+
+    {{ with $tagMeta.description }}
+      <p class="text-muted small mb-3 ps-1">
+        <h4><i class="bi bi-info-circle me-1"></i> {{ . }}</h4>
+      </p>
+    {{ end }}
+
+    <div class="alert alert-secondary py-2 px-3 small d-inline-block mb-4">
+      <i class="bi bi-layers me-1"></i>
+      <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }} &nbsp;|&nbsp;
+      <strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}
     </div>
   </div>
+
 
   <!-- ==== Projects Section ==== -->
   {{ if $projects }}
