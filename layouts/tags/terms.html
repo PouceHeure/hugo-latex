@@ -1,13 +1,26 @@
 {{ define "main" }}
-<div class="container mt-5">
-  <h1 class="mb-4 text-primary">Tags</h1>
+<div class="container min-vh-100 py-5">
 
-  <div class="d-flex flex-wrap gap-2">
-    {{ range .Data.Terms.Alphabetical }}
-      <a href="{{ .Page.RelPermalink }}" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
-        <i class="bi bi-tag me-1"></i> {{ .Page.Title }} ({{ .Count }})
-      </a>
+  <h1 class="text-primary mb-4">
+    <i class="bi bi-tags-fill me-2"></i>Tags
+  </h1>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {{ range $tag, $info := site.Data.tags }}
+      <div class="col">
+        <a href="/tags/{{ $tag | urlize }}/" class="text-decoration-none">
+          <div class="card h-100 shadow-sm border-0 hover-shadow">
+            <div class="card-body">
+              <h5 class="card-title text-primary d-flex align-items-center">
+                <i class="bi bi-tag-fill me-2"></i> {{ $info.title }}
+              </h5>
+              <p class="card-text text-muted small">{{ $info.description }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
     {{ end }}
   </div>
+
 </div>
 {{ end }}
