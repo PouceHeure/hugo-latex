@@ -1,0 +1,129 @@
+{{ define "main" }}
+
+<div class="container min-vh-100">
+
+  <!-- Current Tag -->
+  <div class="m-3 mt-0 d-flex align-items-center gap-2">
+    <span class="badge bg-primary text-dark p-2 fs-5 d-flex align-items-center">
+      <i class="bi bi-tag me-1"></i>
+      <strong>{{ .Title }}</strong>
+    </span>
+  </div>
+
+  <!-- ==== Projects Section ==== -->
+  {{ $tag := .Title | lower }}
+  {{ $projects := where (where .Site.RegularPages "Section" "projects") "Params.tags" "intersect" (slice $tag) }}
+
+  {{ if $projects }}
+  <article class="tags-container rounded mb-5">
+    <h2 class="text-primary m-3">Projects</h2>
+    {{ $prevYear := "" }}
+    {{ range (sort $projects "Date" "desc") }}
+      {{ $currentYear := .Date.Format "2006" }}
+      {{ if ne $currentYear $prevYear }}
+        {{ if ne $prevYear "" }}</div>{{ end }}
+        <h3 class="text-primary mt-4 m-3">{{ $currentYear }}</h3>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {{ $prevYear = $currentYear }}
+      {{ end }}
+
+      <!-- Project Card -->
+      <div class="col mb-3">
+        {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden" }}
+        {{ with .Params.image }}
+          {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
+        {{ end }}
+        <div class="{{ $cardClass }}"
+          {{ with .Params.image }}
+            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
+          {{ end }}>
+          
+          <h5 class="text-primary">
+            <span class="project-title-bg">
+              <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
+                {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
+              </a>
+            </span>
+          </h5>
+
+          {{ with .Params.description }}
+            <p class="text-muted small mb-2">{{ . }}</p>
+          {{ end }}
+
+          <p class="text-muted small">
+            <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+          </p>
+
+          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
+            {{ range .Params.tags }}
+              <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+              </span>
+            {{ end }}
+          </div>
+
+          <div class="mt-auto">
+            <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+    {{ end }}
+    </div>
+  </article>
+  {{ end }}
+
+  <!-- ==== Articles Section ==== -->
+  {{ $articles := where (where .Site.RegularPages "Section" "articles") "Params.tags" "intersect" (slice $tag) }}
+
+  {{ if $articles }}
+  <article class="tags-container rounded mb-5">
+    <h2 class="text-primary m-3">Articles</h2>
+    {{ $prevYear := "" }}
+    {{ range (sort $articles "Date" "desc") }}
+      {{ $currentYear := .Date.Format "2006" }}
+      {{ if ne $currentYear $prevYear }}
+        {{ if ne $prevYear "" }}</div>{{ end }}
+        <h3 class="text-primary mt-4 m-3">{{ $currentYear }}</h3>
+        <div class="row row-cols-1 g-4">
+        {{ $prevYear = $currentYear }}
+      {{ end }}
+
+      <!-- Article Card -->
+      <div class="col">
+        <div class="card p-3 shadow-sm h-100">
+          <h5 class="text-primary mb-2">
+            <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
+              {{ .Title }}
+            </a>
+          </h5>
+          {{ with .Params.description }}
+            <p class="text-muted small">{{ . }}</p>
+          {{ end }}
+          <p class="text-muted small mb-1">
+            <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+          </p>
+          <div class="tags d-flex flex-wrap">
+            {{ range .Params.tags }}
+              <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ . }}
+              </span>
+            {{ end }}
+          </div>
+
+          {{ with .Params.doi }}
+          <div class="mt-2">
+            <a href="{{ . }}" class="btn btn-success btn-sm">
+              <i class="bi bi-book-half me-1"></i> Access Scientific Article
+            </a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+    </div>
+  </article>
+  {{ end }}
+
+</div>
+
+{{ end }}

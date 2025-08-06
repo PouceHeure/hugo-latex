@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="container mt-5">
+  <h1 class="mb-4 text-primary">Tags</h1>
+
+  <div class="d-flex flex-wrap gap-2">
+    {{ range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
+        <i class="bi bi-tag me-1"></i> {{ .Page.Title }} ({{ .Count }})
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
