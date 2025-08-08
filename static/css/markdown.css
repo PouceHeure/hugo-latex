@@ -194,3 +194,11 @@ pre {
   background-color: rgba(0, 123, 255, 0.05);
   text-decoration: none;
 }
+
+
+
+.content ul li a {
+  overflow-wrap: break-word; /* coupe les mots trop longs */
+  word-break: break-word;    /* compatibilité large */
+  white-space: normal;       /* autorise le retour à la ligne */
+}
