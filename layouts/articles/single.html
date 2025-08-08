@@ -9,11 +9,11 @@
   <!-- Tags -->
  <div class="d-flex flex-wrap gap-2">
   {{ range .Params.tags }}
-    <a href="/tags/{{ . | urlize }}/"
-      class="btn btn-sm btn-secondary">
-      <i class="bi bi-tag"></i> 
-      <strong style="font-size: 1.1em;">{{ . }}</strong>
-    </a>
+      <a href="/tags/{{ replace . "_" "&" | urlize }}/"
+        class="btn btn-sm btn-secondary">
+        <i class="bi bi-tag"></i> 
+        <strong style="font-size: 1.1em;">{{ replace . "_" " " }}</strong>
+      </a>
   {{ end }}
   </div>
 

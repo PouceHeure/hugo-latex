@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function formatText(str) {
-    return str.replace(/-/g, ' ').replace(/_/g, " & ").replace(/\b\w/g, char => char.toUpperCase());
+    return str.replace(/_/g, " & ").replace(/\b\w/g, char => char.toUpperCase());
   }
 
   function shuffleArray(array) {

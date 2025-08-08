@@ -20,23 +20,20 @@
         {{ $projectTags = sort $projectTags }}
 
         {{ range $projectTags }}
-       <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
-        <i class="bi bi-tag me-1"></i>{{ . }}
-      </a>
-
+          <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
+            <i class="bi bi-tag me-1"></i>{{ replace . "_" " " }}
+          </a>
         {{ end }}
       </div>    
     </div>
   </section>
 
-   <div id="selectedTagDisplay" class="m-3 mt-0 d-none d-flex align-items-center gap-2">
+  <div id="selectedTagDisplay" class="m-3 mt-0 d-none d-flex align-items-center gap-2">
     <span class="badge bg-primary text-dark p-2 fs-6 d-flex align-items-center">
       <i class="bi bi-tag me-1"></i>
       <strong id="selectedTagName"></strong>
     </span>
   </div>
-
-
 
   <!-- Section: Project Cards Grouped by Year -->
   <article class="tags-container rounded mb-4">
@@ -79,17 +76,26 @@
 
           <!-- Date -->
           <p class="text-muted small">
-  <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
-</p>
+            <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+          </p>
 
           <!-- Tags -->
           <div class="tags mb-2 d-flex justify-content-left flex-wrap">
-              {{ range .Params.tags }}
-               <span class="badge bg-secondary me-1 mb-1">
-                <i class="bi bi-tag me-1"></i>{{ . }}
-               </span>
+            {{ range .Params.tags }}
+              <span class="badge bg-secondary me-1 mb-1">
+                <i class="bi bi-tag me-1"></i>{{ replace . "_" " " }}
+              </span>
+            {{ end }}
+
+            <!-- Code Languages -->
+            {{ with .Params.codelang }}
+              {{ range . }}
+                <span class="badge bg-info text-dark me-1 mb-1">
+                  <i class="bi bi-code-slash me-1"></i>{{ . }}
+                </span>
               {{ end }}
-            </div>
+            {{ end }}
+          </div>
 
           <!-- Action Button -->
           <div class="mt-auto">
@@ -103,7 +109,6 @@
 </div>
 
 <!-- JavaScript Section: Filter Projects by Tag -->
-<script src="/js/card-tags-filter.js">
-</script>
+<script src="/js/card-tags-filter.js"></script>
 
 {{ end }}

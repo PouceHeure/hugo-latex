@@ -17,7 +17,6 @@
 {{ .Scratch.Set "eqCounter" 0 }}
 {{ .Scratch.Set "videoCounterCounter" 0 }}
 
-
 <!-- Table of Contents Styles -->
 <link rel="stylesheet" href="/css/toc.css">
 
@@ -38,31 +37,39 @@
     <!-- Title -->
     <h1 class="text-primary">{{ .Title }}</h1>
 
-    <!-- Tags -->
+    <!-- Tags + Code Languages -->
     <div class="d-flex flex-wrap gap-2">
-  {{ range .Params.tags }}
-    <a href="/tags/{{ . | urlize }}/"
-      class="btn btn-sm btn-secondary">
-      <i class="bi bi-tag"></i> 
-      <strong style="font-size: 1.1em;">{{ . }}</strong>
-    </a>
-  {{ end }}
-  </div>
+      {{ range .Params.tags }}
+        <a href="/tags/{{ replace . "_" "&" | urlize }}/"
+          class="btn btn-sm btn-secondary">
+          <i class="bi bi-tag"></i>
+          <strong style="font-size: 1.1em;">{{ replace . "_" " " }}</strong>
+        </a>
+      {{ end }}
 
+      {{ with index .Params "codelang" }}
+      {{ range . }}
+        <span class="btn btn-sm btn-info text-white" style="pointer-events: none;">
+          <i class="bi bi-code-slash"></i>
+          <strong style="font-size: 1.1em;">{{ . }}</strong>
+        </span>
+      {{ end }}
+    {{ end }}
+    </div>
 
     <!-- Article Button -->
     {{ with .Params.article }}
-    {{ $article := site.GetPage . }}
-    {{ if $article }}
-      <div class="align-items-center mt-2">
-        <a href="{{ $article.RelPermalink }}" class="btn btn-success" style="text-decoration: none;">
-          <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
-          <span style="display:inline-block; width: 0.25em;"></span>
-          <span style="text-decoration: underline;">Read Scientific Article</span>
-        </a>
-      </div>
+      {{ $article := site.GetPage . }}
+      {{ if $article }}
+        <div class="align-items-center mt-2">
+          <a href="{{ $article.RelPermalink }}" class="btn btn-success" style="text-decoration: none;">
+            <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
+            <span style="display:inline-block; width: 0.25em;"></span>
+            <span style="text-decoration: underline;">Read Scientific Article</span>
+          </a>
+        </div>
+      {{ end }}
     {{ end }}
-  {{ end }}
 
     <!-- GitHub Source Code Button -->
     {{ with .Params.Github }}
@@ -74,9 +81,6 @@
         </a>
       </div>
     {{ end }}
-
-    <!-- Spacer -->
-    <!-- <div class="pb-4"></div> -->
 
     <!-- Markdown Content -->
     <div class="content">
