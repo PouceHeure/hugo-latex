@@ -1,0 +1,17 @@
+{{/* 
+Partial usage:
+  {{ $tag := partial "loadtagdata.html" "ai_ml" }}
+  {{ $tag.title }}
+*/}}
+
+{{ $input := . | lower }}
+{{ $tagsData := site.Data.tags }}
+{{ $entry := dict }}
+
+{{ range $k, $v := $tagsData }}
+  {{ if eq (lower (index $v "name")) $input }}
+    {{ $entry = $v }}
+  {{ end }}
+{{ end }}
+
+{{ return $entry }}

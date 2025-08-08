@@ -11,6 +11,9 @@
   console.log({{ $latestVideos}})
 </script>
 
+
+
+
 <!-- Section: Navigation Dots for Scrolling -->
 <nav class="section-indicator d-none d-md-block">
   <ul>
@@ -173,8 +176,13 @@
 
 <!-- JavaScript Section -->
 <script>
-  const wordsHugo = [{{ range $index, $tag := .Site.Taxonomies.tags }}{{ if $index }},{{ end }}"{{ $tag.Page.Title }}"{{ end }}];
+  window.tagReprMap = {
+    {{- range $k, $v := site.Data.tags -}}
+      "{{ $v.name }}": "{{ or $v.repr $v.title }}",
+    {{- end -}}
+  };
 </script>
+
 <script src="/js/animation-typewrite.js"></script>
 <script src="/js/highlight-verticalbar.js"></script>
 

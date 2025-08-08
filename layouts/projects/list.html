@@ -21,7 +21,7 @@
 
         {{ range $projectTags }}
           <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
-            <i class="bi bi-tag me-1"></i>{{ replace . "_" " " }}
+            <i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}
           </a>
         {{ end }}
       </div>    
@@ -82,10 +82,10 @@
           <!-- Tags -->
           <div class="tags mb-2 d-flex justify-content-left flex-wrap">
             {{ range .Params.tags }}
-              <span class="badge bg-secondary me-1 mb-1">
-                <i class="bi bi-tag me-1"></i>{{ replace . "_" " " }}
-              </span>
-            {{ end }}
+          <span class="badge bg-secondary me-1 mb-1">
+            <i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}
+          </span>
+        {{ end }}
 
             <!-- Code Languages -->
             {{ with .Params.codelang }}

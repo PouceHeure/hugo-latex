@@ -1,0 +1,30 @@
+{{/* 
+  Input : tag name (ex: "ai_ml")
+  Output: repr string (ex: "AI & ML")
+*/}}
+
+{{ $input := . | lower }}
+{{ $tags := site.Data.tags }}
+{{ $repr := "" }}
+
+{{/* 1) Cherche dans data/tags.yaml par .name */}}
+{{ range $k, $v := $tags }}
+  {{ if eq (lower (index $v "name")) $input }}
+    {{ $repr = or $v.repr $v.title }}
+  {{ end }}
+{{ end }}
+
+{{/* 2) Fallback si pas trouvé : règle &_space
+      - si exactement 2 morceaux séparés par "_" -> join avec " & "
+      - sinon: remplacer "_" par espace et Title-case
+*/}}
+{{ if not $repr }}
+  {{ $parts := split $input "_" }}
+  {{ if eq (len $parts) 2 }}
+    {{ $repr = printf "%s & %s" (title (index $parts 0)) (title (index $parts 1)) }}
+  {{ else }}
+    {{ $repr = title (delimit $parts " ") }}
+  {{ end }}
+{{ end }}
+
+{{ return $repr }}
