@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Optionally, update the URL hash
           history.pushState(null, null, '#' + targetId);
         }
+        
       });
     });
   });
