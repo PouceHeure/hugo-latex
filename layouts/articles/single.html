@@ -9,10 +9,10 @@
   <!-- Tags -->
  <div class="d-flex flex-wrap gap-2">
   {{ range .Params.tags }}
-      <a href="/tags/{{ replace . "_" "&" | urlize }}/"
+      <a href="/tags/{{ . | urlize }}/"
         class="btn btn-sm btn-secondary">
         <i class="bi bi-tag"></i> 
-        <strong style="font-size: 1.1em;">{{ replace . "_" " " }}</strong>
+        <strong style="font-size: 1.1em;">{{ partial "tagrepr.html" . }}</strong>
       </a>
   {{ end }}
   </div>
