@@ -30,40 +30,54 @@
   {{ end }}
 
   <!-- ==== Tag Header ==== -->
-  <div class="m-3 mt-0">
+<div class="mt-0 mb-5">
+  <div class="card card-transparent p-3">
+
     <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-      <h1 class="h1 mb-0 d-flex align-items-center text-primary">
+      <h1 class="h1 fw-bold mb-0 d-flex align-items-center text-primary">
         <i class="bi bi-tag me-2 fs-4"></i>
         {{ $tagMeta.title | default .Title }}
       </h1>
     </div>
 
     {{ with $tagMeta.description }}
-      <p class="text-muted small mb-3 ps-1">
-        <h4><i class="bi bi-info-circle me-1"></i> {{ . }}</h4>
-      </p>
+      <div class="mb-3">
+        <h5 class="text-muted mb-0">
+          {{ . }}
+        </h5>
+      </div>
     {{ end }}
 
-    <div class="alert alert-secondary py-2 px-3 small d-inline-block mb-4">
-      <i class="bi bi-layers me-1"></i>
-      <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }} &nbsp;|&nbsp;
-      <strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}
+    <div class="d-flex flex-wrap align-items-center gap-2 ps-1">
+      <a href="#projects-section" class="stat-chip text-decoration-none">
+        <i class="bi bi-hammer me-1"></i>
+        <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }}
+      </a>
+      <span class="dot-sep"></span>
+      <a href="#articles-section" class="stat-chip text-decoration-none">
+        <i class="bi bi-journal-richtext me-1"></i>
+        <strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}
+      </a>
     </div>
+
   </div>
+</div>
+
+
 
 
   <!-- ==== Projects Section ==== -->
   {{ if $projects }}
   <article id="projects-section" class="tags-container rounded mb-5">
-    <h2 class="text-primary m-3">
+    <h3 class="text-primary m-3">
       <i class="bi bi-hammer me-1"></i> Projects ({{ len $projects }})
-    </h2>
+    </h3>
     {{ $prevYear := "" }}
     {{ range (sort $projects "Date" "desc") }}
       {{ $currentYear := .Date.Format "2006" }}
       {{ if ne $currentYear $prevYear }}
         {{ if ne $prevYear "" }}</div>{{ end }}
-        <h3 class="text-primary mt-4 m-3">{{ $currentYear }}</h3>
+        <h4 class="text-primary mt-4 m-3">{{ $currentYear }}</h4>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
         {{ $prevYear = $currentYear }}
       {{ end }}
@@ -116,15 +130,15 @@
   <!-- ==== Articles Section ==== -->
   {{ if $articles }}
   <article id="articles-section" class="tags-container rounded mb-5">
-    <h2 class="text-secondary m-3">
+    <h3 class="text-secondary m-3">
       <i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})
-    </h2>
+    </h3>
     {{ $prevYear := "" }}
     {{ range (sort $articles "Date" "desc") }}
       {{ $currentYear := .Date.Format "2006" }}
       {{ if ne $currentYear $prevYear }}
         {{ if ne $prevYear "" }}</div>{{ end }}
-        <h3 class="text-secondary mt-4 m-3">{{ $currentYear }}</h3>
+        <h4 class="text-secondary mt-4 m-3">{{ $currentYear }}</h4>
         <div class="row row-cols-1 g-4">
         {{ $prevYear = $currentYear }}
       {{ end }}
