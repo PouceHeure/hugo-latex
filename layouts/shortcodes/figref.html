@@ -1,9 +1,15 @@
-{{ $label := .Get 0 }}
-{{ $map := .Page.Scratch.Get "labels" }}
-{{ $figID := index $map $label }}
+{{ $label  := .Get 0 }}
+{{ $labels := .Page.Scratch.Get "labels" }}
 
-{{ if $figID }}
-    <a href="#{{ $figID }}">Fig. {{ replace $figID "fig-" "" }}</a>
+{{ if not $label }}
+  <strong>Missing reference label: use {{`{{< figure label="your-label" >}}`}}</strong>
+{{ else if not $labels }}
+  <strong>No labels map found on this page. Make sure you set it before using the ref.</strong>
 {{ else }}
-    <strong>Unknow reference: {{ $label }}</strong>
+  {{ $figID := index $labels $label }}
+  {{ if $figID }}
+    <a href="#{{ $figID }}">Fig. {{ replace $figID "fig-" "" }}</a>
+  {{ else }}
+    <strong>Unknown reference: {{ $label }}</strong>
+  {{ end }}
 {{ end }}

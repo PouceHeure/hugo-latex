@@ -1,13 +1,37 @@
-{{ $label := .Get "label" }}
-{{ $figNum := .Page.Scratch.Get "figCounter" | default 0 }}
-{{ $figNum = add $figNum 1 }}
-{{ .Page.Scratch.Set "figCounter" $figNum }}
+{{/* figure shortcode */}}
+{{- $label    := .Get "label" -}}
+{{- $src      := .Get "src" | safeURL -}}
+{{- $alt      := .Get "alt" | default "" | htmlUnescape -}}
+{{- $width    := .Get "width" -}}
+{{- $height   := .Get "height" -}}
+{{- $caption  := .Get "caption" | default "" -}}
 
-{{ if $label }}
-    {{ .Page.Scratch.SetInMap "labels" $label (printf "fig-%d" $figNum) }}
-{{ end }}
+{{- /* Counter */ -}}
+{{- $figNum := .Page.Scratch.Get "figCounter" | default 0 -}}
+{{- $figNum = add $figNum 1 -}}
+{{- .Page.Scratch.Set "figCounter" $figNum -}}
+
+{{- /* Ensure the labels map exists */ -}}
+{{- $labels := .Page.Scratch.Get "labels" | default (dict) -}}
+{{- if not (isset $labels "init") -}}
+  {{- /* use a dummy key to mark it initialized, avoids type issues */ -}}
+  {{- $labels = dict "init" true -}}
+{{- end -}}
+
+{{- /* Register label -> fig-id (if provided) */ -}}
+{{- if $label -}}
+  {{- $id := printf "fig-%d" $figNum -}}
+  {{- if isset $labels $label -}}
+    <strong class="text-danger">Duplicate label "{{ $label }}": already set to {{ index $labels $label }}</strong>
+  {{- else -}}
+    {{- $labels = merge $labels (dict $label $id) -}}
+    {{- .Page.Scratch.Set "labels" $labels -}}
+  {{- end -}}
+{{- end -}}
 
 <figure id="fig-{{ $figNum }}">
-    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" width="{{ .Get "width" }}" height="{{ .Get "height" }}">
-    <figcaption>Fig. {{ $figNum }} - {{ .Get "caption" }}</figcaption>
+  <img src="{{ $src }}" alt="{{ $alt }}"
+    {{ with $width }} width="{{ . }}"{{ end }}
+    {{ with $height }} height="{{ . }}"{{ end }}>
+  <figcaption>Fig. {{ $figNum }} — {{ $caption }}</figcaption>
 </figure>
