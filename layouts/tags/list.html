@@ -50,7 +50,7 @@
 
     <div class="d-flex flex-wrap align-items-center gap-2 ps-1">
       <a href="#projects-section" class="stat-chip text-decoration-none">
-        <i class="bi bi-hammer me-1"></i>
+        <i class="bi bi-motherboard me-1"></i>
         <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }}
       </a>
       <span class="dot-sep"></span>
@@ -70,7 +70,7 @@
   {{ if $projects }}
   <article id="projects-section" class="tags-container rounded mb-5">
     <h3 class="text-primary m-3">
-      <i class="bi bi-hammer me-1"></i> Projects ({{ len $projects }})
+      <i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})
     </h3>
     {{ $prevYear := "" }}
     {{ range (sort $projects "Date" "desc") }}
