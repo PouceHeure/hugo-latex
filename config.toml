@@ -16,6 +16,7 @@ theme = "hugo-latex"
         ordered = false
 
 [params]
+  favicon = "/path/static/favicon/"
   linkedin = "your-linkedin-link"
   github = "your-github-link"
   linkedin_username = "your-linkedin-name"

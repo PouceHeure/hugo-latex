@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="/css/markdown.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
 
+    {{ with .Site.Params.favicon }}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ . }}/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ . }}/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ . }}/favicon-64.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ . }}/apple-touch-icon.png">
+    <link rel="shortcut icon" href="{{ . }}/favicon.ico">
+    {{ end }}
+
+
+
     <!-- Layout adjustments based on screen size -->
     <style>
       @media (max-width: 767.98px) {
