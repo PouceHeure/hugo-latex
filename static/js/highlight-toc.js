@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const toc = document.querySelector(".toc");
   const article = document.querySelector(".markdown-content");
 
+  // Responsive cohérent avec ton comportement
   function adjustLayout() {
+    if (!toc || !article) return;
     if (window.innerWidth < TABLET_WIDTH) {
       toc.classList.add("d-none");
       article.classList.remove("w-md-75");
@@ -15,38 +17,46 @@ document.addEventListener("DOMContentLoaded", function () {
       article.classList.add("w-md-75");
     }
   }
-
   window.addEventListener("resize", adjustLayout);
   adjustLayout();
 
-  const sections = document.querySelectorAll("h2, h3, h4");
-  const tocLinks = document.querySelectorAll(".toc ul li a");
+  const tocLinks = Array.from(document.querySelectorAll(".toc a[href^='#']"));
+  if (!tocLinks.length) return;
 
-  function highlightCurrentSection() {
-    let scrollPosition = window.scrollY;
-    let currentSection = null;
+  const targets = tocLinks
+    .map(a => document.getElementById(a.getAttribute("href").slice(1)))
+    .filter(Boolean);
 
-    if(sections.length > 0){
-        currentSection = sections[0];
-    }
+  // Helper: activer un lien
+  const setActive = (id) => {
+    tocLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+  };
 
-    sections.forEach(section => {
-      if (section.offsetTop - window.innerHeight/2 <= scrollPosition) {
-        currentSection = section;
-      }
-    });
+  // Observer pour activer le lien de la partie visible
+  const io = new IntersectionObserver((entries) => {
+    // On retient l’élément visible le plus haut dans la vue
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top)[0];
 
-    if (currentSection) {
-      let id = currentSection.getAttribute("id");
-      tocLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${id}`) {
-          link.classList.add("active");
-        }
-      });
-    }
+    if (visible) setActive(visible.target.id);
+  }, {
+    root: null,
+    rootMargin: "0px 0px -60% 0px",
+    threshold: 0.1
+  });
+
+  targets.forEach(t => io.observe(t));
+
+  // Si hash présent au chargement
+  if (location.hash) {
+    const id = location.hash.slice(1);
+    setTimeout(() => setActive(id), 0);
   }
 
-  window.addEventListener("scroll", highlightCurrentSection);
-  highlightCurrentSection();
+  // Sur navigation via le hash (ex: retour navigateur)
+  window.addEventListener("hashchange", () => {
+    const id = location.hash.slice(1);
+    setActive(id);
+  });
 });

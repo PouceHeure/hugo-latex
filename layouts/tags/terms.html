@@ -1,26 +1,77 @@
 {{ define "main" }}
 <div class="container min-vh-100 py-5">
 
-  <h1 class="text-primary mb-4">
-    <i class="bi bi-tags-fill me-2"></i>Tags
+  <!-- Heading -->
+  <h1 class="text-primary mb-4 d-flex align-items-center">
+    <i class="bi bi-tags-fill me-2"></i> Tags
   </h1>
 
+  {{/* Build a sortable slice from site.Data.tags: [{ key, info }] */}}
+  {{ $items := slice }}
+  {{ range $k, $v := site.Data.tags }}
+    {{ $items = $items | append (dict "key" $k "info" $v) }}
+  {{ end }}
+  {{ $items = sort $items "info.title" "asc" }}
+
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    {{ range $tag, $info := site.Data.tags }}
+    {{ range $items }}
+      {{ $key := .key }}
+      {{ $info := .info }}
+      {{ $tagLower := lower $key }}
+
+      {{/* Count projects with this tag (case-insensitive) */}}
+      {{ $pcount := 0 }}
+      {{ range where $.Site.RegularPages "Section" "projects" }}
+        {{ $tl := slice }}
+        {{ range .Params.tags }}{{ $tl = $tl | append (lower .) }}{{ end }}
+        {{ if in $tl $tagLower }}{{ $pcount = add $pcount 1 }}{{ end }}
+      {{ end }}
+
+      {{/* Count articles with this tag (case-insensitive) */}}
+      {{ $acount := 0 }}
+      {{ range where $.Site.RegularPages "Section" "articles" }}
+        {{ $tl := slice }}
+        {{ range .Params.tags }}{{ $tl = $tl | append (lower .) }}{{ end }}
+        {{ if in $tl $tagLower }}{{ $acount = add $acount 1 }}{{ end }}
+      {{ end }}
+
       <div class="col">
-        <a href="/tags/{{ $tag | urlize }}/" class="text-decoration-none">
-          <div class="card h-100 shadow-sm border-0 hover-shadow">
-            <div class="card-body">
-              <h5 class="card-title text-primary d-flex align-items-center">
-                <i class="bi bi-tag-fill me-2"></i> {{ $info.title }}
-              </h5>
-              <p class="card-text text-muted small">{{ $info.description }}</p>
+        <div class="card h-100 shadow-sm border-0 hover-shadow position-relative">
+          <div class="card-body">
+            <h5 class="card-title text-primary d-flex align-items-center mb-2">
+              <i class="bi bi-tag-fill me-2"></i> {{ $info.title }}
+            </h5>
+            {{ with $info.description }}
+              <p class="card-text text-muted small mb-3">{{ . }}</p>
+            {{ end }}
+
+            <!-- Quick actions: jump straight to sections on the tag page -->
+            <div class="d-flex flex-wrap gap-2">
+              <a href="/tags/{{ $key | urlize }}/#projects-section"
+                 class="btn btn-sm btn-outline-primary d-inline-flex align-items-center">
+                <i class="bi bi-motherboard me-1"></i>
+                <strong class="me-1">{{ $pcount }}</strong> Projects
+              </a>
+              <a href="/tags/{{ $key | urlize }}/#articles-section"
+                 class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
+                <i class="bi bi-journal-richtext me-1"></i>
+                <strong class="me-1">{{ $acount }}</strong> Articles
+              </a>
             </div>
           </div>
-        </a>
+
+          <!-- Make the whole card clickable to the tag page; buttons still work -->
+          <a class="stretched-link" href="/tags/{{ $key | urlize }}/" aria-label="Open tag {{ $info.title }}"></a>
+        </div>
       </div>
     {{ end }}
   </div>
 
 </div>
+
+<!-- Tiny visual polish -->
+<style>
+  .hover-shadow:hover { box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important; transform: translateY(-1px); transition: .15s ease; }
+  .card .btn strong { font-weight: 700; }
+</style>
 {{ end }}

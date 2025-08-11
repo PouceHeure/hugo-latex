@@ -1,183 +1,184 @@
 {{ define "main" }}
 
-<div class="container min-vh-100 py-5">
+<link rel="stylesheet" href="/css/toc.css">
 
-  {{ $tag := .Title | lower }}
-  {{ $tagMeta := index site.Data.tags $tag }}
+{{/* Data prep */}}
+{{ $tag := .Title | lower }}
+{{ $tagMeta := index site.Data.tags $tag }}
 
+{{ $projects := slice }}
+{{ range where .Site.RegularPages "Section" "projects" }}
+{{ $tagsLower := slice }}
+{{ range .Params.tags }}{{ $tagsLower = $tagsLower | append (lower .) }}{{ end }}
+{{ if in $tagsLower $tag }}{{ $projects = $projects | append . }}{{ end }}
+{{ end }}
 
-  <!-- ==== Content Data ==== -->
-  {{ $projects := slice }}
-  {{ range where .Site.RegularPages "Section" "projects" }}
-    {{ $tagsLower := slice }}
-    {{ range .Params.tags }}
-      {{ $tagsLower = $tagsLower | append (lower .) }}
-    {{ end }}
-    {{ if in $tagsLower $tag }}
-      {{ $projects = $projects | append . }}
-    {{ end }}
-  {{ end }}
+{{ $articles := slice }}
+{{ range where .Site.RegularPages "Section" "articles" }}
+{{ $tagsLower := slice }}
+{{ range .Params.tags }}{{ $tagsLower = $tagsLower | append (lower .) }}{{ end }}
+{{ if in $tagsLower $tag }}{{ $articles = $articles | append . }}{{ end }}
+{{ end }}
 
-  {{ $articles := slice }}
-  {{ range where .Site.RegularPages "Section" "articles" }}
-    {{ $tagsLower := slice }}
-    {{ range .Params.tags }}
-      {{ $tagsLower = $tagsLower | append (lower .) }}
-    {{ end }}
-    {{ if in $tagsLower $tag }}
-      {{ $articles = $articles | append . }}
-    {{ end }}
-  {{ end }}
+<div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
 
-  <!-- ==== Tag Header ==== -->
-<div class="mt-0 mb-5">
-  <div class="card card-transparent p-3">
+  <!-- TOC: section (H2) -> year (H3) -> item (H4) -->
+  <aside class="toc w-25 d-none d-lg-block toc-sticky">
+    <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100 card-transparent">
+      <h5 class="toc-title">
+        <i class="bi bi-journal-text me-1"></i> Contents
+      </h5>
+      <ul>
+        {{ if $projects }}
+        <li>
+          <a href="#projects-section"><i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})</a>
+          <ul>
+            {{ range (sort $projects "Date" "desc") }}
+            {{ $pid := printf "project-%d-%s" (.Date.Unix) (.Title | urlize) }}
+            <li><a href="#{{ $pid }}">{{ .Title }}</a></li>
+            {{ end }}
+          </ul>
+        </li>
+        {{ end }}
 
-    <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-      <h1 class="h1 fw-bold mb-0 d-flex align-items-center text-primary">
-        <i class="bi bi-tag me-2 fs-4"></i>
-        {{ $tagMeta.title | default .Title }}
-      </h1>
+        {{ if $articles }}
+        <li>
+          <a href="#articles-section"><i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})</a>
+          <ul>
+            {{ range (sort $articles "Date" "desc") }}
+            {{ $aid := printf "article-%d-%s" (.Date.Unix) (.Title | urlize) }}
+            <li><a href="#{{ $aid }}">{{ .Title }}</a></li>
+            {{ end }}
+          </ul>
+        </li>
+        {{ end }}
+      </ul>
     </div>
+  </aside>
+
+
+  <!-- Main content -->
+  <article class="markdown-content flex-grow-1 w-100 w-md-75">
+
+    <h1 class="text-primary d-flex align-items-center mb-2">
+      <i class="bi bi-tag me-2 fs-4"></i>
+      {{ $tagMeta.title | default .Title }}
+    </h1>
 
     {{ with $tagMeta.description }}
-      <div class="mb-3">
-        <h5 class="text-muted mb-0">
-          {{ . }}
-        </h5>
-      </div>
+    <h5 class="text-muted mt-0 mb-3">{{ . }}</h5>
     {{ end }}
 
-    <div class="d-flex flex-wrap align-items-center gap-2 ps-1">
-      <a href="#projects-section" class="stat-chip text-decoration-none">
+    <div class="d-flex flex-wrap align-items-center gap-2 ps-1 mb-4">
+      <a href="#projects-section" class="btn btn-sm btn-outline-primary">
         <i class="bi bi-motherboard me-1"></i>
         <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }}
       </a>
-      <span class="dot-sep"></span>
-      <a href="#articles-section" class="stat-chip text-decoration-none">
+      <a href="#articles-section" class="btn btn-sm btn-outline-secondary">
         <i class="bi bi-journal-richtext me-1"></i>
         <strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}
       </a>
     </div>
 
+    {{ if $projects }}
+    <section class="mb-5">
+      <h2 id="projects-section" class="text-primary m-0 mb-3 anchor-target">
+        <i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})
+      </h2>
+
+      {{ $prevYear := "" }}
+      {{ range (sort $projects "Date" "desc") }}
+      {{ $y := .Date.Format "2006" }}
+      {{ if ne $y $prevYear }}
+      {{ if ne $prevYear "" }}
+</div>{{ end }}
+<h3 id="{{ printf " projects-year-%s" $y }}" class="text-primary mt-4 anchor-target">{{ $y }}</h3>
+<div class="row row-cols-1 g-4">
+  {{ $prevYear = $y }}
+  {{ end }}
+
+  {{ $pid := printf "project-%d-%s" (.Date.Unix) (.Title | urlize) }}
+  <div class="col">
+    <section id="{{ $pid }}" class="card card-transparent p-3 shadow-sm h-100 anchor-target">
+      <h4 class="text-primary mb-2">
+        <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
+          {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
+        </a>
+      </h4>
+      {{ with .Params.description }}<p class="text-muted small">{{ . }}</p>{{ end }}
+      <p class="text-muted small mb-1"><i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+      </p>
+      <div class="tags d-flex flex-wrap">
+        {{ range .Params.tags }}<span class="badge bg-secondary me-1 mb-1"><i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}</span>{{ end }}
+      </div>
+      {{ with .Params.doi }}
+      <div class="mt-2"><a href="{{ . }}" class="btn btn-success btn-sm"><i class="bi bi-book-half me-1"></i> Access
+          Scientific Article</a></div>
+      {{ end }}
+    </section>
   </div>
+  {{ end }}
 </div>
+</section>
+{{ end }}
 
 
+{{ if $articles }}
+<section class="mb-5">
+  <h2 id="articles-section" class="text-secondary m-0 mb-3 anchor-target">
+    <i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})
+  </h2>
 
+  {{ $prevYear := "" }}
+  {{ range (sort $articles "Date" "desc") }}
+  {{ $y := .Date.Format "2006" }}
+  {{ if ne $y $prevYear }}
+  {{ if ne $prevYear "" }}</div>{{ end }}
+  <h3 id="{{ printf " articles-year-%s" $y }}" class="text-secondary mt-4 anchor-target">{{ $y }}</h3>
+  <div class="row row-cols-1 g-4">
+    {{ $prevYear = $y }}
+    {{ end }}
 
-  <!-- ==== Projects Section ==== -->
-  {{ if $projects }}
-  <article id="projects-section" class="tags-container rounded mb-5">
-    <h3 class="text-primary m-3">
-      <i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})
-    </h3>
-    {{ $prevYear := "" }}
-    {{ range (sort $projects "Date" "desc") }}
-      {{ $currentYear := .Date.Format "2006" }}
-      {{ if ne $currentYear $prevYear }}
-        {{ if ne $prevYear "" }}</div>{{ end }}
-        <h4 class="text-primary mt-4 m-3">{{ $currentYear }}</h4>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        {{ $prevYear = $currentYear }}
-      {{ end }}
-
-      <!-- Project Card -->
-      <div class="col mb-3">
-        {{ $cardClass := "card p-3 d-flex flex-column shadow h-100 card-transparent position-relative overflow-hidden" }}
-        {{ with .Params.image }}
-          {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
+    {{ $aid := printf "article-%d-%s" (.Date.Unix) (.Title | urlize) }}
+    <div class="col">
+      <section id="{{ $aid }}" class="card card-transparent p-3 shadow-sm h-100 anchor-target">
+        <h4 class="text-primary mb-2">
+          <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ .Title }}</a>
+        </h4>
+        {{ with .Params.description }}<p class="text-muted small">{{ . }}</p>{{ end }}
+        <p class="text-muted small mb-1"><i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
+        </p>
+        <div class="tags d-flex flex-wrap">
+          {{ range .Params.tags }}<span class="badge bg-secondary me-1 mb-1"><i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}</span>{{ end }}
+        </div>
+        {{ with .Params.doi }}
+        <div class="mt-2"><a href="{{ . }}" class="btn btn-success btn-sm"><i class="bi bi-book-half me-1"></i> Access
+            Scientific Article</a></div>
         {{ end }}
-        <div class="{{ $cardClass }}"
-          {{ with .Params.image }}
-            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
-          {{ end }}>
-
-          <h5 class="text-primary">
-            <span class="project-title-bg">
-              <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
-                {{ if .Params.pinned }}<span class="emoji">☆</span>{{ end }} {{ .Title }}
-              </a>
-            </span>
-          </h5>
-
-          {{ with .Params.description }}
-            <p class="text-muted small mb-2">{{ . }}</p>
-          {{ end }}
-
-          <p class="text-muted small">
-            <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
-          </p>
-
-          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
-            {{ range .Params.tags }}
-              <span class="badge bg-secondary me-1 mb-1">
-                <i class="bi bi-tag me-1"></i>{{ . }}
-              </span>
-            {{ end }}
-          </div>
-
-          <div class="mt-auto">
-            <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read More</a>
-          </div>
-        </div>
-      </div>
-    {{ end }}
+      </section>
     </div>
-  </article>
-  {{ end }}
-
-  <!-- ==== Articles Section ==== -->
-  {{ if $articles }}
-  <article id="articles-section" class="tags-container rounded mb-5">
-    <h3 class="text-secondary m-3">
-      <i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})
-    </h3>
-    {{ $prevYear := "" }}
-    {{ range (sort $articles "Date" "desc") }}
-      {{ $currentYear := .Date.Format "2006" }}
-      {{ if ne $currentYear $prevYear }}
-        {{ if ne $prevYear "" }}</div>{{ end }}
-        <h4 class="text-secondary mt-4 m-3">{{ $currentYear }}</h4>
-        <div class="row row-cols-1 g-4">
-        {{ $prevYear = $currentYear }}
-      {{ end }}
-
-      <!-- Article Card -->
-      <div class="col">
-        <div class="card p-3 shadow-sm h-100">
-          <h5 class="text-primary mb-2">
-            <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">
-              {{ .Title }}
-            </a>
-          </h5>
-          {{ with .Params.description }}
-            <p class="text-muted small">{{ . }}</p>
-          {{ end }}
-          <p class="text-muted small mb-1">
-            <i class="bi bi-calendar-event me-1"></i> {{ .Date.Format "02 January 2006" }}
-          </p>
-          <div class="tags d-flex flex-wrap">
-            {{ range .Params.tags }}
-              <span class="badge bg-secondary me-1 mb-1">
-                <i class="bi bi-tag me-1"></i>{{ . }}
-              </span>
-            {{ end }}
-          </div>
-
-          {{ with .Params.doi }}
-          <div class="mt-2">
-            <a href="{{ . }}" class="btn btn-success btn-sm">
-              <i class="bi bi-book-half me-1"></i> Access Scientific Article
-            </a>
-          </div>
-          {{ end }}
-        </div>
-      </div>
     {{ end }}
-    </div>
-  </article>
-  {{ end }}
+  </div>
+</section>
+{{ end }}
 
+
+</article>
 </div>
+
+<style>
+  /* Smooth scrolling + top offset */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .anchor-target {
+    scroll-margin-top: 80px;
+  }
+</style>
+
+<!-- Scripts -->
+<script src="/js/highlight-toc.js"></script>
+<script src="/js/select-toc-part.js"></script>
+
 {{ end }}

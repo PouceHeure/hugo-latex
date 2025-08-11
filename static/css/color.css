@@ -34,9 +34,17 @@
     border-color: var(--bs-secondary) !important;
     color: #fff !important;
   }
+
   .btn-secondary:hover {
-    background-color: #2dd64b !important;
-    border-color: #27b940 !important;
+    background-color: #fff !important;
+    border-color: var(--bs-secondary) !important;
+    color:  var(--bs-secondary) !important;
+  }
+
+  .btn-outline-secondary:hover {
+    background-color: var(--bs-secondary) !important;
+    border-color: var(--bs-secondary) !important;
+    color: #fff !important;
   }
   
   .btn-success {
