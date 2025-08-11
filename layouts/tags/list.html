@@ -21,40 +21,60 @@
 {{ end }}
 
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
-
-  <!-- TOC: section (H2) -> year (H3) -> item (H4) -->
-  <aside class="toc w-25 d-none d-lg-block toc-sticky">
-    <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100 card-transparent">
-      <h5 class="toc-title">
-        <i class="bi bi-journal-text me-1"></i> Contents
-      </h5>
-      <ul>
-        {{ if $projects }}
-        <li>
-          <a href="#projects-section"><i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})</a>
-          <ul>
-            {{ range (sort $projects "Date" "desc") }}
+<!-- TOC: section (H2) -> year (H3) -> item (H4) -->
+<aside class="toc w-25 d-none d-lg-block toc-sticky">
+  <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100 card-transparent">
+    <h5 class="toc-title">
+      <i class="bi bi-journal-text me-1"></i> Contents
+    </h5>
+    <ul>
+      {{ if $projects }}
+      <li>
+        <a href="#projects-section"><i class="bi bi-motherboard me-1"></i> Projects ({{ len $projects }})</a>
+        <ul>
+          {{ $prevYear := "" }}
+          {{ range (sort $projects "Date" "desc") }}
+            {{ $y := .Date.Format "2006" }}
+            {{ if ne $y $prevYear }}
+              {{ if ne $prevYear "" }}</ul></li>{{ end }}
+              <li>
+                <a href="#{{ printf "projects-year-%s" $y }}">{{ $y }}</a>
+                <ul>
+              {{ $prevYear = $y }}
+            {{ end }}
             {{ $pid := printf "project-%d-%s" (.Date.Unix) (.Title | urlize) }}
             <li><a href="#{{ $pid }}">{{ .Title }}</a></li>
-            {{ end }}
-          </ul>
-        </li>
-        {{ end }}
+          {{ end }}
+          </ul></li>
+        </ul>
+      </li>
+      {{ end }}
 
-        {{ if $articles }}
-        <li>
-          <a href="#articles-section"><i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})</a>
-          <ul>
-            {{ range (sort $articles "Date" "desc") }}
+      {{ if $articles }}
+      <li>
+        <a href="#articles-section"><i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})</a>
+        <ul>
+          {{ $prevYear := "" }}
+          {{ range (sort $articles "Date" "desc") }}
+            {{ $y := .Date.Format "2006" }}
+            {{ if ne $y $prevYear }}
+              {{ if ne $prevYear "" }}</ul></li>{{ end }}
+              <li>
+                <a href="#{{ printf "articles-year-%s" $y }}">{{ $y }}</a>
+                <ul>
+              {{ $prevYear = $y }}
+            {{ end }}
             {{ $aid := printf "article-%d-%s" (.Date.Unix) (.Title | urlize) }}
             <li><a href="#{{ $aid }}">{{ .Title }}</a></li>
-            {{ end }}
-          </ul>
-        </li>
-        {{ end }}
-      </ul>
-    </div>
-  </aside>
+          {{ end }}
+          </ul></li>
+        </ul>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</aside>
+
 
 
   <!-- Main content -->
@@ -92,7 +112,7 @@
       {{ if ne $y $prevYear }}
       {{ if ne $prevYear "" }}
 </div>{{ end }}
-<h3 id="{{ printf " projects-year-%s" $y }}" class="text-primary mt-4 anchor-target">{{ $y }}</h3>
+<h3 id="{{ printf " projects-year-%s" $y }}" class="text-secondary mt-4 anchor-target">{{ $y }}</h3>
 <div class="row row-cols-1 g-4">
   {{ $prevYear = $y }}
   {{ end }}
@@ -125,7 +145,7 @@
 
 {{ if $articles }}
 <section class="mb-5">
-  <h2 id="articles-section" class="text-secondary m-0 mb-3 anchor-target">
+  <h2 id="articles-section" class="text-primary m-0 mb-3 anchor-target">
     <i class="bi bi-journal-richtext me-1"></i> Articles ({{ len $articles }})
   </h2>
 
