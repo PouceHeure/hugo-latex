@@ -89,12 +89,12 @@
     <h5 class="text-muted mt-0 mb-3">{{ . }}</h5>
     {{ end }}
 
-    <div class="d-flex flex-wrap align-items-center gap-2 ps-1 mb-4">
-      <a href="#projects-section" class="btn btn-sm btn-outline-primary">
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+      <a href="#projects-section" class="btn btn-outline-primary">
         <i class="bi bi-motherboard me-1"></i>
         <strong>{{ len $projects }}</strong> project{{ if ne (len $projects) 1 }}s{{ end }}
       </a>
-      <a href="#articles-section" class="btn btn-sm btn-outline-secondary">
+      <a href="#articles-section" class="btn btn-outline-primary">
         <i class="bi bi-journal-richtext me-1"></i>
         <strong>{{ len $articles }}</strong> article{{ if ne (len $articles) 1 }}s{{ end }}
       </a>
