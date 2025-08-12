@@ -407,3 +407,8 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 80px;
 }
 
+#clearSelectedTag {
+  filter: invert(1) brightness(200%); /* pure white */
+  opacity: 1; /* fully visible */
+  transform: scale(1.1); /* slightly bigger */
+}
