@@ -2,11 +2,11 @@
 :root {
     --bs-primary: #0057b8;   /* Bleu profond scientifique */
     --bs-secondary: #6c757d; /* Gris anthracite moderne */
-    --bs-success: #28a745;   /* Vert lumineux pour les succès */
-    --bs-info: #17a2b8;      /* Cyan éclatant pour les infos */
-    --bs-warning: #ffcc00;   /* Jaune éclatant pour les alertes */
+    --bs-success: #28a745;   /* Bright green for successes */
+    --bs-info: #17a2b8;      /* Bright cyan for info */
+    --bs-warning: #ffcc00;   /* Bright yellow for warnings */
     --bs-danger: #d9534f;    /* Rouge intense pour les erreurs */
-    --bs-light: #f4f4f4;     /* Fond clair, très lisible */
+    --bs-light: #f4f4f4;     /* Light background, highly readable */
     --bs-dark: #1a1a1a;      /* Noir profond pour les contrastes */
 }
   

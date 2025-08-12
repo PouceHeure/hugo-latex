@@ -9,7 +9,7 @@
   counter-reset: h2-counter h3-counter h4-counter;
 }
 
-/* Numérotation des H2 */
+/* Numbering of H2 */
 .project-page h2 {
   counter-reset: h3-counter;
 }
@@ -19,13 +19,13 @@
   content: counter(h2-counter) '. ';
 }
 
-/* Numérotation des H3 */
+/* Numbering of H3 */
 .project-page h3::before {
   counter-increment: h3-counter;
   content: counter(h2-counter) '.' counter(h3-counter) ' ';
 }
 
-/* Numérotation des H4 */
+/* Numbering of H4 */
 .project-page h4::before {
   counter-increment: h4-counter;
   content: counter(h2-counter) '.' counter(h3-counter) '.' counter(h4-counter)
@@ -55,7 +55,7 @@
   border-radius: 4px;
 }
 
-/* H3 - Troisième niveau */
+/* H3 - Third level */
 .markdown-content h3 {
   font-size: 1.5rem;
   /* font-weight: bold; */
@@ -69,7 +69,7 @@
   border-radius: 4px;
 }
 
-/* H4 - Quatrième niveau */
+/* H4 - Fourth level */
 .markdown-content h4 {
   font-size: 1.3rem;
   font-weight: bold;
@@ -79,7 +79,7 @@
   margin: 10px 0;
 }
 
-/* H5 - Cinquième niveau */
+/* H5 - Fifth level */
 .markdown-content h5 {
   font-size: 1.2rem;
   font-weight: bold;
@@ -88,7 +88,7 @@
   margin: 8px 0;
 }
 
-/* H6 - Sixième niveau */
+/* H6 - Sixth level */
 .markdown-content h6 {
   font-size: 1.1rem;
   font-weight: bold;
@@ -199,6 +199,6 @@ pre {
 
 .content ul li a {
   overflow-wrap: break-word; /* coupe les mots trop longs */
-  word-break: break-word;    /* compatibilité large */
-  white-space: normal;       /* autorise le retour à la ligne */
+  word-break: break-word;    /* broad compatibility */
+  white-space: normal;       /* allow line wrapping */
 }

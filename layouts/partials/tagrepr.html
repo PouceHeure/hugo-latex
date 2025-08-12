@@ -14,9 +14,9 @@
   {{ end }}
 {{ end }}
 
-{{/* 2) Fallback si pas trouvé : règle &_space
-      - si exactement 2 morceaux séparés par "_" -> join avec " & "
-      - sinon: remplacer "_" par espace et Title-case
+{{/* 2) Fallback if not found : rule &_space
+      - if exactly 2 parts separated by "_" -> join with " & "
+      - otherwise: replace "_" by space and Title-case
 */}}
 {{ if not $repr }}
   {{ $parts := split $input "_" }}

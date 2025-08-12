@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const toc = document.querySelector(".toc");
   const article = document.querySelector(".markdown-content");
 
-  // Responsive cohérent avec ton comportement
+  // Responsive behavior for consistency
   function adjustLayout() {
     if (!toc || !article) return;
     if (window.innerWidth < TABLET_WIDTH) {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Observer pour activer le lien de la partie visible
   const io = new IntersectionObserver((entries) => {
-    // On retient l’élément visible le plus haut dans la vue
+    // Select the topmost visible element in the viewport
     const visible = entries
       .filter(e => e.isIntersecting)
       .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top)[0];
@@ -48,13 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   targets.forEach(t => io.observe(t));
 
-  // Si hash présent au chargement
+  // If a hash is present on load
   if (location.hash) {
     const id = location.hash.slice(1);
     setTimeout(() => setActive(id), 0);
   }
 
-  // Sur navigation via le hash (ex: retour navigateur)
+  // On navigation via hash (e.g., browser back)
   window.addEventListener("hashchange", () => {
     const id = location.hash.slice(1);
     setActive(id);
