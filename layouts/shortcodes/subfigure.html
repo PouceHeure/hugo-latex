@@ -1,34 +1,70 @@
-{{/* Vérifier si le compteur existe déjà pour cette page, sinon l'initialiser */}}
-{{ $figNum := .Page.Scratch.Get "figCounter" | default 0 }}
-{{ $figNum = add $figNum 1 }}
-{{ .Page.Scratch.Set "figCounter" $figNum }}
+{{/* bump shared figure counter */}}
+{{- $figNum := .Page.Scratch.Get "figCounter" | default 0 -}}
+{{- $figNum = add $figNum 1 -}}
+{{- .Page.Scratch.Set "figCounter" $figNum -}}
 
-{{ $images := split (.Get "images") "," }} 
-{{ $captions := split (.Get "captions") "," }}
+{{/* inputs */}}
+{{- $images    := split (.Get "images") "," -}}
+{{- $captions  := split (.Get "captions") "," -}}
+{{- $label     := .Get "label" -}}            {{/* optional: label for whole group -> Fig. N */}}
+{{- $sublabels := split ((.Get "sublabels") | default "") "," -}} {{/* optional: per-subfigure labels, comma-separated */}}
 
+{{/* ensure labels map exists (same pattern as figure) */}}
+{{- $labels := .Page.Scratch.Get "labels" | default (dict) -}}
+{{- if not (isset $labels "init") -}}
+  {{- $labels = dict "init" true -}}
+{{- end -}}
+
+{{/* register parent label -> fig-N */}}
+{{- if $label -}}
+  {{- $parentID := printf "fig-%d" $figNum -}}
+  {{- if isset $labels $label -}}
+    <strong class="text-danger">Duplicate label "{{ $label }}": already set to {{ index $labels $label }}</strong>
+  {{- else -}}
+    {{- $labels = merge $labels (dict $label $parentID) -}}
+    {{- .Page.Scratch.Set "labels" $labels -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* responsive grid sizing */}}
 <div class="row justify-content-center">
-    {{ $numImages := len $images }}
-    {{ $colClass := "col-md-4 col-sm-6 col-12" }} <!-- Par défaut : 3 images max en ligne -->
+  {{- $numImages := len $images -}}
+  {{- $colClass := "col-md-4 col-sm-6 col-12" -}}
+  {{- if eq $numImages 1 -}}
+    {{- $colClass = "col-12" -}}
+  {{- else if eq $numImages 2 -}}
+    {{- $colClass = "col-md-6 col-sm-6 col-12" -}}
+  {{- else if eq $numImages 3 -}}
+    {{- $colClass = "col-md-4 col-sm-6 col-12" -}}
+  {{- else if eq $numImages 4 -}}
+    {{- $colClass = "col-md-3 col-sm-6 col-12" -}}
+  {{- end -}}
 
-    {{ if eq $numImages 1 }}
-        {{ $colClass = "col-12" }} <!-- 1 image = pleine largeur -->
-    {{ else if eq $numImages 2 }}
-        {{ $colClass = "col-md-6 col-sm-6 col-12" }} <!-- 2 images = 50% chacune sur desktop -->
-    {{ else if eq $numImages 3 }}
-        {{ $colClass = "col-md-4 col-sm-6 col-12" }} <!-- 3 images = 1/3 chacune -->
-    {{ else if eq $numImages 4 }}
-        {{ $colClass = "col-md-3 col-sm-6 col-12" }} <!-- 4 images = 1/4 chacune -->
-    {{ end }}
+  {{- range $index, $img := $images -}}
+    {{- $img = trim $img " " -}}
+    {{- $i := add $index 1 -}}
+    {{- $subID := printf "fig-%d.%d" $figNum $i -}}
 
-    {{ range $index, $image := $images }}
-        {{ $image = trim $image " " }}
-        <div class="{{ $colClass }} text-center">
-            <figure>
-                <img src="{{ $image }}" alt="{{ index $captions $index | default "" }}" class="img-fluid">
-                {{ if lt $index (len $captions) }}
-                    <figcaption class="text-muted">Fig. {{ $figNum }}.{{ add $index 1 }} - {{ index $captions $index }}</figcaption>
-                {{ end }}
-            </figure>
-        </div>
-    {{ end }}
+    {{/* optional per-subfigure label registration: sublabels="a,b,c" */}}
+    {{- if lt $index (len $sublabels) -}}
+      {{- $sublabel := trim (index $sublabels $index) " " -}}
+      {{- if $sublabel -}}
+        {{- if isset $labels $sublabel -}}
+          <strong class="text-danger">Duplicate label "{{ $sublabel }}": already set to {{ index $labels $sublabel }}</strong>
+        {{- else -}}
+          {{- $labels = merge $labels (dict $sublabel $subID) -}}
+          {{- .Page.Scratch.Set "labels" $labels -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    <div class="{{ $colClass }} text-center">
+      <figure id="{{ $subID }}">
+        <img src="{{ $img }}" alt="{{ index $captions $index | default "" }}" class="img-fluid">
+        {{- if lt $index (len $captions) -}}
+          <figcaption class="text-muted">Fig. {{ $figNum }}.{{ $i }} — {{ index $captions $index }}</figcaption>
+        {{- end -}}
+      </figure>
+    </div>
+  {{- end -}}
 </div>
