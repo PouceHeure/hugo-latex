@@ -52,6 +52,12 @@
     border-color: var(--bs-success) !important;
     color: #fff !important;
   }
+
+  .btn-success:hover {
+    background-color: #fff !important;
+    border-color: var(--bs-success) !important;
+    color: var(--bs-success) !important;
+  }
   
   .btn-info {
     background-color: var(--bs-info) !important;
