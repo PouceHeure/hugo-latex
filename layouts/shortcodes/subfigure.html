@@ -62,7 +62,7 @@
       <figure id="{{ $subID }}">
         <img src="{{ $img }}" alt="{{ index $captions $index | default "" }}" class="img-fluid">
         {{- if lt $index (len $captions) -}}
-          <figcaption class="text-muted">Fig. {{ $figNum }}.{{ $i }} — {{ index $captions $index }}</figcaption>
+          <figcaption class="text-muted">Fig. {{ $figNum }}.{{ $i }} - {{ index $captions $index }}</figcaption>
         {{- end -}}
       </figure>
     </div>
