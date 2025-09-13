@@ -349,8 +349,6 @@ table tr:nth-child(even) {
   border-color: var(--bs-primary);
 }
 
-
-
 .year-heading {
   transition: background-color 0.3s, color 0.3s;
   padding: 0.5rem 1rem;
@@ -362,7 +360,6 @@ table tr:nth-child(even) {
   border-left-color: #0d6efd;
   color: #0d6efd;
 }
-
 
 .equation-scroll-wrapper {
   overflow-x: auto;
@@ -376,7 +373,6 @@ table tr:nth-child(even) {
   white-space: nowrap;
   min-width: 100%;
 }
-
 
 .refer-box {
   background-color: var(--bs-light);
@@ -396,14 +392,17 @@ a.badge[disabled] {
   cursor: default;
 }
 
-
 .hover-shadow:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   scroll-margin-top: 80px;
 }
 
@@ -411,16 +410,4 @@ h1, h2, h3, h4, h5, h6 {
   filter: invert(1) brightness(200%); /* pure white */
   opacity: 1; /* fully visible */
   transform: scale(1.1); /* slightly bigger */
-}
-
-@media (max-width: 767.98px) {
-      main {
-        margin-top: 112px;
-      }
-    }
-
-@media (min-width: 768px) {
-  main {
-    margin-top: 56px;
-  }
 }
