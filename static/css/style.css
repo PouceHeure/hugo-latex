@@ -412,3 +412,15 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1; /* fully visible */
   transform: scale(1.1); /* slightly bigger */
 }
+
+@media (max-width: 767.98px) {
+      main {
+        margin-top: 112px;
+      }
+    }
+
+@media (min-width: 768px) {
+  main {
+    margin-top: 56px;
+  }
+}
