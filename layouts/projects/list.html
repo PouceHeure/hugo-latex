@@ -61,10 +61,14 @@
           {{ $cardClass = printf "%s %s" $cardClass "card_image" }}
         {{ end }}
 
-        <div class="{{ $cardClass }}"
-          {{ with .Params.image }}
-            style="background-image: url('{{ . | absURL}}'); background-size: cover; background-position: center;"
-          {{ end }}>
+       <div class="{{ $cardClass }}"
+        {{ with .Params.image }}
+          {{ if or (hasPrefix . "http://") (hasPrefix . "https://") }}
+            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
+          {{ else }}
+            style="background-image: url('{{ . | absURL }}'); background-size: cover; background-position: center;"
+          {{ end }}
+        {{ end }}>
 
           <!-- Project Title -->
           <h5 class="text-primary">
