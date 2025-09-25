@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .Site.Title }}</title>
 
-    <!-- <link rel="preconnect" href="https://www.youtube.com" /> -->
-
     <!-- CSS Libraries -->
     <link
       rel="stylesheet"
@@ -24,9 +22,7 @@
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
     />
 
-    {{
-      with.Site.Params.favicon
-    }}
+    {{ with .Site.Params.favicon }}
     <link
       rel="icon"
       type="image/png"
@@ -51,9 +47,7 @@
       href="{{ . }}/apple-touch-icon.png"
     />
     <link rel="shortcut icon" href="{{ . }}/favicon.ico" />
-    {{
-      end
-    }}
+    {{ end }}
 
     <style>
       @media (max-width: 767.98px) {
@@ -72,6 +66,7 @@
 
   <body class="bg-light">
     <header>
+      <!-- Navbar Desktop -->
       <nav
         class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2"
       >
@@ -95,14 +90,15 @@
             >
               <i class="bi bi-github icon-size"></i>
             </a>
-            <a
-              href="#"
-              class="text-white me-2"
+            <!-- FIX: bouton au lieu de <a href="#"> -->
+            <button
+              type="button"
+              class="btn btn-link text-white me-2 p-0"
               data-bs-toggle="modal"
               data-bs-target="#contactModal"
             >
               <i class="bi bi-chat-fill icon-size"></i>
-            </a>
+            </button>
             <a
               href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}"
               target="_blank"
@@ -141,6 +137,7 @@
         </div>
       </nav>
 
+      <!-- Navbar Mobile -->
       <nav
         class="d-flex d-md-none bg-primary text-white p-2 navbar-dark navbar-custom fixed-top"
         style="top: 56px; z-index: 10"
@@ -163,15 +160,7 @@
             <li class="nav-item">
               <a class="nav-link text-white fw-bold" href="/cv/">About</a>
             </li>
-            <li class="nav-item">
-              <button
-                class="nav-link text-white fw-bold btn btn-link p-0"
-                data-bs-toggle="modal"
-                data-bs-target="#contactModal"
-              >
-                <i class="bi bi-chat-fill"></i>
-              </button>
-            </li>
+           
           </ul>
         </div>
       </nav>
@@ -179,7 +168,6 @@
 
     <main class="container">{{ block "main" . }}{{ end }}</main>
 
-    <!-- Contact Modal -->
     <!-- Contact Modal -->
     <div
       class="modal fade"
@@ -232,6 +220,7 @@
       </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script
       defer
