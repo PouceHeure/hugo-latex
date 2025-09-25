@@ -63,7 +63,7 @@
 
         <div class="{{ $cardClass }}"
           {{ with .Params.image }}
-            style="background-image: url('{{ . }}'); background-size: cover; background-position: center;"
+            style="background-image: url('{{ . | relURL }}'); background-size: cover; background-position: center;"
           {{ end }}>
 
           <!-- Project Title -->
