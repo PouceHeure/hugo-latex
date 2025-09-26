@@ -2,6 +2,8 @@
 
 A minimal, LaTeX-inspired Hugo theme designed for academic portfolios, blogs, or CVs. Includes support for equations, references, figures, and an integrated table of contents.
 
+[Site Demo: https://pouceheure.github.io/blog/](https://pouceheure.github.io/blog/)
+
 ## Features
 
 - LaTeX-style shortcodes for:
