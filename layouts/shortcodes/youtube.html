@@ -18,5 +18,7 @@
 {{ end }}
 
 <!-- video saved (for homepage -->
-{{ $videoSaved := dict "code" (.Get "code") "caption" (.Get "caption") "page" .Page }}
-{{ .Page.Scratch.Set "videoData" $videoSaved }}
+{{ if not (.Get "ignore") }}
+  {{ $videoSaved := dict "code" (.Get "code") "caption" (.Get "caption") "page" .Page }}
+  {{ .Page.Scratch.Set "videoData" $videoSaved }}
+{{ end }}
