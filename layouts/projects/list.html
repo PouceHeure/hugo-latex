@@ -7,6 +7,7 @@
   <section class="tags-container p-3 rounded d-none d-sm-flex">
     <div class="d-flex align-items-center flex-wrap">
       <!-- Tag buttons auto-generated from project tags -->
+
       <div id="tagButtons" class="d-flex flex-wrap gap-2">
         {{ $projectTags := slice }}
         {{ range where .Site.RegularPages "Section" "projects" }}
@@ -20,8 +21,8 @@
         {{ $projectTags = sort $projectTags }}
 
         {{ range $projectTags }}
-          <a href="#" class="badge tag-link btn btn-outline-primary btn-sm text-primary shadow-sm">
-            <i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}
+          <a href="#" class="badge tag-link btn btn btn-sm btn-outline-secondary text-secondary">
+            <i class="bi bi-tag me-1" style="font-size: 1.0em;"></i>{{ partial "tagrepr.html" . }}
           </a>
         {{ end }}
       </div>    

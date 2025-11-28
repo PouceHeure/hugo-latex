@@ -43,7 +43,7 @@
         <a href="/tags/{{ . | urlize }}/"
           class="btn btn-sm btn-secondary">
           <i class="bi bi-tag"></i>
-          <strong style="font-size: 1.1em;">{{ partial "tagrepr.html" . }}</strong>
+          <strong style="font-size: 1.0em;">{{ partial "tagrepr.html" . }}</strong>
         </a>
       {{ end }}
 
@@ -51,7 +51,7 @@
       {{ range . }}
         <span class="btn btn-sm btn-info text-white" style="pointer-events: none;">
           <i class="bi bi-code-slash"></i>
-          <strong style="font-size: 1.1em;">{{ . }}</strong>
+          <strong style="font-size: 1.0em;">{{ . }}</strong>
         </span>
       {{ end }}
     {{ end }}
