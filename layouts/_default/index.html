@@ -6,13 +6,6 @@
 {{ $sorted := sort $videos "page.Date" "desc" }}
 {{ $latestVideos := first 3 $sorted }}
 
-<script>
-  console.log("videos: ")
-  console.log({{ $latestVideos}})
-</script>
-
-
-
 
 <!-- Section: Navigation Dots for Scrolling -->
 <nav class="section-indicator d-none d-md-block">
@@ -42,31 +35,28 @@
 
 
   <!-- Section: Feature Cards -->
-  <div class="row mt-5 gy-4 d-flex justify-content-center">
-    <!-- Projects Card -->
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
+<div class="row mt-5 gy-4 d-flex justify-content-center">
+
+  <!-- Projects Card -->
+  <div class="col-lg-4 col-md-6">
+    <a href="/projects/" class="text-decoration-none">
+      <div class="card d-flex flex-column shadow h-100 card-transparent clickable-card">
         <div class="card-body text-center p-4">
           <h3 class="text-primary">
             <i class="bi bi-motherboard-fill me-2"></i> Projects
           </h3>
           <p class="text-muted">
-            Dive into my research, cutting-edge projects, and innovative
-            developments.
+            Dive into my research, cutting-edge projects, and innovative developments.
           </p>
         </div>
-        <div class="text-center m-3">
-          <a href="/projects/" class="btn btn-primary btn-lg w-100"
-            >View Projects</a
-          >
-        </div>
       </div>
-    </div>
+    </a>
+  </div>
 
-    <!-- Articles Card -->
-
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
+  <!-- Articles Card -->
+  <div class="col-lg-4 col-md-6">
+    <a href="/articles/" class="text-decoration-none">
+      <div class="card d-flex flex-column shadow h-100 card-transparent clickable-card">
         <div class="card-body text-center p-4">
           <h3 class="text-primary">
             <i class="bi bi-journal-text me-2"></i> Scientific Articles
@@ -75,33 +65,28 @@
             Read my latest scientific publications and academic contributions.
           </p>
         </div>
-        <div class="text-center m-3">
-          <a href="/articles/" class="btn btn-primary btn-lg w-100"
-            >View Publications</a
-          >
-        </div>
       </div>
-    </div>
+    </a>
+  </div>
 
-    <!-- CV Card -->
-    <div class="col-lg-4 col-md-6">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
+  <!-- About Card -->
+  <div class="col-lg-4 col-md-6">
+    <a href="/cv/" class="text-decoration-none">
+      <div class="card d-flex flex-column shadow h-100 card-transparent clickable-card">
         <div class="card-body text-center p-4">
           <h3 class="text-primary">
             <i class="bi bi-person-vcard-fill me-2"></i> About
           </h3>
           <p class="text-muted">
-            Explore my academic and professional journey with key achievements
-            and milestones.
+            Explore my academic and professional journey with key achievements and milestones.
           </p>
         </div>
-        <div class="text-center m-3">
-          <a href="/cv/" class="btn btn-primary btn-lg w-100">View CV</a>
-        </div>
       </div>
-    </div>
+    </a>
   </div>
+
 </div>
+
 
 <!-- Section: Latest Projects -->
 <div class="container mt-5" id="projects">
