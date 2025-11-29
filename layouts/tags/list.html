@@ -82,11 +82,11 @@
 
     <h1 class="text-primary d-flex align-items-center mb-2">
       <i class="bi bi-tag me-2 fs-4"></i>
-      {{ $tagMeta.title | default .Title }}
+      Tag: {{ $tagMeta.title | default .Title }}
     </h1>
 
     {{ with $tagMeta.description }}
-    <h5 class="text-muted mt-0 mb-3">{{ . }}</h5>
+    <h5 class="text-muted mt-0 mb-3">Description: {{ . }}</h5>
     {{ end }}
 
     <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
