@@ -13,7 +13,7 @@ theme = "hugo-latex"
     [markup.tableOfContents]
         startLevel = 2
         endLevel = 4
-        ordered = false
+        ordered = true
 
 [params]
   favicon = "/path/static/favicon/"
