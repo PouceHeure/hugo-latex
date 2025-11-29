@@ -68,7 +68,7 @@ aside.toc .toc-container ol ol ol > li::before {
 }
 
 aside.toc .toc-container li::before {
-  content: counters(toc-counter, ".") ".";
+  content: counters(toc-counter, ".") ". ";
   font-weight: 700;
   /* margin-right: 0.3em; */
 }
@@ -88,7 +88,7 @@ aside.toc .toc-container a.active {
 aside.toc .toc-container li.active {
   border: solid 2px var(--bs-primary);
   border-radius: 4px;
-  padding: 2px 10px;
+  padding: 5px 10px;
 }
 
 
@@ -99,5 +99,6 @@ aside.toc .toc-container ul ul > li.active {
 aside.toc .toc-container ul ul ul> li.active {
   border: solid 2px var(--bs-success);
 }
+
 
 
