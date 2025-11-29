@@ -21,6 +21,12 @@
 <link rel="stylesheet" href="/css/toc.css">
 <link rel="stylesheet" href="/css/markdown-index.css">
 
+<style>
+.markdown-content .content h2:first-of-type {
+  margin-top: 50px !important;
+}
+</style>
+
 <!-- Page Layout -->
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
 
@@ -33,7 +39,7 @@
   </aside>
 
   <!-- Main Content -->
-  <article class="markdown-content flex-grow-1 w-100 w-md-75 card-transparent p-0 p-md-3">
+  <article class="markdown-content flex-grow-1 w-100 w-md-75 card-transparent p-2 p-md-3">
 
     <!-- Title -->
     <h1 class="text-primary">{{ .Title }}</h1>
