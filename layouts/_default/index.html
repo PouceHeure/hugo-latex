@@ -20,18 +20,22 @@
   </ul>
 </nav>
 
+<a href="#videos" class="scroll-indicator">
+  <span></span>
+</a>
+
 <!-- Section: Homepage Introduction -->
-<div
-  class="homepage-container text-center tags-container p-3 rounded mb-4"
-  id="home"
->
-  <h1 class="text-primary mt-5 d-flex align-items-center justify-content-center">
+<div class="homepage-container text-center tags-container rounded m-3">
+
+  <div class="container hero-section text-center align-items-center" id="home">
+
+  <h1 class="text-primary d-flex align-items-center justify-content-center">
   <span class="text-primary dynamic-container">
     <a id="changing-word" class="dynamic-text text-primary text-decoration-none" href="/tags/"></a>
   </span>
 </h1>
 
-  <p class="col-lg-8 col-md-12 lead text-dark">{{ .Site.Params.about | safeHTML }}</p>
+  <p class="col-lg-8 col-md-12 lead text-dark text-center">{{ .Site.Params.about | safeHTML }}</p>
 
 
   <!-- Section: Feature Cards -->
@@ -52,6 +56,7 @@
       </div>
     </a>
   </div>
+
 
   <!-- Articles Card -->
   <div class="col-lg-4 col-md-6">
@@ -87,6 +92,7 @@
 
 </div>
 
+</div>
 
 <!-- Section: Latest Projects -->
 <div class="container mt-5" id="projects">
@@ -157,6 +163,9 @@
   </div>
 </div>
 {{ end }}
+
+
+
 
 <!-- JavaScript Section -->
 <script>
