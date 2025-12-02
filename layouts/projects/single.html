@@ -42,37 +42,38 @@
   <article class="markdown-content flex-grow-1 w-100 w-md-75 card-transparent p-2 p-md-3">
 
     <!-- Title -->
-    <h1 class="text-primary">{{ .Title }}</h1>
+    <h1 class="text-primary mb-4">{{ .Title }}</h1>
 
-    <!-- Tags + Code Languages -->
+  
+
+    <!-- Tags  -->
     <div class="d-flex flex-wrap gap-2">
       {{ range .Params.tags }}
         <a href="/tags/{{ . | urlize }}/"
-          class="btn btn-sm btn-secondary">
+          class="initial-a btn btn-sm btn-outline-secondary header-badge">
           <i class="bi bi-tag"></i>
-          <strong style="font-size: 1.0em;">{{ partial "tagrepr.html" . }}</strong>
+          <strong >{{ partial "tagrepr.html" . }}</strong>
         </a>
       {{ end }}
+    </div>   
 
-      {{ with index .Params "codelang" }}
+    {{ with index .Params "codelang" }}
       {{ range . }}
-        <span class="btn btn-sm btn-info text-white" style="pointer-events: none;">
+        <span class="btn btn-sm btn-info mt-2 header-badge" style="pointer-events: none;">
           <i class="bi bi-code-slash"></i>
-          <strong style="font-size: 1.0em;">{{ . }}</strong>
+          <strong>{{ . }}</strong>
         </span>
       {{ end }}
     {{ end }}
-    </div>
 
     <!-- Article Button -->
     {{ with .Params.article }}
       {{ $article := site.GetPage . }}
       {{ if $article }}
         <div class="align-items-center mt-2">
-          <a href="{{ $article.RelPermalink }}" class="btn btn-success" style="text-decoration: none;">
-            <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
-            <span style="display:inline-block; width: 0.25em;"></span>
-            <span>Read Scientific Article</span>
+          <a href="{{ $article.RelPermalink }}" class="initial-a btn btn-outline-success header-badge">
+            <i class="bi bi-book-half"></i>
+            <strong >Read Scientific Article</strong>
           </a>
         </div>
       {{ end }}
@@ -81,10 +82,10 @@
     <!-- GitHub Source Code Button -->
     {{ with .Params.Github }}
       <div class="align-items-center mt-2">
-        <a href="{{ . }}" rel="noopener noreferrer" class="btn btn-success" style="text-decoration: none;">
+        <a href="{{ . }}" rel="noopener noreferrer" class="initial-a btn btn-outline-success header-badge" style="text-decoration: none;">
           <span style="text-decoration: underline;"><i class="bi bi-github"></i></span>
           <span style="display:inline-block; width: 0.25em;"></span>
-          <span>Source Code</span>
+          <span style="text-decoration: underline;">Source Code</span>
         </a>
       </div>
     {{ end }}

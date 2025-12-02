@@ -1,39 +1,42 @@
 {{ define "main" }}
 
-<!-- Section: Single Article Page -->
-<article class="p-3 markdown-content container d-flex flex-column col-lg-10 col-md-12">
+<div class="container my-5">
+  <div class="row justify-content-center">
 
-  <!-- Article Title -->
-  <h1 class="text-primary">{{ .Title }}</h1>
+    <article class="col-lg-9 col-md-11 col-12 card shadow-sm markdown-content p-4 card-transparent">
 
-  <!-- Tags -->
- <div class="d-flex flex-wrap gap-2">
-  {{ range .Params.tags }}
-      <a href="/tags/{{ . | urlize }}/"
-        class="btn btn-sm btn-secondary">
-        <i class="bi bi-tag"></i> 
-        <strong>{{ partial "tagrepr.html" . }}</strong>
-      </a>
-  {{ end }}
-  </div>
+      <!-- Article Title -->
+      <h1 class="text-primary mb-4">{{ .Title }}</h1>
 
-
-     <div class="align-items-center mt-2 mb-3">
-        <a href="{{ .Params.doi }}" class="btn btn-success" style="text-decoration: none;">
-          <span style="text-decoration: underline;"><i class="bi bi-book-half"></i></span>
-          <span style="display:inline-block; width: 0.25em;"></span>
-          <span style="text-decoration: underline;">Access Scientific Article</span>
-        </a>
+      <!-- Tags -->
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        {{ range .Params.tags }}
+            <a href="/tags/{{ . | urlize }}/"
+                class="initial-a btn btn-sm btn-outline-secondary header-badge">
+                <i class="bi bi-tag"></i>
+                <strong>{{ partial "tagrepr.html" . }}</strong>
+            </a>
+        {{ end }}
       </div>
 
-  <!-- Article Content -->
-  <div class="col-12">
-    {{ .Content }}
+      <!-- DOI / Link to Scientific Article -->
+      {{ if .Params.doi }}
+      <div class="mb-4">
+        <a href="{{ .Params.doi }}" class="initial-a btn btn-outline-success header-badge">
+          <i class="bi bi-book-half"></i>
+          <strong>Read Scientific Article</strong>
+        </a>
+      </div>
+      {{ end }}
+
+      <!-- Article Content -->
+      <div class="content">
+        {{ .Content }}
+      </div>
+
+    </article>
+
   </div>
-
-  <!-- Link to External Article -->
-  
-
-</article>
+</div>
 
 {{ end }}

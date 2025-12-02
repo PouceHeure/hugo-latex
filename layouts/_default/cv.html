@@ -1,19 +1,20 @@
 {{ define "main" }}
-  <!-- Main Content Wrapper -->
-  <div class="container">
+<!-- Main Content Wrapper -->
+<div class="container">
+  <style>
+    h2:first-of-type {
+      margin-top: 0px !important;
+    }
+  </style>
 
-    <style>
-      h2:first-of-type {
-        margin-top: 0px !important;
-      }
-      </style>
-    
+  <div class="row justify-content-center">
     <!-- Markdown Content Section -->
-    <div class="card shadow mb-4 markdown-content card-transparent p-2 p-md-3">
-        <!-- <h1 class="text-primary border-bottom pb-2 mb-4">Curriculum Vitae</h1> -->
-        {{ .Content }}
+    <div
+      class="col-lg-9 col-md-11 col-12 card shadow-sm markdown-content p-4 card-transparent"
+    >
+      <!-- <h1 class="text-primary border-bottom pb-2 mb-4">Curriculum Vitae</h1> -->
+      {{ .Content }}
     </div>
-    
-
   </div>
+</div>
 {{ end }}
