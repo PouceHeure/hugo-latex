@@ -44,8 +44,6 @@
     <!-- Title -->
     <h1 class="text-primary mb-4">{{ .Title }}</h1>
 
-  
-
     <!-- Tags  -->
     <div class="d-flex flex-wrap gap-2">
       {{ range .Params.tags }}
@@ -58,12 +56,14 @@
     </div>   
 
     {{ with index .Params "codelang" }}
+    <div class="gap-2">
       {{ range . }}
         <span class="btn btn-sm btn-info mt-2 header-badge" style="pointer-events: none;">
           <i class="bi bi-code-slash"></i>
           <strong>{{ . }}</strong>
         </span>
-      {{ end }}
+        {{ end }}
+      </div>
     {{ end }}
 
     <!-- Article Button -->
