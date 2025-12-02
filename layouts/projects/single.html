@@ -1,17 +1,13 @@
 {{ define "main" }}
 
 <!-- Meta Tags -->
-<meta name="description"
-      content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
+<meta name="description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
 <meta name="keywords" content="{{ delimit .Params.tags ", " }}">
 <meta name="author" content="{{ .Site.Params.name }}">
-
 <meta property="og:title" content="{{ .Title }}">
-<meta property="og:description"
-      content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
+<meta property="og:description" content="{{ with .Params.description }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ .Permalink }}">
-
 {{ with .Params.image }}
   <meta property="og:image" content="{{ . | absURL }}">
 {{ end }}
@@ -29,43 +25,56 @@
   .markdown-content .content h2:first-of-type {
     margin-top: 50px !important;
   }
+
+  /* Two backgrounds inside one article */
+  .article-header {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body {
+    background: var(--bs-white);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
 </style>
 
 <!-- Page Layout -->
 <div class="container d-flex flex-column flex-md-row align-items-start min-vh-100 gap-4">
 
   <!-- Sidebar: TOC -->
-  <aside class="toc w-30 d-none d-lg-block toc-sticky">
-    <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100 card-transparent">
-      <h5 class="toc-title">
-        <i class="bi bi-journal-richtext me-1"></i> Contents
-      </h5>
+  <aside class="toc d-none d-lg-block toc-sticky card-transparent" style="width: 260px;">
+    <div class="toc-container p-3 shadow rounded card d-flex flex-column h-100">
+      <h5 class="toc-title"><i class="bi bi-journal-richtext me-1"></i> Contents</h5>
       {{ .TableOfContents }}
     </div>
   </aside>
 
-  <div>
+  <!-- Single article wrapper -->
+  <article class="markdown-content flex-grow-1 w-100 w-md-75">
 
-    <!-- Main Content -->
-    <article class="markdown-content flex-grow-1 w-100 w-md-75 card-transparent p-2 p-md-3">
+    <!-- HEADER BLOCK -->
+    <div class="article-header article-body">
 
       <!-- Title -->
       <h1 class="text-primary mb-4">{{ .Title }}</h1>
 
       <!-- Tags -->
-      <div class="d-flex flex-wrap gap-2">
+      <div class="d-flex flex-wrap gap-2 mb-3">
         {{ range .Params.tags }}
           <a href="/tags/{{ . | urlize }}/"
              class="initial-a btn btn-sm btn-outline-secondary header-badge">
-            <i class="bi bi-tag"></i>
-            <strong>{{ partial "tagrepr.html" . }}</strong>
+             <i class="bi bi-tag"></i>
+             <strong>{{ partial "tagrepr.html" . }}</strong>
           </a>
         {{ end }}
       </div>
 
-      <!-- Code Languages -->
+      <!-- Code languages -->
       {{ with index .Params "codelang" }}
-        <div class="gap-2">
+        <div class="gap-2 mb-3">
           {{ range . }}
             <span class="btn btn-sm btn-info mt-2 header-badge" style="pointer-events: none;">
               <i class="bi bi-code-slash"></i>
@@ -75,11 +84,11 @@
         </div>
       {{ end }}
 
-      <!-- Scientific Article Button -->
+      <!-- Article button -->
       {{ with .Params.article }}
         {{ $article := site.GetPage . }}
         {{ if $article }}
-          <div class="align-items-center mt-2">
+          <div class="mt-2">
             <a href="{{ $article.RelPermalink }}" class="initial-a btn btn-outline-success header-badge">
               <i class="bi bi-book-half"></i>
               <strong>Read Scientific Article</strong>
@@ -88,31 +97,28 @@
         {{ end }}
       {{ end }}
 
-      <!-- GitHub Source Code Button -->
+      <!-- GitHub button -->
       {{ with .Params.Github }}
-        <div class="align-items-center mt-2">
+        <div class="mt-2">
           <a href="{{ . }}" rel="noopener noreferrer"
-             class="initial-a btn btn-outline-success header-badge"
-             style="text-decoration: none;">
-            <span style="text-decoration: underline;">
-              <i class="bi bi-github"></i>
-            </span>
+             class="initial-a btn btn-outline-success header-badge" style="text-decoration: none;">
+            <span style="text-decoration: underline;"><i class="bi bi-github"></i></span>
             <span style="display:inline-block; width: 0.25em;"></span>
             <span style="text-decoration: underline;">Source Code</span>
           </a>
         </div>
       {{ end }}
 
-    </article>
+    </div>
 
-    <!-- Markdown Body -->
-    <article class="markdown-content flex-grow-1 w-100 w-md-75 card-transparent p-2 p-md-3 mt-4">
+    <!-- BODY BLOCK -->
+    <div class="article-body">
       <div class="content">
         {{ .Content | safeHTML }}
       </div>
-    </article>
+    </div>
 
-  </div>
+  </article>
 
 </div>
 
