@@ -64,6 +64,8 @@
     </style>
   </head>
 
+
+
   <body class="bg-light">
     <header>
       <!-- Navbar Desktop -->
@@ -238,5 +240,8 @@
       highlightNavbar("{{ .Site.BaseURL }}");
     </script>
     <script src="/js/webmail-reveal.js"></script>
+
+    {{ partial "extra-header.html" . }}
+
   </body>
 </html>
