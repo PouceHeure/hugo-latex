@@ -2,7 +2,7 @@
 {{ $labels := .Page.Scratch.Get "labels" }}
 
 {{ if not $label }}
-  <strong>Missing reference label: use {{`{{< figure label="your-label" >}}`}}</strong>
+  <strong>Missing reference label: use {{`{{< figure fig-label-name >}}`}}</strong>
 {{ else if not $labels }}
   <strong>No labels map found on this page. Make sure you set it before using the ref.</strong>
 {{ else }}
