@@ -333,3 +333,14 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 /* contenu aligné sur la barre de navigation (1160px, marges 24px) */
 .site-main { max-width: 1160px; margin: 72px auto 0; padding: 0 24px 2rem; }
 .site-main .container { max-width: none; padding-left: 0; padding-right: 0; }
+
+/* cartes plus compactes */
+.proj-img { height: 140px; }
+.proj-card .p-3 { padding: .85rem !important; }
+.proj-card h5, .post-card h5 { font-size: 1rem; }
+.proj-card p.clamp-3 { font-size: .82rem !important; -webkit-line-clamp: 2; margin-bottom: .4rem; }
+.proj-card .badge, .post-card .tag-pill { font-size: .68rem; padding: .25em .6em; }
+.proj-card { box-shadow: 0 2px 8px rgba(2,74,152,.08) !important; }
+.read-more { font-size: .82rem; padding-top: .6rem !important; }
+.year-title { font-size: 1.7rem; margin-bottom: .9rem; }
+.year-block { margin-bottom: 2rem; }
