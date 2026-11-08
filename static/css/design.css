@@ -284,3 +284,26 @@ h2.text-primary.mt-4 { font-size: 1.6rem; border-bottom: 3px solid var(--bs-warn
 .markdown-content :not(pre) > code { background: #e8e3d2; }
 
 .more-topics { padding: .4rem .6rem; font-size: .8rem; font-weight: 700; color: var(--navy); text-decoration: none; }
+
+/* ---------- Navbar aligned on mockup ---------- */
+.navbar-custom { padding: 12px 0; }
+.navbar-custom .container-xl { max-width: 1160px; padding-left: 24px; padding-right: 24px; }
+.navbar-custom .navbar-brand { font-size: 1.1rem; font-weight: 700; }
+.navbar-custom .social-icons { gap: 10px; }
+.navbar-custom .social-icons a,
+.navbar-custom .social-icons button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin: 0; padding: 0;
+  border: 1.5px solid #fff; border-radius: 50%;
+  color: #fff; font-size: .8rem; opacity: 1; line-height: 1;
+}
+.navbar-custom .social-icons a:hover,
+.navbar-custom .social-icons button:hover { background: rgba(255,255,255,.18); }
+.navbar-custom .navbar-nav { gap: 1.5rem; }
+.navbar-custom .nav-link { font-size: .875rem; font-weight: 600; padding: 0 0 3px; color: #fff !important; border-bottom: 3px solid transparent; }
+.navbar-custom .nav-link.active { color: var(--bs-warning) !important; border-bottom: 3px solid var(--bs-warning); }
+@media (max-width: 767.98px) {
+  .navbar-custom .navbar-nav { gap: .6rem; padding: .8rem 0 .4rem; }
+  .navbar-custom .nav-link { display: inline-block; }
+}
+main > .container, main.container { max-width: 1160px; }
