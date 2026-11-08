@@ -306,7 +306,6 @@ h2.text-primary.mt-4 { font-size: 1.6rem; border-bottom: 3px solid var(--bs-warn
   .navbar-custom .navbar-nav { gap: .6rem; padding: .8rem 0 .4rem; }
   .navbar-custom .nav-link { display: inline-block; }
 }
-main > .container, main.container { max-width: 1160px; }
 
 /* avatar: le fond blanc de l'image se fond dans le cadre bleu clair */
 .hero-frame { background: #dbe8f8; }
@@ -330,3 +329,7 @@ main > .container, main.container { max-width: 1160px; }
 
 /* l'ancien style `header {}` du thème ne doit pas toucher l'en-tête d'article */
 header.post-head { background: transparent; color: inherit; text-align: left; padding: 0; }
+
+/* contenu aligné sur la barre de navigation (1160px, marges 24px) */
+.site-main { max-width: 1160px; margin: 72px auto 0; padding: 0 24px 2rem; }
+.site-main .container { max-width: none; padding-left: 0; padding-right: 0; }
