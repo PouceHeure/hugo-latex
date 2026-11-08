@@ -355,3 +355,19 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .area-card.tag-ai { border-top-color: #7a1f42 !important; background: var(--card-bg) !important; color: #1c2433 !important; }
 .area-card.tag-modelling { border-top-color: #0b5c52 !important; background: var(--card-bg) !important; color: #1c2433 !important; }
 .area-card.tag-statistics { border-top-color: #7a3412 !important; background: var(--card-bg) !important; color: #1c2433 !important; }
+
+/* ===== ambiance bleu + jaune (hors cartes) ===== */
+.filter-panel { background: var(--navy); border: 0; color: #fff; box-shadow: 0 6px 18px rgba(2,74,152,.25); }
+.filter-panel label { color: #fff; }
+.search-input { border: 2px solid transparent; background: #fff; }
+.search-input:focus { outline: 0; border-color: var(--bs-warning); }
+.filter-panel .fpill { background: rgba(255,255,255,.14) !important; color: #fff !important; }
+.filter-panel .fpill:hover { background: rgba(255,255,255,.26) !important; filter: none; }
+.filter-panel .fpill.on { background: var(--bs-warning) !important; color: #1a1a1a !important; }
+.filter-panel .more-topics { color: var(--bs-warning); }
+.year-title { display: inline-block; background: var(--navy); color: #fff; padding: .15rem .9rem; border-radius: 10px; border-bottom: 4px solid var(--bs-warning); font-size: 1.4rem; }
+.series-feature { background: var(--navy); color: #fff; border: 0; box-shadow: 6px 6px 0 var(--bs-warning); }
+.series-feature .eyebrow-label { color: var(--bs-warning); }
+.series-feature a { color: #fff; }
+.series-feature .num { background: var(--bs-warning); color: #1a1a1a; }
+.page-title { display: inline-block; border-bottom: 5px solid var(--bs-warning); padding-bottom: .1rem; }
