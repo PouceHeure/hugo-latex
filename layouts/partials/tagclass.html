@@ -1,0 +1,2 @@
+{{- $m := dict "autonomous_vehicle" "tag-av" "ground_robot" "tag-robotics" "aerial_robot" "tag-robotics" "robotics_autonomy" "tag-robotics" "multi_agent_systems" "tag-robotics" "sensing_perception" "tag-sensing" "control_optimization" "tag-control" "planning_navigation" "tag-control" "ros" "tag-ros2" "ros2" "tag-ros2" "ai_ml" "tag-ai" "forecasting_analysis" "tag-ai" "context_decision" "tag-ai" "modelling" "tag-modelling" "statistics" "tag-statistics" -}}
+{{- index $m (lower .) | default "" -}}
