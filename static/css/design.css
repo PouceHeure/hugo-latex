@@ -394,3 +394,5 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .post-body.no-num .content h2 { padding-left: .8rem; }
 .post-body.no-num .content h2:first-child { margin-top: 0; }
 .post-body .content table { width: 100%; }
+
+.hero-frame img { transform: translateY(10px) scale(1.04); }
