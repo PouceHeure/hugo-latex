@@ -1,0 +1,13 @@
+{{/* args: dict "pages" <pages> "placeholder" <string> */}}
+{{ $tags := slice }}
+{{ range .pages }}{{ range .Params.tags }}{{ $t := . | lower }}{{ if not (in $tags $t) }}{{ $tags = $tags | append $t }}{{ end }}{{ end }}{{ end }}
+<div class="filter-panel">
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+    <label for="q" class="fw-bold small mb-0">Search</label>
+    <input id="q" type="text" class="search-input" placeholder="{{ .placeholder }}" />
+  </div>
+  <div class="d-flex flex-wrap align-items-center gap-2">
+    <a href="#" class="fpill on" data-filter="all">All</a>
+    {{ range sort $tags }}<a href="#" class="fpill {{ partial "tagclass.html" . }}" data-filter="{{ . }}">{{ partial "tagrepr.html" . }}</a>{{ end }}
+  </div>
+</div>

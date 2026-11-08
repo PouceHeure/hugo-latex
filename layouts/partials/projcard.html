@@ -1,0 +1,17 @@
+<div class="col" data-card data-tags="{{ range .Params.tags }}{{ . | lower }} {{ end }}" data-text="{{ printf "%s %s %s" .Title (.Params.description | default "") (delimit .Params.tags " ") | lower }}">
+  <div class="card proj-card h-100">
+    <div class="proj-img">
+      {{ with .Params.image }}<img src="{{ . | absURL }}" alt="" loading="lazy" />{{ end }}
+      <span class="date-badge">{{ .Date.Format "02 Jan 2006" }}</span>
+    </div>
+    <div class="p-3 d-flex flex-column flex-grow-1">
+      <h5><a href="{{ .RelPermalink }}" class="text-decoration-none text-dark stretched-link">{{ if .Params.pinned }}☆ {{ end }}{{ .Title }}</a></h5>
+      <p class="small text-muted clamp-3">{{ .Params.description }}</p>
+      <div class="d-flex flex-wrap gap-1 mt-2">
+        {{ range first 3 .Params.tags }}<span class="badge bg-secondary {{ partial "tagclass.html" . }}">{{ partial "tagrepr.html" . }}</span>{{ end }}
+        {{ if gt (len .Params.tags) 3 }}<span class="small text-muted align-self-center">+{{ sub (len .Params.tags) 3 }}</span>{{ end }}
+      </div>
+      <div class="read-more mt-auto pt-3">Read more →</div>
+    </div>
+  </div>
+</div>

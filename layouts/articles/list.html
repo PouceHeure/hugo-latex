@@ -1,71 +1,31 @@
 {{ define "main" }}
+<div class="container list-page">
+  <h1 class="page-title">Publications</h1>
+  <p class="page-sub">{{ len .Pages }} scientific publications.</p>
+  {{ partial "filterbar.html" (dict "pages" .Pages "placeholder" "Search publications…") }}
 
-<!-- Search Bar -->
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12 col-lg-6">
-      <div class="input-group tags-container p-3 rounded">
-        <span class="input-group-text">🔍</span>
-        <input type="text" id="searchInput" class="form-control" placeholder="Search publications...">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Section: Publications by Year -->
-<div class="container tags-container p-2 rounded mb-4">
-  {{ $prevYear := "" }}
-  {{ range (sort .Pages "Params.year" "desc") }}
-    {{ $currentYear := .Params.year }}
-    {{ if ne $currentYear $prevYear }}
-      {{ if ne $prevYear "" }}
-        </div> <!-- Close previous year's grid -->
-      {{ end }}
-
-      <!-- Year Heading -->
-      <h2 class="text-primary mt-4 m-3">{{ $currentYear }}</h2>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 publicationList">
-      {{ $prevYear = $currentYear }}
-    {{ end }}
-
-    <!-- Publication Card -->
-    <div class="col mb-3 mb-sm-0">
-      <div class="card d-flex flex-column shadow h-100 card-transparent">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title text-primary">
-            <a href="{{ .RelPermalink }}" class="text-decoration-none text-primary">{{ .Title }}</a>
-          </h5>
-
-          {{ with .Params.conference }}
-            <p class="card-text"><strong>Conference:</strong> {{ . }}</p>
-          {{ end }}
-
-          <p class="card-text"><strong>Year:</strong> {{ .Params.year }}</p>
-
-          <!-- Tags -->
-          <div class="tags mb-2 d-flex justify-content-left flex-wrap">
-              {{ range .Params.tags }}
-               <span class="badge bg-secondary me-1 mb-1 {{ partial "tagclass.html" . }}">
-                <i class="bi bi-tag me-1"></i>{{ partial "tagrepr.html" . }}
-               </span>
-              {{ end }}
-            </div>
-
-          <!-- Action Buttons -->
-          <div class="mt-auto d-flex gap-2">
-            <a href="{{ .Params.doi }}" target="_blank" class="btn btn-success btn-sm">View Article</a>
-            <a href="{{ .RelPermalink }}" class="btn btn-primary btn-sm">Read Abstract</a>
+  {{ range (.Pages.GroupByParam "year" "desc") }}
+  <section class="year-block" data-group>
+    <h2 class="year-title">{{ .Key }}</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {{ range .Pages }}
+      <div class="col" data-card data-tags="{{ range .Params.tags }}{{ . | lower }} {{ end }}" data-text="{{ printf "%s %s %s" .Title (.Params.conference | default "") (delimit .Params.tags " ") | lower }}">
+        <div class="card h-100 p-3 d-flex flex-column">
+          <div class="d-flex flex-wrap gap-1 mb-2">
+            {{ range first 3 .Params.tags }}<span class="badge bg-secondary {{ partial "tagclass.html" . }}">{{ partial "tagrepr.html" . }}</span>{{ end }}
+          </div>
+          <h5><a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ .Title }}</a></h5>
+          {{ with .Params.conference }}<p class="small text-muted">{{ . }}</p>{{ end }}
+          <div class="mt-auto pt-2 d-flex gap-3 fw-bold small">
+            <a href="{{ .RelPermalink }}" class="link-navy">Read abstract →</a>
+            {{ with .Params.doi }}<a href="{{ . }}" target="_blank" rel="noopener" class="link-navy">View article ↗</a>{{ end }}
           </div>
         </div>
       </div>
+      {{ end }}
     </div>
+  </section>
   {{ end }}
-  </div> <!-- Close last year's grid -->
 </div>
-
-<!-- JavaScript Section: Search Filter (optional) -->
-<script src="/js/articles-search.js">
-</script>
-
+<script src="/js/list-filter.js"></script>
 {{ end }}

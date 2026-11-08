@@ -7,45 +7,55 @@
 {{ .Scratch.Set "eqCounter" 0 }}
 {{ .Scratch.Set "videoCounterCounter" 0 }}
 
-<link rel="stylesheet" href="/css/toc.css" />
-<link rel="stylesheet" href="/css/markdown-index.css" />
+<div class="container blog-post">
+  <div class="crumb"><a href="/blog/">Blog</a> / {{ .Title }}</div>
 
-<div class="container d-flex flex-column flex-lg-row align-items-start gap-4 blog-post">
-  <aside class="toc d-none d-lg-block toc-sticky" style="width: 260px">
-    <div class="toc-container p-3 rounded card d-flex flex-column h-100">
-      <h5 class="toc-title"><i class="bi bi-journal-richtext me-1"></i> Contents</h5>
+  <header class="post-head">
+    <div class="d-flex flex-wrap gap-1">
+      {{ range .Params.tags }}<a href="/tags/{{ . | urlize }}/" class="tag-pill {{ partial "tagclass.html" . }}">{{ partial "tagrepr.html" . }}</a>{{ end }}
+    </div>
+    <h1>{{ .Title }}</h1>
+    <div class="post-meta">
+      Published {{ .Date.Format "2 Jan 2006" }}
+      {{ if and .Lastmod (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }} · Updated {{ .Lastmod.Format "2 Jan 2006" }}{{ end }}
+      · {{ .ReadingTime }} min read
+    </div>
+
+    {{ $series := .Params.series }}
+    {{ $parts := slice }}
+    {{ if $series }}{{ $parts = (where (where .Site.RegularPages "Section" "blog") "Params.series" $series).ByDate }}{{ end }}
+    {{ if gt (len $parts) 1 }}
+    {{ $idx := 0 }}{{ range $i, $p := $parts }}{{ if eq $p.RelPermalink $.RelPermalink }}{{ $idx = add $i 1 }}{{ end }}{{ end }}
+    <div class="series-strip">
+      <span class="eyebrow-label">Series</span>
+      <strong>{{ $series }} · Part {{ $idx }} of {{ len $parts }}</strong>
+      <a href="/blog/" class="ms-auto">All parts →</a>
+    </div>
+    {{ end }}
+  </header>
+
+  <div class="post-layout">
+    <aside class="toc-box d-none d-lg-block">
+      <div class="eyebrow-label">On this page</div>
       {{ .TableOfContents }}
-    </div>
-  </aside>
+    </aside>
 
-  <article class="markdown-content flex-grow-1 w-100">
-    <div class="article-header p-3 p-md-4 mb-3">
-      <div class="d-flex flex-wrap gap-1 mb-2">
-        {{ range .Params.tags }}<a href="/tags/{{ . | urlize }}/" class="tag-pill {{ partial "tagclass.html" . }}">{{ partial "tagrepr.html" . }}</a>{{ end }}
-      </div>
-      <h1 class="text-primary">{{ .Title }}</h1>
-      <div class="post-meta">{{ .Date.Format "02 January 2006" }} · {{ .ReadingTime }} min read</div>
-    </div>
+    <article class="markdown-content post-body">
+      <div class="content">{{ .Content | safeHTML }}</div>
 
-    {{ with .Params.series }}
-      {{ $name := . }}
-      {{ $parts := where (where $.Site.RegularPages "Section" "blog") "Params.series" $name }}
       {{ if gt (len $parts) 1 }}
-      <div class="series-box">
-        <strong>Series: {{ $name }}</strong>
-        <ol>
-          {{ range $parts.ByDate }}
-            <li>{{ if eq .RelPermalink $.RelPermalink }}<strong>{{ .Title }}</strong>{{ else }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}</li>
-          {{ end }}
-        </ol>
+      {{ $next := false }}{{ $prev := false }}
+      {{ range $i, $p := $parts }}{{ if eq $p.RelPermalink $.RelPermalink }}
+        {{ if gt $i 0 }}{{ $prev = index $parts (sub $i 1) }}{{ end }}
+        {{ if lt (add $i 1) (len $parts) }}{{ $next = index $parts (add $i 1) }}{{ end }}
+      {{ end }}{{ end }}
+      <div class="row g-3 mt-4">
+        {{ with $prev }}<div class="col-md-6"><a class="card p-3 h-100 text-decoration-none" href="{{ .RelPermalink }}"><span class="eyebrow-label">← Previous in series</span><strong class="text-dark">{{ .Title }}</strong></a></div>{{ end }}
+        {{ with $next }}<div class="col-md-6"><a class="card p-3 h-100 text-decoration-none" href="{{ .RelPermalink }}"><span class="eyebrow-label">Next in series →</span><strong class="text-dark">{{ .Title }}</strong></a></div>{{ end }}
       </div>
       {{ end }}
-    {{ end }}
-
-    <div class="article-body card p-3 p-md-4">
-      <div class="content">{{ .Content | safeHTML }}</div>
-    </div>
-  </article>
+    </article>
+  </div>
 </div>
 
 <script src="/js/highlight-toc.js"></script>
