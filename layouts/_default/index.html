@@ -12,20 +12,25 @@
 
 <!-- Hero -->
 <section class="home-hero" id="home">
-  <img class="avatar" src="https://github.com/PouceHeure.png?size=240" alt="{{ .Site.Params.name }}" width="120" height="120" />
-  <p class="eyebrow">Engineer · PhD in automation &amp; robotics</p>
-  <h1>Autonomous vehicles, robotics and <span class="hl">AI</span>.</h1>
-  <p class="lead">{{ .Site.Params.about | safeHTML }}</p>
-  <p class="typed-line">Currently exploring: <a id="changing-word" class="dynamic-text text-decoration-none" href="/tags/"></a></p>
-  <div class="d-flex flex-wrap gap-2 mt-3">
-    <a href="/projects/" class="btn-cta">Browse projects</a>
-    <a href="/blog/" class="btn-ghost">Read the blog</a>
+  <div class="hero-text">
+    <span class="pill-eyebrow">Engineer · PhD in automation &amp; robotics</span>
+    <h1>{{ .Site.Params.name | title }}</h1>
+    <p class="lead">{{ .Site.Params.about | safeHTML }}</p>
+    <p class="typed-line">Currently exploring: <a id="changing-word" class="dynamic-text text-decoration-none" href="/tags/"></a></p>
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      <a href="/projects/" class="btn-cta">Browse projects →</a>
+      <a href="/blog/" class="btn-ghost">Read the blog</a>
+    </div>
   </div>
-  <div class="stats">
-    <div><strong>{{ len $projects }}</strong><span>Projects</span></div>
-    <div><strong>{{ len $pubs }}</strong><span>Publications</span></div>
-    <div><strong>PhD</strong><span>2024</span></div>
+  <div class="hero-frame">
+    <img src="https://github.com/PouceHeure.png?size=600" alt="{{ .Site.Params.name }}" />
   </div>
+</section>
+
+<section class="stat-row">
+  <div class="stat-card"><strong>{{ len $projects }}</strong><span>Projects</span></div>
+  <div class="stat-card"><strong>{{ len $pubs }}</strong><span>Publications</span></div>
+  <div class="stat-card"><strong>2024</strong><span>PhD, Université de Technologie de Compiègne</span></div>
 </section>
 
 <!-- Research areas -->
@@ -35,9 +40,9 @@
     {{ range $k := slice "autonomous_vehicle" "robotics_autonomy" "sensing_perception" "control_optimization" }}
       {{ with index site.Data.tags $k }}
       <div class="col">
-        <a href="/tags/{{ $k | urlize }}/" class="card area-card h-100 p-3 text-decoration-none">
-          <span class="badge {{ partial "tagclass.html" $k }}">{{ .title }}</span>
-          <p class="small text-muted mt-2 mb-0">{{ .description | truncate 110 }}</p>
+        <a href="/tags/{{ $k | urlize }}/" class="card area-card {{ partial "tagclass.html" $k }} h-100 p-3 text-decoration-none">
+          <div class="area-title">{{ .title }}</div>
+          <p class="small mt-2 mb-0">{{ .description | truncate 120 }}</p>
         </a>
       </div>
       {{ end }}
@@ -53,16 +58,21 @@
   </div>
   {{ $pinned := where $projects "Params.pinned" true }}
   {{ $sel := first 3 ($pinned.ByDate.Reverse) }}
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {{ range $sel }}
     <div class="col">
-      <div class="card h-100 p-3 d-flex flex-column">
-        <div class="mb-2 d-flex flex-wrap gap-1">
-          {{ range first 3 .Params.tags }}<span class="badge {{ partial "tagclass.html" . }} bg-secondary">{{ partial "tagrepr.html" . }}</span>{{ end }}
+      <div class="card proj-card h-100">
+        <div class="proj-img">
+          {{ with .Params.image }}<img src="{{ . | absURL }}" alt="" loading="lazy" />{{ end }}
+          <span class="date-badge">{{ .Date.Format "02 Jan 2006" }}</span>
         </div>
-        <h5><a href="{{ .RelPermalink }}" class="text-decoration-none text-dark stretched-link">{{ .Title }}</a></h5>
-        <p class="small text-muted flex-grow-1">{{ with .Params.description }}{{ . | truncate 130 }}{{ end }}</p>
-        <div class="post-meta">{{ .Date.Format "Jan 2006" }}</div>
+        <div class="p-3 d-flex flex-column flex-grow-1">
+          <h5><a href="{{ .RelPermalink }}" class="text-decoration-none text-dark stretched-link">{{ .Title }}</a></h5>
+          <p class="small text-muted">{{ with .Params.description }}{{ . | truncate 130 }}{{ end }}</p>
+          <div class="d-flex flex-wrap gap-1 mt-auto">
+            {{ range first 3 .Params.tags }}<span class="badge {{ partial "tagclass.html" . }} bg-secondary">{{ partial "tagrepr.html" . }}</span>{{ end }}
+          </div>
+        </div>
       </div>
     </div>
     {{ end }}
