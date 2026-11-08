@@ -307,3 +307,7 @@ h2.text-primary.mt-4 { font-size: 1.6rem; border-bottom: 3px solid var(--bs-warn
   .navbar-custom .nav-link { display: inline-block; }
 }
 main > .container, main.container { max-width: 1160px; }
+
+/* avatar: le fond blanc de l'image se fond dans le cadre bleu clair */
+.hero-frame { background: #dbe8f8; }
+.hero-frame img { mix-blend-mode: multiply; object-fit: cover; object-position: center top; transform: scale(1.04); }
