@@ -344,3 +344,8 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .read-more { font-size: .82rem; padding-top: .6rem !important; }
 .year-title { font-size: 1.7rem; margin-bottom: .9rem; }
 .year-block { margin-bottom: 2rem; }
+
+/* corps des articles/projets/publications sur une carte unie pour la lecture */
+.post-body { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 2rem 2.2rem; box-shadow: 0 2px 8px rgba(15,42,82,.06); }
+@media (max-width: 575.98px) { .post-body { padding: 1.2rem 1.1rem; } }
+.post-head { background: transparent; }
