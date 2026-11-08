@@ -371,3 +371,22 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .series-feature a { color: #fff; }
 .series-feature .num { background: var(--bs-warning); color: #1a1a1a; }
 .page-title { display: inline-block; border-bottom: 5px solid var(--bs-warning); padding-bottom: .1rem; }
+
+/* ===== ambiance bleu + jaune: pages d'articles ===== */
+.post-head h1 { display: inline-block; border-bottom: 5px solid var(--bs-warning); padding-bottom: .25rem; }
+.series-strip { background: var(--navy); border: 0; color: #fff; box-shadow: 4px 4px 0 var(--bs-warning); }
+.series-strip .eyebrow-label { color: var(--bs-warning); }
+.series-strip a { color: var(--bs-warning); }
+.toc-box { background: var(--navy); border: 0; color: #fff; box-shadow: 4px 4px 0 var(--bs-warning); }
+.toc-box .eyebrow-label { color: var(--bs-warning); }
+.toc-box a { color: #fff; }
+.toc-box a.active, .toc-box a:hover, .toc-box li.active > a { color: var(--bs-warning); font-weight: 700; }
+.post-body { border: 1.5px solid var(--navy); }
+.post-body .content h2 { border-left-color: var(--bs-warning); }
+.post-body .content h2::before { color: var(--navy); }
+.crumb a { color: var(--navy); }
+.post-body .content a:not(.btn) { color: var(--navy); text-decoration-color: var(--bs-warning); text-decoration-thickness: 2px; text-underline-offset: 2px; }
+.post-body .content a:not(.btn):hover { background: #fff1c2; }
+.blog-post .card.p-3.text-decoration-none { border: 1.5px solid var(--navy) !important; }
+.blog-post .card.p-3.text-decoration-none:hover { background: #fff7db !important; }
+.callout { border-left: 6px solid var(--bs-warning); }
