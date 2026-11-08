@@ -61,7 +61,7 @@
       <div class="card d-flex flex-column shadow h-100 card-transparent clickable-card">
         <div class="card-body text-center p-4">
           <h3 class="text-primary">
-            <i class="bi bi-journal-text me-2"></i> Scientific Articles
+            <i class="bi bi-journal-text me-2"></i> Publications
           </h3>
           <p class="text-muted">
             Read my latest scientific publications and academic contributions.
@@ -101,7 +101,7 @@
 <div class="container mt-5" id="projects">
   <h2 class="text-center text-secondary m-5">Latest Projects</h2>
   <div class="row">
-    {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "blog" "projects")) }}
+    {{ range first 3 (where .Site.RegularPages "Section" "in" (slice "projects")) }}
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card d-flex flex-column shadow h-100 card-transparent">
         <div class="card-body d-flex flex-column">
@@ -133,6 +133,28 @@
     {{ end }}
   </div>
 </div>
+
+<!-- Section: Latest Blog posts -->
+{{ $posts := first 3 (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+{{ if gt (len $posts) 0 }}
+<div class="container mt-5" id="blog">
+  <h2 class="text-center text-secondary m-5">Latest from the blog</h2>
+  <div class="row">
+    {{ range $posts }}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card post-card h-100 p-3 d-flex flex-column">
+        <div class="mb-2 d-flex flex-wrap gap-1">
+          {{ range .Params.tags }}<span class="tag-pill tag-{{ . | lower | urlize }}">{{ partial "tagrepr.html" . }}</span>{{ end }}
+        </div>
+        <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+        <p class="text-muted small flex-grow-1">{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 140 }}{{ end }}</p>
+        <div class="post-meta">{{ .Date.Format "02 Jan 2006" }} · {{ .ReadingTime }} min read</div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
 
 <!-- Section: Latest Videos -->
 {{ if gt (len $latestVideos) 0 }}

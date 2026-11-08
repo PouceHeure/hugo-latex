@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div class="container">
+  <div class="blog-hero">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<p class="lead text-muted">{{ . | plainify }}</p>{{ end }}
+  </div>
+
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if eq (len $pages) 0 }}
+    <p class="text-muted">First posts coming soon.</p>
+  {{ end }}
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {{ range $pages }}
+    <div class="col">
+      <div class="card post-card h-100 p-3 d-flex flex-column">
+        <div class="mb-2 d-flex flex-wrap gap-1">
+          {{ range .Params.tags }}<span class="tag-pill tag-{{ . | lower | urlize }}">{{ partial "tagrepr.html" . }}</span>{{ end }}
+        </div>
+        <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+        <p class="text-muted small flex-grow-1">{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}</p>
+        <div class="post-meta">
+          {{ .Date.Format "02 Jan 2006" }} · {{ .ReadingTime }} min read
+          {{ with .Params.series }} · {{ . }}{{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

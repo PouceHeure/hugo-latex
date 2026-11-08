@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ .Site.Title }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+    {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}" />{{ end }}
 
     <!-- CSS Libraries -->
     <link
@@ -17,10 +18,17 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/color.css" />
     <link rel="stylesheet" href="/css/markdown.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
     />
+    <link rel="stylesheet" href="/css/design.css" />
 
     {{ with .Site.Params.favicon }}
     <link
@@ -49,123 +57,58 @@
     <link rel="shortcut icon" href="{{ . }}/favicon.ico" />
     {{ end }}
 
-    <style>
-      @media (max-width: 767.98px) {
-        main {
-          margin-top: 112px;
-        }
-      }
-
-      @media (min-width: 768px) {
-        main {
-          margin-top: 56px;
-        }
-      }
-    </style>
   </head>
 
 
 
   <body class="bg-light">
     <header>
-      <!-- Navbar Desktop -->
-      <nav
-        class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top bg-primary text-white p-2"
-      >
-        <div
-          class="container-fluid px-4 d-flex align-items-center justify-content-between"
-        >
-          <a class="navbar-brand fw-bold" href="/">{{ .Site.Title }}</a>
+      <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <div class="container-xl">
+          <a class="navbar-brand" href="/">{{ .Site.Title }}</a>
 
-          <div class="d-flex align-items-center social-icons ms-md-0 ms-auto">
-            <a
-              href="{{ .Site.Params.linkedin }}"
-              target="_blank"
-              class="text-white me-2"
-            >
-              <i class="bi bi-linkedin icon-size"></i>
-            </a>
-            <a
-              href="{{ .Site.Params.github }}"
-              target="_blank"
-              class="text-white me-2"
-            >
-              <i class="bi bi-github icon-size"></i>
-            </a>
-            <!-- FIX: bouton au lieu de <a href="#"> -->
-            <button
-              type="button"
-              class="btn btn-link text-white me-2 p-0"
-              data-bs-toggle="modal"
-              data-bs-target="#contactModal"
-            >
-              <i class="bi bi-chat-fill icon-size"></i>
+          <div class="d-flex align-items-center order-md-last ms-auto ms-md-3 gap-2">
+            <div class="social-icons d-flex align-items-center">
+              <a href="{{ .Site.Params.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="{{ .Site.Params.github }}" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+              <a href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}" target="_blank" rel="noopener" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+              <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#contactModal" aria-label="Contact"><i class="bi bi-envelope-fill"></i></button>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Menu">
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <a
-              href="https://www.youtube.com/playlist?list={{ .Site.Params.youtube_playlist }}"
-              target="_blank"
-              class="text-white"
-            >
-              <i class="bi bi-youtube icon-size-lg"></i>
-            </a>
           </div>
 
-          <div
-            class="collapse navbar-collapse justify-content-end d-none d-md-flex"
-            id="navbarNav"
-          >
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link text-white fw-bold me-3" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fw-bold me-3" href="/projects/"
-                  >Projects</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fw-bold me-3" href="/articles/"
-                  ><span class="d-none d-lg-inline">Scientific </span
-                  >Articles</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white fw-bold me-3" href="/cv/"
-                  >About</a
-                >
-              </li>
+              <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/projects/">Projects</a></li>
+              <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+              <li class="nav-item"><a class="nav-link" href="/articles/">Publications</a></li>
+              <li class="nav-item"><a class="nav-link" href="/cv/">About</a></li>
             </ul>
           </div>
-        </div>
-      </nav>
-
-      <!-- Navbar Mobile -->
-      <nav
-        class="d-flex d-md-none bg-secondary p-2 navbar-dark navbar-custom fixed-top"
-        style="top: 56px; z-index: 10"
-      >
-        <div class="container-fluid d-flex justify-content-around">
-          <ul class="navbar-nav flex-row w-100 justify-content-around mb-0">
-            <li class="nav-item">
-              <a class="nav-link text-white fw-bold" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white fw-bold" href="/projects/">Projects</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white fw-bold" href="/articles/">Articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white fw-bold" href="/cv/">About</a>
-            </li>
-           
-          </ul>
         </div>
       </nav>
     </header>
 
     <main class="container">{{ block "main" . }}{{ end }}</main>
+
+    <footer class="site-footer">
+      <div class="container-xl d-flex flex-wrap justify-content-between gap-3">
+        <div>
+          <strong>{{ .Site.Title }}</strong><br />
+          <span class="small">Autonomous vehicles · robotics · AI</span>
+        </div>
+        <div class="small d-flex flex-wrap gap-3 align-items-start">
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/articles/">Publications</a>
+          <a href="/cv/">About</a>
+          <a href="/index.xml">RSS</a>
+        </div>
+      </div>
+    </footer>
 
     <!-- Contact Modal -->
     <div
