@@ -14,8 +14,8 @@
 <section class="home-hero" id="home">
   <div class="hero-text">
     <span class="pill-eyebrow">Engineer · PhD in automation &amp; robotics</span>
-    <h1>{{ .Site.Params.name | title }}</h1>
-    <p class="lead">{{ .Site.Params.about | safeHTML }}</p>
+    <h1>{{ .Site.Params.name | lower | title }}</h1>
+    <p class="lead">{{ .Site.Params.intro | default .Site.Params.about | safeHTML }}</p>
     <p class="typed-line">Currently exploring: <a id="changing-word" class="dynamic-text text-decoration-none" href="/tags/"></a></p>
     <div class="d-flex flex-wrap gap-3 mt-3">
       <a href="/projects/" class="btn-cta">Browse projects →</a>

@@ -4,7 +4,7 @@
   <p class="page-sub">{{ len .Pages }} projects, most recent first.</p>
   {{ partial "filterbar.html" (dict "pages" .Pages "placeholder" "Search projects, e.g. lidar, ROS2…") }}
 
-  {{ range (.Pages.GroupByDate "2006").Reverse }}
+  {{ range (.Pages.GroupByDate "2006") }}
   <section class="year-block" data-group>
     <h2 class="year-title">{{ .Key }}</h2>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

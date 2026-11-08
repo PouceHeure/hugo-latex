@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
+  var more = document.getElementById('moreTopics')
+  if (more) more.addEventListener('click', function (e) {
+    e.preventDefault()
+    document.querySelectorAll('.fpill.extra').forEach(function (x) { x.classList.toggle('d-none') })
+    more.textContent = more.textContent.indexOf('more') !== -1 ? 'Show fewer' : more.dataset.t
+  })
+  if (more) more.dataset.t = more.textContent
+
   pills.forEach(function (p) {
     p.addEventListener('click', function (e) {
       e.preventDefault()

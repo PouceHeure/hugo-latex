@@ -8,6 +8,7 @@
   </div>
   <div class="d-flex flex-wrap align-items-center gap-2">
     <a href="#" class="fpill on" data-filter="all">All</a>
-    {{ range sort $tags }}<a href="#" class="fpill {{ partial "tagclass.html" . }}" data-filter="{{ . }}">{{ partial "tagrepr.html" . }}</a>{{ end }}
+    {{ range $i, $t := sort $tags }}<a href="#" class="fpill {{ partial "tagclass.html" $t }}{{ if ge $i 6 }} extra d-none{{ end }}" data-filter="{{ $t }}">{{ partial "tagrepr.html" $t }}</a>{{ end }}
+    {{ if gt (len $tags) 6 }}<a href="#" class="more-topics" id="moreTopics">+ {{ sub (len $tags) 6 }} more topics</a>{{ end }}
   </div>
 </div>
