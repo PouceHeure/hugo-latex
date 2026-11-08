@@ -1,20 +1,8 @@
 {{ define "main" }}
-<!-- Main Content Wrapper -->
-<div class="container">
-  <style>
-    h2:first-of-type {
-      margin-top: 0px !important;
-    }
-  </style>
-
-  <div class="row justify-content-center">
-    <!-- Markdown Content Section -->
-    <div
-      class="col-lg-9 col-md-11 col-12 card shadow-sm markdown-content p-4 card-transparent"
-    >
-      <!-- <h1 class="text-primary border-bottom pb-2 mb-4">Curriculum Vitae</h1> -->
-      {{ .Content }}
-    </div>
-  </div>
+<div class="container list-page">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <article class="markdown-content post-body no-num mt-4" style="max-width:none">
+    <div class="content">{{ .Content }}</div>
+  </article>
 </div>
 {{ end }}
