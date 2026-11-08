@@ -396,3 +396,12 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .post-body .content table { width: 100%; }
 
 .hero-frame img { transform: translateY(10px) scale(1.04); }
+
+/* ---------- Schémas Mermaid ---------- */
+.mermaid-figure { margin: 1.5rem 0; padding: 1.2rem 1rem; background: #fff; border: 1px solid var(--card-border); border-left: 6px solid var(--bs-warning); border-radius: 12px; overflow-x: auto; text-align: center; }
+.mermaid-figure .mermaid { display: block; width: 100%; }
+.mermaid-figure svg { max-width: 100%; height: auto; }
+.mermaid-figure figcaption { margin-top: .7rem; font-size: .85rem; color: var(--muted); font-style: italic; }
+.mermaid:not([data-processed]) { white-space: pre; font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--muted); text-align: left; }
+.mermaid-figure svg { min-width: 480px; font-size: 15px !important; }
+@media (max-width: 575.98px) { .mermaid-figure svg { min-width: 420px; } }

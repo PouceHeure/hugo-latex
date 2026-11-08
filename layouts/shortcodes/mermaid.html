@@ -1,0 +1,40 @@
+{{- if not (.Page.Scratch.Get "mermaidLoaded") -}}
+{{- .Page.Scratch.Set "mermaidLoaded" true -}}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'strict',
+    fontFamily: 'Inter, system-ui, sans-serif',
+    themeVariables: {
+      primaryColor: '#DBE8F8',
+      primaryTextColor: '#0B3A78',
+      primaryBorderColor: '#024A98',
+      lineColor: '#024A98',
+      secondaryColor: '#FFEFC2',
+      secondaryTextColor: '#6B4A00',
+      secondaryBorderColor: '#E5D28A',
+      tertiaryColor: '#FAF8F2',
+      tertiaryTextColor: '#1f2933',
+      tertiaryBorderColor: '#d6cfba',
+      noteBkgColor: '#FFF7DB',
+      noteTextColor: '#6B4A00',
+      noteBorderColor: '#E5D28A',
+      edgeLabelBackground: '#FAF8F2',
+      clusterBkg: '#FAF8F2',
+      clusterBorder: '#d6cfba',
+      actorBkg: '#DBE8F8',
+      actorBorder: '#024A98',
+      actorTextColor: '#0B3A78',
+      signalColor: '#024A98',
+      labelBoxBkgColor: '#FFEFC2',
+      labelBoxBorderColor: '#E5D28A'
+    }
+  });
+</script>
+{{- end -}}
+<figure class="mermaid-figure">
+  <div class="mermaid">{{ .Inner | safeHTML }}</div>
+  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

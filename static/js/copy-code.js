@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.markdown-content pre').forEach(function (pre) {
+  document.querySelectorAll('.markdown-content pre:not(.mermaid)').forEach(function (pre) {
     var btn = document.createElement('button')
     btn.type = 'button'
     btn.className = 'copy-btn'
