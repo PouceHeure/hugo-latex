@@ -65,11 +65,10 @@ main {
 .navbar-custom .social-icons button:hover {
   opacity: 1;
 }
+/* Mobile: même soulignement jaune que sur desktop, ajusté à la largeur du texte */
 @media (max-width: 767.98px) {
-  .navbar-custom .nav-link.active {
-    border-bottom-color: transparent;
-    border-left: 3px solid var(--bs-warning);
-    padding-left: 0.7rem;
+  .navbar-custom .navbar-nav .nav-item {
+    align-self: flex-start;
   }
 }
 
