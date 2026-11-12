@@ -1,8 +1,120 @@
 {{ define "main" }}
-<div class="container list-page">
-  <h1 class="page-title">{{ .Title }}</h1>
-  <article class="markdown-content post-body no-num mt-4" style="max-width:none">
-    <div class="content">{{ .Content }}</div>
-  </article>
+{{ $yt := printf "https://www.youtube.com/playlist?list=%s" .Site.Params.youtube_playlist }}
+<div class="container-xl about-page">
+
+  <!-- Hero -->
+  <section class="about-card about-hero">
+    <div class="about-photo">
+      {{ with .Params.photo }}<img src="{{ . | absURL }}" alt="{{ $.Params.name }}" />{{ else }}<span>{{ .Params.initials }}</span>{{ end }}
+    </div>
+    <div class="about-hero-body">
+      <h1>{{ .Params.name }}</h1>
+      <p class="about-role">{{ .Params.role }}</p>
+      <p class="about-tagline">{{ .Params.tagline }}</p>
+      <div class="about-chips">{{ range .Params.chips }}<span>{{ . }}</span>{{ end }}</div>
+      <div class="about-actions">
+        <a class="about-btn" href="{{ .Site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="about-btn" href="{{ .Site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+        <a class="about-btn" href="{{ $yt }}" target="_blank" rel="noopener">YouTube</a>
+        <button type="button" class="about-btn about-btn-accent" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="about-stats">
+    {{ range .Params.stats }}
+    <div class="about-stat"><strong>{{ .value }}</strong><span>{{ .label }}</span></div>
+    {{ end }}
+  </section>
+
+  <!-- Experience & education -->
+  <section class="about-card">
+    <div class="about-section-head">
+      <h2>Experience &amp; education</h2>
+      <div class="tl-filter" role="group" aria-label="Filter timeline">
+        <button type="button" class="is-on" data-filter="all">All</button>
+        <button type="button" data-filter="work"><i class="bi bi-briefcase-fill"></i> Work</button>
+        <button type="button" data-filter="academic"><i class="bi bi-mortarboard-fill"></i> Academic</button>
+      </div>
+    </div>
+    <ol class="about-timeline">
+      {{ range .Params.timeline }}
+      <li class="type-{{ .type | default "academic" }}{{ with .kind }} is-{{ . }}{{ end }}" data-type="{{ .type | default "academic" }}">
+        <div class="tl-years">{{ .years }}
+          {{ if eq .type "work" }}<span class="tl-badge tl-badge-work"><i class="bi bi-briefcase-fill"></i> Work</span>{{ else }}<span class="tl-badge tl-badge-academic"><i class="bi bi-mortarboard-fill"></i> Academic</span>{{ end }}
+        </div>
+        <div class="tl-title">{{ .title }}{{ with .org }} <span class="tl-org">· {{ . }}</span>{{ end }}{{ with .country }} <span class="tl-country">{{ . }}</span>{{ end }}</div>
+        {{ with .text }}<div class="tl-text">{{ . | markdownify }}</div>{{ end }}
+        {{ with .bullets }}<ul>{{ range . }}<li>{{ . | markdownify }}</li>{{ end }}</ul>{{ end }}
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  <script>
+    (function () {
+      var btns = document.querySelectorAll('.tl-filter button');
+      var items = document.querySelectorAll('.about-timeline > li');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var f = b.getAttribute('data-filter');
+          btns.forEach(function (x) { x.classList.toggle('is-on', x === b); });
+          items.forEach(function (li) { li.hidden = f !== 'all' && li.dataset.type !== f; });
+        });
+      });
+    })();
+  </script>
+
+  <!-- Skills -->
+  <section class="about-card">
+    <h2>Skills</h2>
+    <div class="about-skills">
+      {{ range .Params.skills }}
+      <div>
+        <h3>{{ .title }}</h3>
+        <div class="about-chips">
+          {{ range .items }}{{ if .url }}<a href="{{ .url }}">{{ .label }}</a>{{ else }}<span>{{ .label }}</span>{{ end }}{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="about-section">
+    <div class="about-section-head">
+      <h2>Projects</h2>
+      <div class="about-links">
+        <a href="/projects/">Explore projects</a>
+        <a href="{{ $yt }}" target="_blank" rel="noopener">Watch videos on YouTube</a>
+      </div>
+    </div>
+    <div class="about-projects">
+      {{ range .Params.projects }}
+      <a class="about-mini" href="{{ .url }}"><h3>{{ .title }}</h3><p>{{ .text }}</p></a>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section class="about-card">
+    <div class="about-section-head">
+      <h2>Scientific contributions</h2>
+      <div class="about-links"><a href="/articles/">View all publications</a></div>
+    </div>
+    <ul class="about-pubs">
+      {{ range .Params.publications }}
+      <li><span class="pub-tag{{ if .main }} is-main{{ end }}">{{ .tag }}</span><span>{{ .title }}</span></li>
+      {{ end }}
+    </ul>
+  </section>
+
+  <!-- Extras -->
+  <section class="about-extras">
+    {{ range .Params.extras }}
+    <div class="about-mini"><span class="extra-label">{{ .label }}</span><strong>{{ .text }}</strong></div>
+    {{ end }}
+  </section>
+
 </div>
 {{ end }}
