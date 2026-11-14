@@ -47,6 +47,20 @@
         <div class="tl-title">{{ .title }}{{ with .org }} <span class="tl-org">· {{ . }}</span>{{ end }}{{ with .country }} <span class="tl-country">{{ . }}</span>{{ end }}</div>
         {{ with .text }}<div class="tl-text">{{ . | markdownify }}</div>{{ end }}
         {{ with .bullets }}<ul>{{ range . }}<li>{{ . | markdownify }}</li>{{ end }}</ul>{{ end }}
+        {{ $childLabel := .children_label | default "Alongside" }}
+        {{ with .children }}
+        <div class="tl-children-label">{{ $childLabel }}</div>
+        <ul class="tl-children">
+          {{ range . }}
+          <li>
+            <div class="tl-years">{{ .years }}</div>
+            <div class="tl-title">{{ .title }}{{ with .org }} <span class="tl-org">· {{ . }}</span>{{ end }}{{ with .country }} <span class="tl-country">{{ . }}</span>{{ end }}</div>
+            {{ with .text }}<div class="tl-text">{{ . | markdownify }}</div>{{ end }}
+            {{ with .bullets }}<ul>{{ range . }}<li>{{ . | markdownify }}</li>{{ end }}</ul>{{ end }}
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
       </li>
       {{ end }}
     </ol>

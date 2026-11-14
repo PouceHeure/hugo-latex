@@ -493,3 +493,14 @@ a.about-mini:hover { box-shadow: 0 6px 18px rgba(15,42,82,.12); background: #fff
 .tl-filter button { border: 1.5px solid var(--navy); background: transparent; color: var(--navy); font-weight: 700; font-size: .8rem; padding: .25rem .8rem; border-radius: 999px; cursor: pointer; }
 .tl-filter button.is-on { background: var(--navy); color: #fff; }
 .tl-filter button[data-filter="work"].is-on { background: var(--bs-warning); color: #1a1a1a; border-color: var(--bs-warning); }
+
+/* Nested entries (context of a parent, e.g. PhD) */
+.about-timeline .tl-children { list-style: disc; margin: .7rem 0 0; padding: .1rem 0 0 1.1rem; border-left: 3px solid var(--bs-warning); }
+.about-timeline .tl-children > li { position: relative; margin-bottom: .9rem; }
+.about-timeline .tl-children > li:last-child { margin-bottom: 0; }
+.about-timeline .tl-children > li::before { content: none; }
+.about-timeline .tl-children > li { display: list-item; list-style: disc; margin-left: .9rem; }
+.about-timeline .tl-children > li::marker { color: var(--navy); }
+.about-timeline .tl-children .tl-title { font-size: .95rem; }
+.about-timeline .tl-children-label { margin-top: .8rem; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.about-timeline .tl-children-label + .tl-children { margin-top: .35rem; }
