@@ -187,9 +187,9 @@ h2.text-secondary {
 .btn-ghost { background: #fff; border: 2px solid var(--navy); color: var(--navy); font-weight: 700; padding: .8rem 1.6rem; border-radius: 10px; text-decoration: none; display: inline-block; }
 .btn-ghost:hover { background: var(--navy); color: #fff; }
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
-.stat-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.2rem 1.5rem; }
-.stat-card strong { display: block; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; color: var(--navy); }
-.stat-card span { font-size: .9rem; color: #3e4857; }
+.stat-card { background: var(--navy); box-shadow: 4px 4px 0 var(--bs-warning); color: #dbe8f8; border-radius: 12px; padding: 1.1rem 1.25rem; font-size: .85rem; line-height: 1.35; }
+.stat-card strong { display: block; color: var(--bs-warning); font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: .25rem; }
+.stat-card span { color: #fff; font-size: .85rem; }
 .area-card { border-top: 5px solid var(--navy) !important; }
 .area-card .area-title { font-weight: 700; font-size: 1.05rem; color: #1c2433; }
 .area-card p { color: #3e4857; }
