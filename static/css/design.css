@@ -504,3 +504,14 @@ a.about-mini:hover { box-shadow: 0 6px 18px rgba(15,42,82,.12); background: #fff
 .about-timeline .tl-children .tl-title { font-size: .95rem; }
 .about-timeline .tl-children-label { margin-top: .8rem; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .about-timeline .tl-children-label + .tl-children { margin-top: .35rem; }
+
+/* Research areas: one consistent palette (navy + yellow accent), like the stat cards */
+.area-card, .area-card.tag-av, .area-card.tag-robotics, .area-card.tag-sensing, .area-card.tag-control,
+.area-card.tag-ros2, .area-card.tag-ai, .area-card.tag-modelling, .area-card.tag-statistics {
+  border-top: 5px solid var(--navy) !important;
+  background: var(--card-bg) !important;
+  box-shadow: 4px 4px 0 var(--bs-warning) !important;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.area-card .area-title { color: var(--navy) !important; }
+.area-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--bs-warning) !important; }
