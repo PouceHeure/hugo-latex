@@ -292,17 +292,37 @@ h2.text-primary.mt-4 { font-size: 1.6rem; border-bottom: 3px solid var(--bs-warn
 .navbar-custom .social-icons a,
 .navbar-custom .social-icons button {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; margin: 0; padding: 0;
-  border: 1.5px solid #fff; border-radius: 50%;
-  color: #fff; font-size: .8rem; opacity: 1; line-height: 1;
+  width: 32px; height: 32px; margin: 0; padding: 0;
+  border: 1.5px solid #fff; border-radius: 8px; background: transparent;
+  color: #fff; font-size: .85rem; opacity: 1; line-height: 1;
+  box-shadow: 1px 1px 0 rgba(255, 193, 7, .55);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
 }
 .navbar-custom .social-icons a:hover,
-.navbar-custom .social-icons button:hover { background: rgba(255,255,255,.18); }
-.navbar-custom .navbar-nav { gap: 1.5rem; }
-.navbar-custom .nav-link { font-size: .875rem; font-weight: 600; padding: 0 0 3px; color: #fff !important; border-bottom: 3px solid transparent; }
-.navbar-custom .nav-link.active { color: var(--bs-warning) !important; border-bottom: 3px solid var(--bs-warning); }
+.navbar-custom .social-icons button:hover {
+  transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--bs-warning);
+}
+.navbar-custom .social-icons a:active,
+.navbar-custom .social-icons button:active,
+.navbar-custom .social-icons a:focus-visible,
+.navbar-custom .social-icons button:focus-visible {
+  background: var(--bs-warning); border-color: var(--bs-warning); color: var(--navy); outline: none;
+}
+.navbar-custom .navbar-nav { gap: .6rem; }
+.navbar-custom .nav-link {
+  font-size: .875rem; font-weight: 600; padding: .3rem .8rem; color: #fff !important;
+  border: 1.5px solid transparent; border-radius: 8px;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+}
+.navbar-custom .nav-link:hover {
+  border-color: #fff; transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--bs-warning);
+}
+.navbar-custom .nav-link.active {
+  background: var(--bs-warning); border-color: var(--bs-warning); color: var(--navy) !important;
+  box-shadow: 1px 1px 0 rgba(255, 255, 255, .45);
+}
 @media (max-width: 767.98px) {
-  .navbar-custom .navbar-nav { gap: .6rem; padding: .8rem 0 .4rem; }
+  .navbar-custom .navbar-nav { gap: .5rem; padding: .8rem 0 .4rem; }
   .navbar-custom .nav-link { display: inline-block; }
 }
 
@@ -515,3 +535,53 @@ a.about-mini:hover { box-shadow: 0 6px 18px rgba(15,42,82,.12); background: #fff
 }
 .area-card .area-title { color: var(--navy) !important; }
 .area-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--bs-warning) !important; }
+
+/* Home photo: hover effect (same lift as the cards, plus a slight zoom and yellow shadow) */
+.hero-frame { transition: transform .2s ease, box-shadow .2s ease; }
+.hero-frame img { transition: transform .35s ease; }
+.hero-frame:hover { transform: translate(-4px, -4px); box-shadow: 16px 16px 0 var(--bs-warning); }
+.hero-frame:hover img { transform: translateY(6px) scale(1.1); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-frame, .hero-frame img { transition: none; }
+  .hero-frame:hover, .hero-frame:hover img { transform: none; }
+}
+
+/* ---------- Micro-interactions ---------- */
+/* Scroll reveal (class added by fx.js only, so nothing is hidden without JS) */
+.fx-reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+.fx-reveal.is-in { opacity: 1; transform: none; }
+
+/* Project / post cards: same lift + yellow offset shadow as the rest of the site, image zoom */
+.proj-card, .post-card { transition: transform .18s ease, box-shadow .18s ease; }
+.proj-card:hover, .post-card:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--bs-warning) !important; }
+.proj-img { overflow: hidden; }
+.proj-img img { transition: transform .45s ease; }
+.proj-card:hover .proj-img img { transform: scale(1.07); }
+
+/* Stat cards and small cards */
+.stat-card, .about-stat { transition: transform .18s ease, box-shadow .18s ease; }
+.stat-card:hover, .about-stat:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--bs-warning); }
+.about-mini { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+a.about-mini:hover { transform: translate(-2px, -2px); }
+
+/* Buttons: lift on hover, press on click */
+.btn-cta, .btn-ghost, .about-btn { transition: transform .15s ease, box-shadow .15s ease, filter .15s ease, background .15s ease, color .15s ease; }
+.btn-cta:hover, .btn-ghost:hover, .about-btn:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--navy); }
+.btn-cta:active, .btn-ghost:active, .about-btn:active { transform: translate(0, 0); box-shadow: none; }
+
+/* Chips and tags */
+.about-chips span, .about-chips a, .tag-pill, .badge { transition: transform .15s ease, background .15s ease; }
+.about-chips span:hover, .about-chips a:hover { transform: translateY(-2px); }
+
+/* Timeline: the dot grows when its entry is hovered */
+.about-timeline > li::before { transition: transform .18s ease; }
+.about-timeline > li:hover::before { transform: scale(1.25); }
+
+/* Reading progress bar (injected by fx.js on posts) */
+.read-progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: var(--bs-warning); transform-origin: 0 50%; transform: scaleX(0); z-index: 2000; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-reveal { opacity: 1; transform: none; transition: none; }
+  .proj-card, .post-card, .stat-card, .about-stat, .about-mini, .btn-cta, .btn-ghost, .about-btn { transition: none; }
+  .proj-card:hover .proj-img img { transform: none; }
+}
