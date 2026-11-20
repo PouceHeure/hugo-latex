@@ -585,3 +585,28 @@ a.about-mini:hover { transform: translate(-2px, -2px); }
   .proj-card, .post-card, .stat-card, .about-stat, .about-mini, .btn-cta, .btn-ghost, .about-btn { transition: none; }
   .proj-card:hover .proj-img img { transform: none; }
 }
+
+/* ---------- Micro-interactions: publications list and About page ---------- */
+.year-block .card { transition: transform .18s ease, box-shadow .18s ease; }
+.year-block .card:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--bs-warning) !important; }
+.year-block .card h5 a { transition: color .15s ease; }
+.year-block .card:hover h5 a { color: var(--navy) !important; }
+.year-block .card .link-navy { transition: transform .15s ease; display: inline-block; }
+.year-block .card .link-navy:hover { transform: translateX(3px); }
+.year-title { transition: letter-spacing .2s ease; }
+.year-block:hover .year-title { letter-spacing: .04em; }
+
+/* About: publications rows, extras, skills */
+.about-pubs li { transition: transform .18s ease; }
+.about-pubs li:hover { transform: translateX(4px); }
+.pub-tag { transition: background .18s ease, color .18s ease; }
+.about-pubs li:hover .pub-tag:not(.is-main) { background: var(--bs-warning); color: #1a1a1a; }
+.about-extras .about-mini { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.about-extras .about-mini:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--bs-warning); background: #fff7db; }
+.about-skills > div { transition: transform .18s ease; }
+.about-skills > div:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .year-block .card, .about-pubs li, .about-extras .about-mini, .about-skills > div, .year-title { transition: none; }
+  .year-block .card:hover, .about-pubs li:hover, .about-extras .about-mini:hover, .about-skills > div:hover { transform: none; }
+}

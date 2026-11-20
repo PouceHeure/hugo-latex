@@ -4,7 +4,7 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* 1) Scroll reveal with a small stagger */
-  var sel = '.stat-card, .about-stat, .area-card, .proj-card, .post-card, .about-card, .about-mini, .about-timeline > li, .topic-row';
+  var sel = '.stat-card, .about-stat, .area-card, .proj-card, .post-card, .about-card, .about-mini, .about-timeline > li, .topic-row, .year-block .card, .about-pubs li';
   var items = Array.prototype.slice.call(document.querySelectorAll(sel));
   if (!reduce && 'IntersectionObserver' in window && items.length) {
     var io = new IntersectionObserver(function (entries) {
