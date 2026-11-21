@@ -438,6 +438,11 @@ header.post-head { background: transparent; color: inherit; text-align: left; pa
 .about-hero { display: flex; gap: 2rem; align-items: center; }
 .about-photo { flex: 0 0 150px; width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--bs-warning); background: #e3e8ee; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; font-weight: 800; color: var(--muted); }
 .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+.about-photo { flex: 0 0 190px; width: 190px; height: 190px; border: 2px solid var(--navy); border-radius: 20px; background: #dbe8f8; box-shadow: 8px 8px 0 var(--navy); align-items: flex-end; transition: transform .2s ease, box-shadow .2s ease; }
+.about-photo img { mix-blend-mode: multiply; object-position: center top; transform: translateY(6px) scale(1.04); transition: transform .35s ease; }
+.about-photo:hover { transform: translate(-3px, -3px); box-shadow: 11px 11px 0 var(--bs-warning); }
+.about-photo:hover img { transform: translateY(4px) scale(1.1); }
+@media (prefers-reduced-motion: reduce) { .about-photo, .about-photo img { transition: none; } .about-photo:hover, .about-photo:hover img { transform: none; } }
 .about-hero h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -.03em; color: var(--navy); margin: 0 0 .35rem; }
 .about-role { font-weight: 700; color: #3b4756; margin: 0 0 .35rem; font-size: 1.05rem; }
 .about-tagline { color: var(--muted); margin: 0 0 .8rem; }
